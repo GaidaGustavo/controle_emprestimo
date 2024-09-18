@@ -5,4 +5,5 @@ export interface EmprestimoRepository {
     getById(id: string): Emprestimo;
     create(item: Emprestimo): void;
     update(item: Emprestimo): void;
+
 }
