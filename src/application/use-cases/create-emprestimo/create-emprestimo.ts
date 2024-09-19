@@ -1,8 +1,11 @@
-import { ItemRepository } from "../../../domain/repository/item-repository";
+import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
+import { CreateEmprestimoInput } from "./create-emprestimo-input";
+import { CreateEmprestimoOutput } from "./create-emprestimo-output";
 
 export class CreateEmprestimoUseCase {
-    constructor(readonly itemRespository: ItemRepository) {}
-    execute() {
-
+    constructor(readonly emprestimoRespository: EmprestimoRepository) {}
+    
+    execute(input: CreateEmprestimoInput):CreateEmprestimoOutput {
+        return {} as CreateEmprestimoOutput;
     }
 }
