@@ -20,7 +20,7 @@ export class ItemController{
         const getAllItensUseCase = new GetAllItensUseCase(this.itemRepository)
         getAllItensUseCase.execute(input);
     }
-    getItemById(input: any) {
+    getById(input: any) {
         const getItemByIdUseCase = new GetItemByIdUseCase(this.itemRepository)
         getItemByIdUseCase.execute(input);  
     }
