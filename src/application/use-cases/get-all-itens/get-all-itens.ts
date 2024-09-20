@@ -6,7 +6,25 @@ import { GetAllItensOutput } from "./get-all-itens-output";
 export class GetAllItensUseCase {
     constructor(readonly itemRespository: ItemRepository) {}
     
-    execute(input: GetAllItensInput):GetAllItensOutput {
-        return {} as GetAllItensOutput;
+    execute(input: GetAllItensInput):GetAllItensOutput[] {
+        const itens = this.itemRespository.getAll();
+
+        const output: GetAllItensOutput[] = [];
+
+        for(const item of itens){
+            output.push(
+            {
+                    id: item.getID(),
+                    name: item.getName(),
+                    tipoItem: {
+                        id: item.getItem().getID(),
+                        name: item.getItem().getName(),
+                    }
+            }
+            )
+        }
+
+        return output;
+            
     }
 }
