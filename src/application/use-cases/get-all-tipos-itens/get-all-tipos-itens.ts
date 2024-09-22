@@ -5,7 +5,20 @@ import { GetAllTiposItensOutput } from "./get-all-tipos-itens-output";
 export class GetAllTipoitensUseCase {
     constructor(readonly tipoItemRepository: TipoItemRepository) {}
     
-    execute(input: GetAllTiposItensInput):GetAllTiposItensOutput {
-        return {} as GetAllTiposItensOutput;
+    execute(input: GetAllTiposItensInput):GetAllTiposItensOutput[] {
+        const tiposItens = this.tipoItemRepository.getAll();
+
+        const output: GetAllTiposItensOutput[] = [];
+
+        for(const tipoItem of tiposItens){
+            output.push(
+            {
+                    id: tipoItem.getID(),
+                    name: tipoItem.getName(),
+            }
+            )
+        }
+
+        return output;
     }
 }

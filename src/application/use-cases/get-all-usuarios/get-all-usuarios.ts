@@ -6,7 +6,25 @@ import { GetAllUsuariosOutput } from "./get-all-usuarios-output";
 export class GetAllUsuariosUseCase {
     constructor(readonly usuarioRepository: UsuarioRepository) {}
     
-    execute(input: GetAllUsuariosInput):GetAllUsuariosOutput {
-        return {} as GetAllUsuariosOutput;
+    execute(input: GetAllUsuariosInput):GetAllUsuariosOutput[] {
+        const usuarios = this.usuarioRepository.getAll();
+
+        const output: GetAllUsuariosOutput[] = [];
+
+        for(const usuario of usuarios){
+            output.push(
+            {
+                    id: usuario.getID(),
+                    nome: usuario.getName(),
+                    pessoa: {
+                        id: usuario.getPessoa().getID(),
+                        nome: usuario.getPessoa().getName(),
+                    },
+                    senha: usuario.getSenha(),
+            }
+            )
+        }
+
+        return output;
     }
 }
