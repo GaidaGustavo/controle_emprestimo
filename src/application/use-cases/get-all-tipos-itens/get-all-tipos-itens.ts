@@ -14,7 +14,7 @@ export class GetAllTipoitensUseCase {
             output.push(
             {
                     id: tipoItem.getID(),
-                    name: tipoItem.getName(),
+                    nome: tipoItem.getName(),
             }
             )
         }
