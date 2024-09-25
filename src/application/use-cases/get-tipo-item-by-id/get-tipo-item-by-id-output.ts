@@ -1,4 +1,4 @@
-export type GetTipoItemByIdOutput = {
-    
-    
+export type GetAllTiposItensOutput = {
+    id: string;
+    nome: string;
 }

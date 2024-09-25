@@ -6,6 +6,15 @@ export class GetTipoitemByIdUseCase {
     constructor(readonly tipoItemRepository: TipoItemRepository) {}
     
     execute(input: GetTipoItemByIdInput):GetTipoItemByIdOutput {
-        return {} as GetTipoItemByIdOutput;
+        const tipoItem = this.tipoItemRepository.getById(input.id);
+        
+        const output: GetTipoItemByIdOutput = {
+                id: tipoItem.getID(),
+                name: tipoItem.getName(),
+              
+        
+        }
+
+        return output;
     }
 }

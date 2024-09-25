@@ -18,7 +18,7 @@ export class GetUsuarioByIdUseCase {
                 id: usuario.getPessoa().getID(),
                 nome: usuario.getPessoa().getName(),
             },
-            senha: usuario.getSenha(),
+          
 
         }
         return output;
