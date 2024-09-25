@@ -1,3 +1,4 @@
 export type GetTipoItemByIdInput = {
-    id: string
-}
+    export type GetTipoItemByIdInput = {
+        id: string
+    }

@@ -4,9 +4,15 @@ import { GetPessoaByIdOutput } from "./get-pessoa-by-id-output";
 
 
 export class GetPessoaByIdUseCase {
-    constructor(readonly pessoaRepository: PessoaRepository) {}
-    
-    execute(input: GetPessoaByIdInput):GetPessoaByIdOutput {
-        return {} as GetPessoaByIdOutput;
+    constructor(readonly pessoaRepository: PessoaRepository) { }
+
+    execute(input: GetPessoaByIdInput): GetPessoaByIdOutput {
+        const pessoa = this.pessoaRepository.getById(input.id);
+
+        const output: GetPessoaByIdOutput = {
+            id: pessoa.getID(),
+            nome: pessoa.getName(),
+        }
+        return output;
     }
 }
