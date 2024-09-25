@@ -10,9 +10,7 @@ export class GetTipoitemByIdUseCase {
         
         const output: GetTipoItemByIdOutput = {
                 id: tipoItem.getID(),
-                name: tipoItem.getName(),
-              
-        
+                nome: tipoItem.getName(),
         }
 
         return output;
