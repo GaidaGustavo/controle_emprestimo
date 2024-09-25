@@ -5,9 +5,23 @@ import { GetUsuarioByIdOutput } from "./get-usuario-by-id-output";
 
 
 export class GetUsuarioByIdUseCase {
-    constructor(readonly usuarioRepository: UsuarioRepository) {}
-    
-    execute(input: GetUsuarioByIdInput):GetUsuarioByIdOutput {
-        return {} as GetUsuarioByIdOutput;
+    constructor(readonly usuarioRepository: UsuarioRepository) { }
+
+    execute(input: GetUsuarioByIdInput): GetUsuarioByIdOutput {
+        const usuario = this.usuarioRepository.getById(input.id);
+
+        const output: GetUsuarioByIdOutput = {
+
+            id: usuario.getID(),
+            nome: usuario.getName(),
+            pessoa: {
+                id: usuario.getPessoa().getID(),
+                nome: usuario.getPessoa().getName(),
+            },
+          
+
+        }
+        return output;
     }
+
 }

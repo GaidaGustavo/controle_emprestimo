@@ -8,11 +8,14 @@ export class GetTipoitemByIdUseCase {
     
     execute(input: GetTipoItemByIdInput):GetTipoItemByIdOutput {
         const tipoItem = this.tipoItemRepository.getById(input.id);
-
+        
         const output: GetTipoItemByIdOutput = {
-            id: tipoItem.getID(),
-            nome: tipoItem.getName(),
+                id: tipoItem.getID(),
+                name: tipoItem.getName(),
+              
+        
         }
+
         return output;
     }
 }
