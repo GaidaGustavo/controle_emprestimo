@@ -2,20 +2,20 @@ import { TipoItem } from "./tipoitem";
 import { v4 } from 'uuid';
 
 export class Item {
-    private id: string;
+    private id?: string;
     private name: string;
     private tipo: TipoItem;
 
-    constructor(name: string, id: string, tipo: TipoItem) {
+    constructor(name: string, tipo: TipoItem, id?: string) {
         if (!id) {
             id = v4();
         };
-        this.id = id;
         this.name = name;
         this.tipo = tipo;
+        this.id = id;
     }
 
-    getID(): string{
+    getID(): string | undefined{
         return this.id;
     }
 

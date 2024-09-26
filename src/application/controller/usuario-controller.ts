@@ -19,11 +19,11 @@ export class UsuarioController{
 
     getAll(input: any){
         const getAllUsuarioUseCase = new GetAllUsuariosUseCase(this.usuarioRepository);
-        getAllUsuarioUseCase.execute(input);
+        return getAllUsuarioUseCase.execute(input);
     }
 
     getById(input: any){
         const getUsuarioByIdUseCase = new GetUsuarioByIdUseCase(this.usuarioRepository);
-        getUsuarioByIdUseCase.execute(input);
+        return getUsuarioByIdUseCase.execute(input);
     }
 }

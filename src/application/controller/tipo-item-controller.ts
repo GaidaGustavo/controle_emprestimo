@@ -19,11 +19,11 @@ export class TipoItemController{
 
     getAll(input: any){
         const getAllTipoItemUseCase = new GetAllTipoitensUseCase(this.tipoItemRepository);
-        getAllTipoItemUseCase.execute(input);
+        return getAllTipoItemUseCase.execute(input);
     }
 
     getByID(input: any){
         const getTipoItemById = new GetTipoitemByIdUseCase(this.tipoItemRepository);
-        getTipoItemById.execute(input);
+        return getTipoItemById.execute(input);
     }
 }

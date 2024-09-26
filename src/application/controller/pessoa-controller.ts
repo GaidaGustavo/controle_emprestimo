@@ -19,11 +19,11 @@ export class PessoaController{
 
     getAll(input: any){
         const getAllPessoasUseCase = new GetAllPessoasUseCase(this.pessoaRepository);
-        getAllPessoasUseCase.execute(input);
+        return getAllPessoasUseCase.execute(input);
     }
 
     getById(input: any){
         const getPessoaByIdUseCase = new GetPessoaByIdUseCase(this.pessoaRepository);
-        getPessoaByIdUseCase.execute(input)
+        return getPessoaByIdUseCase.execute(input)
     }
 }

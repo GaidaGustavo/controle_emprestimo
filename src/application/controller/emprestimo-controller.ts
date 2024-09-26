@@ -19,11 +19,11 @@ export class EmprestimoController{
 
     getAll(input: any){
         const getAllEmprestimoUseCase = new GetAllEmprestimosUseCase(this.emprestimoRepository);
-        getAllEmprestimoUseCase.execute(input);
+        return getAllEmprestimoUseCase.execute(input);
     }
 
     getById(input: any){
         const getEmprestimoByIdUseCase = new GetEmprestimoByIdUseCase(this.emprestimoRepository);
-        getEmprestimoByIdUseCase.execute(input);
+        return getEmprestimoByIdUseCase.execute(input);
     }
 }
