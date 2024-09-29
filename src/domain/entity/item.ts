@@ -4,14 +4,14 @@ import { v4 } from 'uuid';
 export class Item {
     private id?: string;
     private name: string;
-    private tipo: TipoItem;
+    private tipoItem: TipoItem;
 
-    constructor(name: string, tipo: TipoItem, id?: string) {
+    constructor(name: string, tipoItem: TipoItem, id?: string) {
         if (!id) {
             id = v4();
         };
         this.name = name;
-        this.tipo = tipo;
+        this.tipoItem = tipoItem;
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ export class Item {
         return this.name;
     }   
 
-    getItem(): TipoItem{
-        return this.tipo;
+    getTipoItem(): TipoItem{
+        return this.tipoItem;
     }
 }

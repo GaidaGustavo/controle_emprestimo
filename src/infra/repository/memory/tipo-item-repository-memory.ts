@@ -7,11 +7,12 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
     
     constructor(){
     this.tipoItens = [
-        new TipoItem('Copos', '4694690b-d32a-4050-86a9-041a90765e7f')
+        new TipoItem('Copos', '4694690b-d32a-4050-86a9-041a90765e7f'),
+        new TipoItem('Compudadores', '30bc02ee-6bad-4c6c-82f4-7b1e9d8d3e39')
     ]
 }
     getAll(): TipoItem[] {
-        throw new Error("Method not implemented.");
+        return this.tipoItens;
     }
     getById(id: string): TipoItem {
         const tipoItem = this.tipoItens.find(valor => valor.getID() == id);
@@ -23,7 +24,7 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
         return tipoItem;
     }
     create(tipoItem: TipoItem): void {
-        throw new Error("Method not implemented.");
+        this.tipoItens.push(tipoItem)
     }
     update(tipoItem: TipoItem): void {
         throw new Error("Method not implemented.");

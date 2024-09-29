@@ -13,7 +13,7 @@ export class CreateItemUseCase {
     execute(input: CreateItemInput): CreateItemOutput {
         const tipoItem = this.tipoItemRepository.getById(input.tipoItemId)
         
-        const item = new Item(input.nome, tipoItem);
+        const item = new Item(input.nome, tipoItem, input.id);
 
         this.itemRepository.create(item);
 

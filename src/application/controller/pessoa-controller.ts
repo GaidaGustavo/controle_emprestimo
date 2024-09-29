@@ -9,12 +9,12 @@ export class PessoaController{
 
     create(input: any){
         const createPessoaUseCase = new CreatePessoaUseCase(this.pessoaRepository);
-        createPessoaUseCase.execute(input);
+        return createPessoaUseCase.execute(input);
     }
 
     update(input: any){
         const updatePessoaUseCase = new UpdatePessoaUseCase(this.pessoaRepository);
-        updatePessoaUseCase.execute(input);
+        return updatePessoaUseCase.execute(input);
     }
 
     getAll(input: any){

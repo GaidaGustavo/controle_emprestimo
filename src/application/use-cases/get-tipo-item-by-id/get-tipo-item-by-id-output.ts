@@ -1,4 +1,4 @@
 export type GetTipoItemByIdOutput = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }

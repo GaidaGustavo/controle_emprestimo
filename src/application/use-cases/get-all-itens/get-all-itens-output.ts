@@ -4,7 +4,7 @@ type TipoItem = {
 }
 
 export type GetAllItensOutput = {
-    id: string;
+    id: string | undefined;
     name: string;
     tipoItem: TipoItem;
 }

@@ -1,4 +1,4 @@
 export type GetAllPessoasOutput = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }

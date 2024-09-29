@@ -9,12 +9,12 @@ export class TipoItemController{
 
     create(input: any){
         const createTipoItemUseCase = new CreateTipoitemUseCase(this.tipoItemRepository);
-        createTipoItemUseCase.execute(input);
+        return createTipoItemUseCase.execute(input);
     }
 
     update(input: any){
         const updateTipoItemUseCase = new UpdateTipoItemUseCase(this.tipoItemRepository);
-        updateTipoItemUseCase.execute(input);
+        return updateTipoItemUseCase.execute(input);
     }
 
     getAll(input: any){

@@ -1,10 +1,10 @@
 import { v4 } from 'uuid';
 
 export class Pessoa {
-    private id: string;
+    private id?: string;
     private name: string;
 
-    constructor(name: string, id: string) {
+    constructor(name: string, id?: string) {
         if (!id) {
             id = v4();
         };
@@ -12,7 +12,7 @@ export class Pessoa {
         this.name = name;
     }
 
-    getID(): string{
+    getID(): string | undefined{
         return this.id;
     }
 

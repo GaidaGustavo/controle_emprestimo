@@ -1,4 +1,4 @@
 export type GetAllTiposItensOutput = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }

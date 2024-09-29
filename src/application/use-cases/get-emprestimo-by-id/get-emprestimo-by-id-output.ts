@@ -4,7 +4,7 @@ type tipoItem = {
 }
 
 type item = {
-    id: string;
+    id: string | undefined;
     nome: string;
     tipoItem: tipoItem;
 }
