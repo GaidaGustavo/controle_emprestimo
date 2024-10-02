@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Emprestimo = void 0;
 const uuid_1 = require("uuid");
 class Emprestimo {
-    constructor(item, dataEmprestimo, pessoa, usuario, id, dataDevolucao) {
+    constructor(item, pessoa, usuario, id, dataDevolucao, dataEmprestimo) {
         this.item = item;
         this.dataDevolucao = dataDevolucao;
         this.dataEmprestimo = dataEmprestimo;
@@ -26,6 +26,9 @@ class Emprestimo {
     }
     getdataEmprestimo() {
         return this.dataEmprestimo;
+    }
+    getUsuario() {
+        return this.usuario;
     }
     getPessoa() {
         return this.pessoa;

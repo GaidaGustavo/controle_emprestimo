@@ -21,7 +21,7 @@ export default class UsuarioRepositoryMemory implements UsuarioRepository{
         const usuario = this.usuarios.find(valor => valor.getID() == id);
 
         if (!usuario) {
-            throw new Error('User not Found');
+           throw new Error('User not Found');
         }
 
         return usuario;

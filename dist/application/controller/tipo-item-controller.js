@@ -11,19 +11,19 @@ class TipoItemController {
     }
     create(input) {
         const createTipoItemUseCase = new create_tipo_item_1.CreateTipoitemUseCase(this.tipoItemRepository);
-        createTipoItemUseCase.execute(input);
+        return createTipoItemUseCase.execute(input);
     }
     update(input) {
         const updateTipoItemUseCase = new update_tipo_item_1.UpdateTipoItemUseCase(this.tipoItemRepository);
-        updateTipoItemUseCase.execute(input);
+        return updateTipoItemUseCase.execute(input);
     }
     getAll(input) {
         const getAllTipoItemUseCase = new get_all_tipos_itens_1.GetAllTipoitensUseCase(this.tipoItemRepository);
-        getAllTipoItemUseCase.execute(input);
+        return getAllTipoItemUseCase.execute(input);
     }
     getByID(input) {
         const getTipoItemById = new get_tipo_item_by_id_1.GetTipoitemByIdUseCase(this.tipoItemRepository);
-        getTipoItemById.execute(input);
+        return getTipoItemById.execute(input);
     }
 }
 exports.TipoItemController = TipoItemController;

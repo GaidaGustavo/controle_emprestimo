@@ -3,13 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
 const uuid_1 = require("uuid");
 class Usuario {
-    constructor(username, id, senha, pessoa) {
+    constructor(username, pessoa, id, senha) {
         if (!id) {
             id = (0, uuid_1.v4)();
         }
         ;
         this.id = id;
         this.username = username;
+        if (!senha) {
+            senha = '123';
+        }
         this.senha = senha;
         this.pessoa = pessoa;
     }

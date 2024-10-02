@@ -11,19 +11,19 @@ class PessoaController {
     }
     create(input) {
         const createPessoaUseCase = new create_pessoa_1.CreatePessoaUseCase(this.pessoaRepository);
-        createPessoaUseCase.execute(input);
+        return createPessoaUseCase.execute(input);
     }
     update(input) {
         const updatePessoaUseCase = new update_pessoa_1.UpdatePessoaUseCase(this.pessoaRepository);
-        updatePessoaUseCase.execute(input);
+        return updatePessoaUseCase.execute(input);
     }
     getAll(input) {
         const getAllPessoasUseCase = new get_all_pessoas_1.GetAllPessoasUseCase(this.pessoaRepository);
-        getAllPessoasUseCase.execute(input);
+        return getAllPessoasUseCase.execute(input);
     }
     getById(input) {
         const getPessoaByIdUseCase = new get_pessoa_by_id_1.GetPessoaByIdUseCase(this.pessoaRepository);
-        getPessoaByIdUseCase.execute(input);
+        return getPessoaByIdUseCase.execute(input);
     }
 }
 exports.PessoaController = PessoaController;

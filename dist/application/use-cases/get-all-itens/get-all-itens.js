@@ -13,8 +13,8 @@ class GetAllItensUseCase {
                 id: item.getID(),
                 name: item.getName(),
                 tipoItem: {
-                    id: item.getItem().getID(),
-                    name: item.getItem().getName(),
+                    id: item.getTipoItem().getID(),
+                    name: item.getTipoItem().getName(),
                 }
             });
         }

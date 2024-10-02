@@ -8,12 +8,13 @@ class ItemRepositoryMemory {
         const tipoItem1 = new tipoitem_1.TipoItem('Copos', '4694690b-d32a-4050-86a9-041a90765e7f');
         const tipoItem2 = new tipoitem_1.TipoItem('Compudadores', '30bc02ee-6bad-4c6c-82f4-7b1e9d8d3e39');
         this.itens = [
-            new item_1.Item('Copo de Café', 'eb51e356-16c1-4b1e-bfea-aadc07a2c60c', tipoItem1),
-            new item_1.Item('Copo de Agua', 'ef887170-3137-4d5e-89f7-cae4279720e6', tipoItem1),
-            new item_1.Item('Computador desktop dell', '63867047-bb25-468d-932a-8d471401a5c4', tipoItem2)
+            new item_1.Item('Copo de Café', tipoItem1, 'eb51e356-16c1-4b1e-bfea-aadc07a2c60c'),
+            new item_1.Item('Copo de Agua', tipoItem1, 'ef887170-3137-4d5e-89f7-cae4279720e6'),
+            new item_1.Item('Computador desktop dell', tipoItem2, '63867047-bb25-468d-932a-8d471401a5c4')
         ];
     }
     create(item) {
+        this.itens.push(item);
     }
     getAll() {
         return this.itens;

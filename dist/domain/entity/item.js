@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Item = void 0;
 const uuid_1 = require("uuid");
 class Item {
-    constructor(name, id, tipo) {
+    constructor(name, tipoItem, id) {
         if (!id) {
             id = (0, uuid_1.v4)();
         }
         ;
-        this.id = id;
         this.name = name;
-        this.tipo = tipo;
+        this.tipoItem = tipoItem;
+        this.id = id;
     }
     getID() {
         return this.id;
@@ -18,8 +18,8 @@ class Item {
     getName() {
         return this.name;
     }
-    getItem() {
-        return this.tipo;
+    getTipoItem() {
+        return this.tipoItem;
     }
 }
 exports.Item = Item;

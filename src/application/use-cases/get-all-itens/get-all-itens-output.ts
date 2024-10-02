@@ -1,5 +1,5 @@
 type TipoItem = {
-    id: string;
+    id: string | undefined;
     name: string;
 }
 

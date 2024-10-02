@@ -27,7 +27,7 @@ export default class EmprestimoRepositoryMemory implements EmprestimoRepository{
         throw new Error("Method not implemented.");
     }
     create(emprestimo: Emprestimo): void {
-        throw new Error("Method not implemented.");
+        this.emprestimos.push(emprestimo);
     }
     update(emprestimo: Emprestimo): void {
         throw new Error("Method not implemented.");

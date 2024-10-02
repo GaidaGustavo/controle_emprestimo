@@ -13,8 +13,8 @@ class GetEmprestimoByIdUseCase {
                 id: emprestimo.getItem().getID(),
                 nome: emprestimo.getItem().getName(),
                 tipoItem: {
-                    id: emprestimo.getItem().getItem().getID(),
-                    nome: emprestimo.getItem().getItem().getName(),
+                    id: emprestimo.getItem().getTipoItem().getID(),
+                    nome: emprestimo.getItem().getTipoItem().getName(),
                 },
             },
             dataEmprestimo: emprestimo.getdataEmprestimo(),
