@@ -1,11 +1,11 @@
 type pessoa = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }
 
 export type GetAllUsuariosOutput = {
-    id: string;
+    id: string | undefined;
     nome: string;
     pessoa: pessoa;
-    senha: string;
+    senha: string | undefined;
 }

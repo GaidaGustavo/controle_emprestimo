@@ -5,6 +5,10 @@ import { TipoItemRepositoryMemory } from './infra/repository/memory/tipo-item-re
 import { TipoItemController } from './application/controller/tipo-item-controller';
 import { PessoaController } from './application/controller/pessoa-controller';
 import { PessoaRepositoryMemory} from './infra/repository/memory/pessoa-repository-memory';
+import UsuarioRepositoryMemory from './infra/repository/memory/usuario-repository-memory';
+import { UsuarioController } from './application/controller/usuario-controller';
+import { EmprestimoController } from './application/controller/emprestimo-controller';
+import EmprestimoRepositoryMEmory from './infra/repository/memory/emprestimo-repository-memory';
 
 //chama librare
 const app = express();
@@ -62,4 +66,34 @@ app.get('/pessoas', (request, response) => {
 
 app.post('/pessoas', (request, response) => {
     response.send(pessoaController.create(request.body));
+})
+
+//==============Usuário==============
+
+const usuarioRepositoryMemory = new UsuarioRepositoryMemory
+//const pessoaRepositoryMemory = new PessoaRepositoryMemory
+const usuarioController = new UsuarioController(usuarioRepositoryMemory, pessoaRepositoryMemory)
+
+app.get('/usuario', (request, response) => {
+    response.send(usuarioController.getAll({}));
+})
+
+app.post('/usuario', (request, response) => {
+    response.send(usuarioController.create(request.body));
+})
+
+//==============Emprestimo==============
+
+//const itemRepositoryMemory = new ItemRepositoryMemory();
+//const usuarioRepositoryMemory = new UsuarioRepositoryMemory
+//const pessoaRepositoryMemory = new PessoaRepositoryMemory
+const emprestimoRepositoryMemory = new EmprestimoRepositoryMEmory;
+const emprestimoController = new EmprestimoController(emprestimoRepositoryMemory, itemRepositoryMemory, pessoaRepositoryMemory, usuarioRepositoryMemory)
+
+app.get('/emprestimo', (request, response) => {
+    response.send(emprestimoController.getAll({}));
+})
+
+app.post('/emprestimo', (request, response) => {
+    response.send(emprestimoController.create(request.body));
 })

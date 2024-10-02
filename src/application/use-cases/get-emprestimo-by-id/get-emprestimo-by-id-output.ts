@@ -1,5 +1,5 @@
 type tipoItem = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }
 
@@ -10,14 +10,14 @@ type item = {
 }
 
 type pessoa = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }
 
 export type GetEmprestimoByIdOutput = {
-    id: string;
+    id: string | undefined;
     item: item;
-    dataEmprestimo: Date;
+    dataEmprestimo: Date | undefined;
     dataDevolucao: Date | undefined;
     pessoa: pessoa;
 }

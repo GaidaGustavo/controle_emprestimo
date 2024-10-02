@@ -1,10 +1,10 @@
 type pessoa = {
-    id: string;
+    id: string | undefined;
     nome: string;
 }
 
 export type GetUsuarioByIdOutput= {
-    id: string;
+    id: string | undefined;
     nome: string;
     pessoa: pessoa;
     

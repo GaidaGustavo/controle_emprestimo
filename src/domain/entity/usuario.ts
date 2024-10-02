@@ -2,22 +2,25 @@ import { Pessoa } from "./pessoa";
 import { v4 } from 'uuid';
 
 export class Usuario {
-    private id: string;
+    private id?: string;
     private username: string;
-    private senha: string;
+    private senha?: string;
     private pessoa: Pessoa;
 
-    constructor(username: string, id: string, senha: string, pessoa: Pessoa) {
+    constructor(username: string, pessoa: Pessoa, id?: string, senha?: string,) {
         if (!id) {
             id = v4();
         };
         this.id = id;
         this.username = username;
+        if(!senha) {
+            senha = '123'
+        }
         this.senha = senha;
         this.pessoa = pessoa;
     }
 
-    getID(): string{
+    getID(): string | undefined{
         return this.id;
     }
 
@@ -25,7 +28,7 @@ export class Usuario {
         return this.username;
     }   
 
-    getSenha(): string{
+    getSenha(): string | undefined{
         return this.senha;
     }
 

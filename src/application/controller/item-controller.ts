@@ -18,7 +18,7 @@ export class ItemController {
 
     update(input: any) {
         const updateItemUseCase = new UpdateItemUseCase(this.itemRepository)
-        updateItemUseCase.execute(input);
+        return updateItemUseCase.execute(input);
     }
 
     getAll(input: any) {

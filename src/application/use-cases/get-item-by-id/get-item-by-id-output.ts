@@ -1,10 +1,10 @@
 type TipoItem = {
-    id: string;
+    id: string | undefined;
     name: string;
 }
 
 export type GetItemByIdOutput = {
-    id: string;
+    id: string | undefined;
     name: string;
     tipoItem: TipoItem;
 }

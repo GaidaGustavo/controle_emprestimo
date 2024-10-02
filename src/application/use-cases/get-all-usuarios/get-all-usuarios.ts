@@ -16,11 +16,12 @@ export class GetAllUsuariosUseCase {
             {
                     id: usuario.getID(),
                     nome: usuario.getName(),
+                    senha: usuario.getSenha(),
                     pessoa: {
                         id: usuario.getPessoa().getID(),
                         nome: usuario.getPessoa().getName(),
                     },
-                    senha: usuario.getSenha(),
+                    
             }
             )
         }
