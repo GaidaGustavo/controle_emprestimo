@@ -5,4 +5,5 @@ export interface ItemRepository {
     getById(id: string): Item;
     create(item: Item): void;
     update(item: Item): void;
+    delete(id: string): void;
 }

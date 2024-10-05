@@ -24,6 +24,15 @@ export class GetEmprestimoByIdUseCase {
             pessoa: {
                 id: emprestimo.getPessoa().getID(),
                 nome: emprestimo.getPessoa().getName(),
+            },
+            usuario: {
+                id: emprestimo.getUsuario().getID(),
+                username: emprestimo.getUsuario().getName(),
+                senha: emprestimo.getUsuario().getSenha(),
+                pessoa: {
+                    id: emprestimo.getUsuario().getPessoa().getID(),
+                    nome: emprestimo.getUsuario().getPessoa().getName()
+                }
             }
         }
 

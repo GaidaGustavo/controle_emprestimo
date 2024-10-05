@@ -11,6 +11,9 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
         new TipoItem('Compudadores', '30bc02ee-6bad-4c6c-82f4-7b1e9d8d3e39')
     ]
 }
+    delete(id: string): void {
+        this.tipoItens = this.tipoItens.filter(value => value.getID() !== id);
+    }
     getAll(): TipoItem[] {
         return this.tipoItens;
     }
@@ -27,7 +30,8 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
         this.tipoItens.push(tipoItem)
     }
     update(tipoItem: TipoItem): void {
-        throw new Error("Method not implemented.");
+        const tipoItemAntigo = this.tipoItens.findIndex(value => value.getID() == tipoItem.getID());
+        this.tipoItens[tipoItemAntigo] = tipoItem;
     }
 
 }

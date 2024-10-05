@@ -41,6 +41,26 @@ app.post('/itens', (request, response) => {
     response.send(itemController.create(request.body));
 })
 
+app.get('/itens/:id', (request, response) => {
+    const id = request.params.id;
+    response.send(itemController.getById({id}));
+})
+
+app.delete('/itens/:id', (request, response) => {
+    const id = request.params.id;
+    response.send(itemController.delete({id}));
+})
+
+app.put('/itens/:id', (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+    
+    const newItem = {
+        id,
+        ...body
+    }
+    response.send(itemController.update(newItem));
+})
 //==============Tipo Item==============
 
 //const tipoItemRepositoryMemory = new TipoItemRepositoryMemory
@@ -55,6 +75,28 @@ app.post('/tipoItens', (request, response) => {
     response.send(tipoItemController.create(request.body));
 })
 
+app.get('/tipoItens/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(tipoItemController.getByID({id}));
+})
+
+app.put('/tipoItens/:id', (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+    
+    const newTipoItem = {
+        id,
+        ...body
+    }
+    response.send(tipoItemController.update(newTipoItem));
+})
+
+app.delete('/tipoItens/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(tipoItemController.delete({id}));
+})
+
+
 //==============Pessoa==============
 
 const pessoaRepositoryMemory = new PessoaRepositoryMemory
@@ -66,6 +108,27 @@ app.get('/pessoas', (request, response) => {
 
 app.post('/pessoas', (request, response) => {
     response.send(pessoaController.create(request.body));
+})
+
+app.get('/pessoas/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(pessoaController.getById({id}));
+})
+
+app.put('/pessoas/:id', (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+    
+    const newPessoa = {
+        id,
+        ...body
+    }
+    response.send(pessoaController.update(newPessoa));
+})
+
+app.delete('/pessoas/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(pessoaController.delete({id}));
 })
 
 //==============Usuário==============
@@ -82,6 +145,27 @@ app.post('/usuario', (request, response) => {
     response.send(usuarioController.create(request.body));
 })
 
+app.get('/usuario/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(usuarioController.getById({id}));
+})
+
+app.delete('/usuario/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(usuarioController.delete({id}));
+})
+
+app.put('/usuario/:id', (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+    
+    const newUsuario = {
+        id,
+        ...body
+    }
+    response.send(usuarioController.update(newUsuario));
+})
+
 //==============Emprestimo==============
 
 //const itemRepositoryMemory = new ItemRepositoryMemory();
@@ -96,4 +180,25 @@ app.get('/emprestimo', (request, response) => {
 
 app.post('/emprestimo', (request, response) => {
     response.send(emprestimoController.create(request.body));
+})
+
+app.get('/emprestimo/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(emprestimoController.getById({id}));
+})
+
+app.delete('/emprestimo/:id', (request, response) => {
+    const id = request.params.id;
+   response.send(emprestimoController.delete({id}));
+})
+
+app.put('/emprestimo/:id', (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+    
+    const newEmprestimo = {
+        id,
+        ...body
+    }
+    response.send(emprestimoController.update(newEmprestimo));
 })

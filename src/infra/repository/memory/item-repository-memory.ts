@@ -14,6 +14,10 @@ export class ItemRepositoryMemory implements ItemRepository {
         ]
     }
 
+    delete(id: string): void {
+        this.itens = this.itens.filter(value => value.getID() !== id); 
+    }
+
 
     create(item: Item): void {
         this.itens.push(item)
@@ -24,6 +28,7 @@ export class ItemRepositoryMemory implements ItemRepository {
     }
 
     getById(id: string): Item {
+        console.log(id);
         const item = this.itens.find(valor => valor.getID() == id);
 
         if (!item) {
@@ -34,6 +39,7 @@ export class ItemRepositoryMemory implements ItemRepository {
     }
 
     update(item: Item): void {
-
+        const itemAntigo = this.itens.findIndex(value => value.getID() == item.getID());
+        this.itens[itemAntigo] = item;
     }
 }

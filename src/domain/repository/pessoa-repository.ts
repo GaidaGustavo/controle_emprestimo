@@ -5,4 +5,5 @@ export interface PessoaRepository {
     getById(id: string): Pessoa;
     create(pessoa: Pessoa): void;
     update(pessoa: Pessoa): void;
+    delete(id: string): void;
 }

@@ -10,6 +10,9 @@ export class PessoaRepositoryMemory implements PessoaRepository{
             new Pessoa('Cicero Nicodem', 'ec481a8f-0fd0-4b84-8f79-33cb1d2577c6')
         ]
     }
+    delete(id: string): void {
+        this.pessoas = this.pessoas.filter(value => value.getID() !== id);
+    }
     
     getAll(): Pessoa[] {
         return this.pessoas;
@@ -27,7 +30,8 @@ export class PessoaRepositoryMemory implements PessoaRepository{
         this.pessoas.push(pessoa)
     }
     update(pessoa: Pessoa): void {
-        throw new Error("Method not implemented.");
+        const pessoaAntiga = this.pessoas.findIndex(value => value.getID() == pessoa.getID());
+        this.pessoas[pessoaAntiga] = pessoa;
     }
 
 }

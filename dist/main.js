@@ -36,6 +36,10 @@ app.get('/itens', (request, response) => {
 app.post('/itens', (request, response) => {
     response.send(itemController.create(request.body));
 });
+app.get('/itens/:id', (request, response) => {
+    console.log(request.params.id);
+    response.send(itemController.getById(request.params.id));
+});
 //==============Tipo Item==============
 //const tipoItemRepositoryMemory = new TipoItemRepositoryMemory
 const tipoItemController = new tipo_item_controller_1.TipoItemController(tipoItemRepositoryMemory);
@@ -44,6 +48,9 @@ app.get('/tipoItens', (request, response) => {
 });
 app.post('/tipoItens', (request, response) => {
     response.send(tipoItemController.create(request.body));
+    app.get('/tipoItens/:id', (request, response) => {
+        response.send(tipoItemController.getByID(request.params.id));
+    });
 });
 //==============Pessoa==============
 const pessoaRepositoryMemory = new pessoa_repository_memory_1.PessoaRepositoryMemory;

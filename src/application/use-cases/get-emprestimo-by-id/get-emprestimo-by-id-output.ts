@@ -9,6 +9,14 @@ type item = {
     tipoItem: tipoItem;
 }
 
+type usuario = {
+    id: string | undefined;
+    username: string;
+    senha: string | undefined;
+    pessoa: pessoa;
+
+}
+
 type pessoa = {
     id: string | undefined;
     nome: string;
@@ -20,4 +28,5 @@ export type GetEmprestimoByIdOutput = {
     dataEmprestimo: Date | undefined;
     dataDevolucao: Date | undefined;
     pessoa: pessoa;
+    usuario: usuario;
 }

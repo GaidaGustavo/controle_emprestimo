@@ -6,4 +6,5 @@ export interface UsuarioRepository {
     getByUserName(username: string): Usuario;
     create(usuario: Usuario): void;
     update(usuario: Usuario): void;
+    delete(id: string): void;
 }

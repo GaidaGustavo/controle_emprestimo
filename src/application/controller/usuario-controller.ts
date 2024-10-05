@@ -1,8 +1,11 @@
 import { PessoaRepository } from "../../domain/repository/pessoa-repository";
 import { UsuarioRepository } from "../../domain/repository/usuario-repository";
 import { CreateUsuarioUseCase } from "../use-cases/create-usuario/create-usuario";
+import { DeleteUsuarioUseCase } from "../use-cases/delete-usuario/delete-usuario";
+import { DeleteUsuarioInput } from "../use-cases/delete-usuario/delete-usuario-input";
 import { GetAllUsuariosUseCase } from "../use-cases/get-all-usuarios/get-all-usuarios";
 import { GetUsuarioByIdUseCase } from "../use-cases/get-usuario-by-id/get-usuario-by-id";
+import { GetUsuarioByIdInput } from "../use-cases/get-usuario-by-id/get-usuario-by-id-input";
 import { UpdateUsuarioUseCase } from "../use-cases/update-usuario/update-usuario";
 
 export class UsuarioController{
@@ -14,7 +17,7 @@ export class UsuarioController{
     }
 
     update(input: any){
-        const updateUsuarioUseCase = new UpdateUsuarioUseCase(this.usuarioRepository);
+        const updateUsuarioUseCase = new UpdateUsuarioUseCase(this.usuarioRepository, this.pessoaRepository);
         return updateUsuarioUseCase.execute(input);
     }
 
@@ -23,8 +26,13 @@ export class UsuarioController{
         return getAllUsuarioUseCase.execute(input);
     }
 
-    getById(input: any){
+    getById(input: GetUsuarioByIdInput){
         const getUsuarioByIdUseCase = new GetUsuarioByIdUseCase(this.usuarioRepository);
         return getUsuarioByIdUseCase.execute(input);
+    }
+
+    delete(input: DeleteUsuarioInput){
+        const deleteUsuarioUseCase = new DeleteUsuarioUseCase(this.usuarioRepository);
+        return deleteUsuarioUseCase.execute(input);
     }
 }
