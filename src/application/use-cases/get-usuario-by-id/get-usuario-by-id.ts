@@ -7,8 +7,8 @@ import { GetUsuarioByIdOutput } from "./get-usuario-by-id-output";
 export class GetUsuarioByIdUseCase {
     constructor(readonly usuarioRepository: UsuarioRepository) { }
 
-    execute(input: GetUsuarioByIdInput): GetUsuarioByIdOutput {
-        const usuario = this.usuarioRepository.getById(input.id);
+    async execute(input: GetUsuarioByIdInput): Promise<GetUsuarioByIdOutput> {
+        const usuario = await this.usuarioRepository.getById(input.id);
 
         const output: GetUsuarioByIdOutput = {
 

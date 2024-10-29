@@ -10,12 +10,12 @@ export class CreateItemUseCase {
         readonly tipoItemRepository: TipoItemRepository
     ) {}
     
-    execute(input: CreateItemInput): CreateItemOutput {
-        const tipoItem = this.tipoItemRepository.getById(input.tipoItemId)
+    async execute(input: CreateItemInput): Promise<CreateItemOutput> {
+        const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
         
         const item = new Item(input.nome, tipoItem, input.id);
 
-        this.itemRepository.create(item);
+        await this.itemRepository.create(item);
 
         return {}
     }

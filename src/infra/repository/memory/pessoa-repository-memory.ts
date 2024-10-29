@@ -10,15 +10,15 @@ export class PessoaRepositoryMemory implements PessoaRepository{
             new Pessoa('Cicero Nicodem', 'ec481a8f-0fd0-4b84-8f79-33cb1d2577c6')
         ]
     }
-    delete(id: string): void {
-        this.pessoas = this.pessoas.filter(value => value.getID() !== id);
+    async delete(id: string): Promise<void> {
+        this.pessoas = await this.pessoas.filter(value => value.getID() !== id);
     }
     
-    getAll(): Pessoa[] {
-        return this.pessoas;
+    async getAll(): Promise<Pessoa[]> {
+        return await this.pessoas;
     }
-    getById(id: string): Pessoa {
-        const pessoa = this.pessoas.find(valor => valor.getID() == id);
+    async getById(id: string): Promise<Pessoa> {
+        const pessoa = await this.pessoas.find(valor => valor.getID() == id);
 
         if (!pessoa) {
             throw new Error('User not Found');
@@ -26,11 +26,11 @@ export class PessoaRepositoryMemory implements PessoaRepository{
 
         return pessoa;
     }
-    create(pessoa: Pessoa): void {
-        this.pessoas.push(pessoa)
+    async create(pessoa: Pessoa): Promise<void> {
+        await this.pessoas.push(pessoa)
     }
-    update(pessoa: Pessoa): void {
-        const pessoaAntiga = this.pessoas.findIndex(value => value.getID() == pessoa.getID());
+    async update(pessoa: Pessoa): Promise<void> {
+        const pessoaAntiga = await this.pessoas.findIndex(value => value.getID() == pessoa.getID());
         this.pessoas[pessoaAntiga] = pessoa;
     }
 

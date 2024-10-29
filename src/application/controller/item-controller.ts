@@ -14,31 +14,31 @@ export class ItemController {
         readonly tipoItemRepository: TipoItemRepository
     ) { }
 
-    create(input: any) {
+    async create(input: any) {
         const createItemUseCase = new CreateItemUseCase(this.itemRepository, this.tipoItemRepository)
-        return createItemUseCase.execute(input);
+        return await createItemUseCase.execute(input);
     }
 
-    update(input: any) {
+    async update(input: any) {
         const updateItemUseCase = new UpdateItemUseCase(this.itemRepository, this.tipoItemRepository)
-        return updateItemUseCase.execute(input);
+        return await updateItemUseCase.execute(input);
     }
 
-    getAll(input: any) {
+    async getAll(input: any) {
         const getAllItensUseCase = new GetAllItensUseCase(this.itemRepository)
-        return getAllItensUseCase.execute(input);
+        return await getAllItensUseCase.execute(input);
 
     }
 
-    getById(input: GetItemByIdInput) {
+    async getById(input: GetItemByIdInput) {
         console.log(input);
         const getItemByIdUseCase = new GetItemByIdUseCase(this.itemRepository)
-        return getItemByIdUseCase.execute(input);
+        return await getItemByIdUseCase.execute(input);
     }
 
-    delete(input: DeleteItemInput) {
+    async delete(input: DeleteItemInput) {
         const deleteItemUseCase = new DeleteItemUseCase(this.itemRepository)
-        return deleteItemUseCase.execute(input);
+        return await deleteItemUseCase.execute(input);
     }
 
 }

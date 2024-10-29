@@ -19,15 +19,15 @@ export default class EmprestimoRepositoryMemory implements EmprestimoRepository{
             new Emprestimo(item,  pessoa, usuario, '7bb91674-3f3c-4f86-923e-dd1f266dfca4', date)
         ]
     }
-    delete(id: string): void {
-        this.emprestimos = this.emprestimos.filter(value => value.getID() !== id);
+    async delete(id: string): Promise<void> {
+        this.emprestimos = await this.emprestimos.filter(value => value.getID() !== id);
     }
     
-    getAll(): Emprestimo[] {
-        return this.emprestimos;
+    async getAll(): Promise<Emprestimo[]> {
+        return await this.emprestimos;
     }
-    getById(id: string): Emprestimo {
-        const emprestimo = this.emprestimos.find(valor => valor.getID() == id);
+    async getById(id: string): Promise<Emprestimo> {
+        const emprestimo = await this.emprestimos.find(valor => valor.getID() == id);
 
         if (!emprestimo) {
             throw new Error('User not Found');
@@ -35,11 +35,11 @@ export default class EmprestimoRepositoryMemory implements EmprestimoRepository{
 
         return emprestimo;
     }
-    create(emprestimo: Emprestimo): void {
-        this.emprestimos.push(emprestimo);
+    async create(emprestimo: Emprestimo): Promise<void> {
+        await this.emprestimos.push(emprestimo);
     }
-    update(emprestimo: Emprestimo): void {
-        const emprestimoAntigo = this.emprestimos.findIndex(value => value.getID() == emprestimo.getID());
+    async update(emprestimo: Emprestimo): Promise<void> {
+        const emprestimoAntigo = await this.emprestimos.findIndex(value => value.getID() == emprestimo.getID());
         this.emprestimos[emprestimoAntigo] = emprestimo;
     }
     

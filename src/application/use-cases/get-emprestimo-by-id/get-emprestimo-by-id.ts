@@ -6,8 +6,8 @@ import { GetEmprestimoByIdOutput } from "./get-emprestimo-by-id-output";
 export class GetEmprestimoByIdUseCase {
     constructor(private readonly emprestimoRepository: EmprestimoRepository) { }
 
-    execute(input: GetEmprestimoByIdInput): GetEmprestimoByIdOutput {
-        const emprestimo = this.emprestimoRepository.getById(input.id);
+    async execute(input: GetEmprestimoByIdInput): Promise<GetEmprestimoByIdOutput> {
+        const emprestimo = await this.emprestimoRepository.getById(input.id);
 
         const output: GetEmprestimoByIdOutput = {
             id: emprestimo.getID(),

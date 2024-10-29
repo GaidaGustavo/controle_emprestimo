@@ -11,14 +11,14 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
         new TipoItem('Compudadores', '30bc02ee-6bad-4c6c-82f4-7b1e9d8d3e39')
     ]
 }
-    delete(id: string): void {
-        this.tipoItens = this.tipoItens.filter(value => value.getID() !== id);
+    async delete(id: string): Promise<void> {
+        this.tipoItens = await this.tipoItens.filter(value => value.getID() !== id);
     }
-    getAll(): TipoItem[] {
-        return this.tipoItens;
+    async getAll(): Promise<TipoItem[]> {
+        return await this.tipoItens;
     }
-    getById(id: string): TipoItem {
-        const tipoItem = this.tipoItens.find(valor => valor.getID() == id);
+    async getById(id: string): Promise<TipoItem> {
+        const tipoItem = await this.tipoItens.find(valor => valor.getID() == id);
 
         if (!tipoItem) {
             throw new Error('User not Found');
@@ -26,11 +26,11 @@ export class TipoItemRepositoryMemory implements TipoItemRepository{
 
         return tipoItem;
     }
-    create(tipoItem: TipoItem): void {
-        this.tipoItens.push(tipoItem)
+    async create(tipoItem: TipoItem): Promise<void> {
+        await this.tipoItens.push(tipoItem)
     }
-    update(tipoItem: TipoItem): void {
-        const tipoItemAntigo = this.tipoItens.findIndex(value => value.getID() == tipoItem.getID());
+    async update(tipoItem: TipoItem): Promise<void> {
+        const tipoItemAntigo = await this.tipoItens.findIndex(value => value.getID() == tipoItem.getID());
         this.tipoItens[tipoItemAntigo] = tipoItem;
     }
 

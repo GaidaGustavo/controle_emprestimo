@@ -9,10 +9,10 @@ export class UpdateUsuarioUseCase {
                 private readonly pessoaRepository: PessoaRepository
     ) {}
     
-    execute(input: UpdateUsuarioInput): UpdateUsuarioOutput {
-        const pessoa = this.pessoaRepository.getById(input.pessoaId);
+    async execute(input: UpdateUsuarioInput): Promise<UpdateUsuarioOutput> {
+        const pessoa = await this.pessoaRepository.getById(input.pessoaId);
         const newUsuario = new Usuario(input.username, pessoa, input.id, input.senha);
-        this.usuarioRepository.update(newUsuario)
+        await this.usuarioRepository.update(newUsuario)
         return {}
     }
 }

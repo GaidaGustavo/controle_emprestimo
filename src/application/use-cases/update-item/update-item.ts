@@ -9,10 +9,10 @@ export class UpdateItemUseCase {
                 readonly tipoItemRepository: TipoItemRepository
     ) {}
     
-    execute(input: UpdateItemInput): UpdateItemOutput {
-        const tipoItem = this.tipoItemRepository.getById(input.tipoItemId)
+    async execute(input: UpdateItemInput): Promise<UpdateItemOutput> {
+        const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
         const newItem = new Item(input.nome, tipoItem, input.id)
-        this.itemRepository.update(newItem)
+        await this.itemRepository.update(newItem)
         return {}
     }
 }

@@ -14,22 +14,22 @@ export class ItemRepositoryMemory implements ItemRepository {
         ]
     }
 
-    delete(id: string): void {
-        this.itens = this.itens.filter(value => value.getID() !== id); 
+    async delete(id: string): Promise<void> {
+        this.itens = await this.itens.filter(value => value.getID() !== id); 
     }
 
 
-    create(item: Item): void {
-        this.itens.push(item)
+    async create(item: Item): Promise<void> {
+        await this.itens.push(item)
     }
 
-    getAll(): Item[] {
-        return this.itens;
+    async getAll(): Promise<Item[]> {
+        return await this.itens;
     }
 
-    getById(id: string): Item {
+    async getById(id: string): Promise<Item> {
         console.log(id);
-        const item = this.itens.find(valor => valor.getID() == id);
+        const item = await this.itens.find(valor => valor.getID() == id);
 
         if (!item) {
             throw new Error('User not Found');
@@ -38,8 +38,8 @@ export class ItemRepositoryMemory implements ItemRepository {
         return item;
     }
 
-    update(item: Item): void {
-        const itemAntigo = this.itens.findIndex(value => value.getID() == item.getID());
+    async update(item: Item): Promise<void> {
+        const itemAntigo = await this.itens.findIndex(value => value.getID() == item.getID());
         this.itens[itemAntigo] = item;
     }
 }

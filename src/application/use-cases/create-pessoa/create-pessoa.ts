@@ -6,9 +6,9 @@ import { CreatePessoaOutput } from "./create-pessoa-output";
 export class CreatePessoaUseCase {
     constructor(readonly pessoaRepository: PessoaRepository) {}
     
-    execute(input: CreatePessoaInput): CreatePessoaOutput {
+    async execute(input: CreatePessoaInput): Promise<CreatePessoaOutput> {
         const pessoa = new Pessoa(input.nome, input.id)
-        this.pessoaRepository.create(pessoa)
+        await this.pessoaRepository.create(pessoa)
         return {}
     }
 }

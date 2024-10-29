@@ -10,28 +10,28 @@ import { UpdateTipoItemUseCase } from "../use-cases/update-tipo-item/update-tipo
 export class TipoItemController{
     constructor(private readonly tipoItemRepository: TipoItemRepository){}
 
-    create(input: any){
+    async create(input: any){
         const createTipoItemUseCase = new CreateTipoitemUseCase(this.tipoItemRepository);
-        return createTipoItemUseCase.execute(input);
+        return await createTipoItemUseCase.execute(input);
     }
 
-    update(input: any){
+    async update(input: any){
         const updateTipoItemUseCase = new UpdateTipoItemUseCase(this.tipoItemRepository);
-        return updateTipoItemUseCase.execute(input);
+        return await updateTipoItemUseCase.execute(input);
     }
 
-    getAll(input: any){
+    async getAll(input: any){
         const getAllTipoItemUseCase = new GetAllTipoitensUseCase(this.tipoItemRepository);
-        return getAllTipoItemUseCase.execute(input);
+        return await getAllTipoItemUseCase.execute(input);
     }
 
-    getByID(input: GetTipoItemByIdInput){
+    async getByID(input: GetTipoItemByIdInput){
         const getTipoItemById = new GetTipoitemByIdUseCase(this.tipoItemRepository);
-        return getTipoItemById.execute(input);
+        return await getTipoItemById.execute(input);
     }
 
-    delete(input: DeleteTipoItemInput){
+    async delete(input: DeleteTipoItemInput){
         const deleteTipoItemUseCase = new DeleteTipoItemUseCase(this.tipoItemRepository);
-        return deleteTipoItemUseCase.execute(input);
+        return await deleteTipoItemUseCase.execute(input);
     }
 }

@@ -6,8 +6,8 @@ import { GetAllUsuariosOutput } from "./get-all-usuarios-output";
 export class GetAllUsuariosUseCase {
     constructor(readonly usuarioRepository: UsuarioRepository) {}
     
-    execute(input: GetAllUsuariosInput):GetAllUsuariosOutput[] {
-        const usuarios = this.usuarioRepository.getAll();
+    async execute(input: GetAllUsuariosInput):Promise<GetAllUsuariosOutput[]> {
+        const usuarios = await this.usuarioRepository.getAll();
 
         const output: GetAllUsuariosOutput[] = [];
 

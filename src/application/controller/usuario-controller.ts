@@ -11,28 +11,28 @@ import { UpdateUsuarioUseCase } from "../use-cases/update-usuario/update-usuario
 export class UsuarioController{
     constructor(private readonly usuarioRepository: UsuarioRepository, private readonly pessoaRepository: PessoaRepository) {}
 
-    create(input: any){
+    async create(input: any){
         const createUsuarioUseCase = new CreateUsuarioUseCase(this.usuarioRepository, this.pessoaRepository);
-        return createUsuarioUseCase.execute(input);
+        return await createUsuarioUseCase.execute(input);
     }
 
-    update(input: any){
+    async update(input: any){
         const updateUsuarioUseCase = new UpdateUsuarioUseCase(this.usuarioRepository, this.pessoaRepository);
-        return updateUsuarioUseCase.execute(input);
+        return await updateUsuarioUseCase.execute(input);
     }
 
-    getAll(input: any){
+    async getAll(input: any){
         const getAllUsuarioUseCase = new GetAllUsuariosUseCase(this.usuarioRepository);
-        return getAllUsuarioUseCase.execute(input);
+        return await getAllUsuarioUseCase.execute(input);
     }
 
-    getById(input: GetUsuarioByIdInput){
+    async getById(input: GetUsuarioByIdInput){
         const getUsuarioByIdUseCase = new GetUsuarioByIdUseCase(this.usuarioRepository);
-        return getUsuarioByIdUseCase.execute(input);
+        return await getUsuarioByIdUseCase.execute(input);
     }
 
-    delete(input: DeleteUsuarioInput){
+    async delete(input: DeleteUsuarioInput){
         const deleteUsuarioUseCase = new DeleteUsuarioUseCase(this.usuarioRepository);
-        return deleteUsuarioUseCase.execute(input);
+        return await deleteUsuarioUseCase.execute(input);
     }
 }

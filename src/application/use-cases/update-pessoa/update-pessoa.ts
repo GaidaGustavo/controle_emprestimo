@@ -6,9 +6,9 @@ import { UpdatePessoaOutput } from "./update-pessoa-output";
 export class UpdatePessoaUseCase {
     constructor(readonly pessoaRepository: PessoaRepository) {}
     
-    execute(input: UpdatePessoaInput): UpdatePessoaOutput {
+    async execute(input: UpdatePessoaInput): Promise<UpdatePessoaOutput> {
         const newPessoa = new Pessoa(input.nome, input.id)
-        this.pessoaRepository.update(newPessoa)
+        await this.pessoaRepository.update(newPessoa)
         return {}
     }
 }

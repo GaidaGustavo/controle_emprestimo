@@ -6,10 +6,10 @@ import { CreateTipoItemOutput } from "./create-tipo-item-output";
 export class CreateTipoitemUseCase {
     constructor(readonly tipoItemRepository: TipoItemRepository) {}
     
-    execute(input: CreateTipoItemInput): CreateTipoItemOutput {
+    async execute(input: CreateTipoItemInput): Promise<CreateTipoItemOutput> {
         const tipoItem = new TipoItem(input.nome, input.id)
 
-        this.tipoItemRepository.create(tipoItem);
+        await this.tipoItemRepository.create(tipoItem);
         return {}
     }
 }

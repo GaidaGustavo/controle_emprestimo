@@ -13,15 +13,15 @@ export default class UsuarioRepositoryMemory implements UsuarioRepository{
             new Usuario('gabriel_anel', pessoa2, '3b4596dd-45d4-4f0e-ac57-d7e18d46fdfe', '123')
         ]
     }
-    delete(id: string): void {
-        this.usuarios = this.usuarios.filter(value => value.getID() !== id);
+    async delete(id: string): Promise<void> {
+        this.usuarios = await this.usuarios.filter(value => value.getID() !== id);
     }
     
-    getAll(): Usuario[] {
-        return this.usuarios;
+    async getAll(): Promise<Usuario[]> {
+        return await this.usuarios;
     }
-    getById(id: string): Usuario {
-        const usuario = this.usuarios.find(valor => valor.getID() == id);
+    async getById(id: string): Promise<Usuario> {
+        const usuario = await this.usuarios.find(valor => valor.getID() == id);
 
         if (!usuario) {
            throw new Error('User not Found');
@@ -29,14 +29,14 @@ export default class UsuarioRepositoryMemory implements UsuarioRepository{
 
         return usuario;
     }
-    getByUserName(username: string): Usuario {
+    async getByUserName(username: string): Promise<Usuario> {
         throw new Error("Method not implemented.");
     }
-    create(usuario: Usuario): void {
-        this.usuarios.push(usuario)
+    async create(usuario: Usuario): Promise<void> {
+        await this.usuarios.push(usuario)
     }
-    update(usuario: Usuario): void {
-        const usuarioAntigo = this.usuarios.findIndex(value => value.getID() == usuario.getID());
+    async update(usuario: Usuario): Promise<void> {
+        const usuarioAntigo = await this.usuarios.findIndex(value => value.getID() == usuario.getID());
         this.usuarios[usuarioAntigo] = usuario;
     }    
 }

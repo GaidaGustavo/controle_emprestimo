@@ -6,8 +6,8 @@ import { GetItemByIdOutput } from "./get-item-by-id-output";
 export class GetItemByIdUseCase {
     constructor(private readonly itemRepository: ItemRepository) {}
     
-    execute(input: GetItemByIdInput):GetItemByIdOutput {
-        const item = this.itemRepository.getById(input.id);
+    async execute(input: GetItemByIdInput):Promise<GetItemByIdOutput> {
+        const item = await this.itemRepository.getById(input.id);
         
         const output: GetItemByIdOutput = {
                 id: item.getID(),

@@ -7,8 +7,8 @@ import { GetAllEmprestimosOutput } from "./get-all-emprestimos-output";
 export class GetAllEmprestimosUseCase {
     constructor(readonly emprestimoRepository: EmprestimoRepository) {}
     
-    execute(input: GetAllEmprestimosInput):GetAllEmprestimosOutput[] {
-        const emprestimos = this.emprestimoRepository.getAll();
+    async execute(input: GetAllEmprestimosInput):Promise<GetAllEmprestimosOutput[]> {
+        const emprestimos = await this.emprestimoRepository.getAll();
 
         const output: GetAllEmprestimosOutput[] = [];
 

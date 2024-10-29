@@ -10,28 +10,28 @@ import { UpdatePessoaUseCase } from "../use-cases/update-pessoa/update-pessoa";
 export class PessoaController{
     constructor(private readonly pessoaRepository: PessoaRepository){}
 
-    create(input: any){
+    async create(input: any){
         const createPessoaUseCase = new CreatePessoaUseCase(this.pessoaRepository);
-        return createPessoaUseCase.execute(input);
+        return await createPessoaUseCase.execute(input);
     }
 
-    update(input: any){
+    async update(input: any){
         const updatePessoaUseCase = new UpdatePessoaUseCase(this.pessoaRepository);
-        return updatePessoaUseCase.execute(input);
+        return await updatePessoaUseCase.execute(input);
     }
 
-    getAll(input: any){
+    async getAll(input: any){
         const getAllPessoasUseCase = new GetAllPessoasUseCase(this.pessoaRepository);
-        return getAllPessoasUseCase.execute(input);
+        return await getAllPessoasUseCase.execute(input);
     }
 
-    getById(input: GetPessoaByIdInput){
+    async getById(input: GetPessoaByIdInput){
         const getPessoaByIdUseCase = new GetPessoaByIdUseCase(this.pessoaRepository);
-        return getPessoaByIdUseCase.execute(input)
+        return await getPessoaByIdUseCase.execute(input)
     }
 
-    delete(input: DeletePessoaInput){
+    async delete(input: DeletePessoaInput){
         const deletePessoaUseCase = new DeletePessoaUseCase(this.pessoaRepository)
-        return deletePessoaUseCase.execute(input);
+        return await deletePessoaUseCase.execute(input);
     }
 }

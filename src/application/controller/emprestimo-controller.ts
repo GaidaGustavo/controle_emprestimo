@@ -16,28 +16,28 @@ export class EmprestimoController{
          private readonly pessoaRepository: PessoaRepository,
          private readonly usuarioRepository: UsuarioRepository ){}
 
-    create(input: any){
+    async create(input: any){
         const createEmprestimoUseCase = new CreateEmprestimoUseCase(this.emprestimoRepository, this.itemRepository, this.pessoaRepository, this.usuarioRepository);
-        return createEmprestimoUseCase.execute(input);
+        return await createEmprestimoUseCase.execute(input);
     }
 
-    update(input: any){
+    async update(input: any){
         const updateEmprestimoUseCase = new UpdateEmprestimoUseCase(this.emprestimoRepository, this.itemRepository, this.pessoaRepository, this.usuarioRepository);
-        return updateEmprestimoUseCase.execute(input);
+        return await updateEmprestimoUseCase.execute(input);
     }
 
-    getAll(input: any){
+    async getAll(input: any){
         const getAllEmprestimoUseCase = new GetAllEmprestimosUseCase(this.emprestimoRepository);
-        return getAllEmprestimoUseCase.execute(input);
+        return await getAllEmprestimoUseCase.execute(input);
     }
 
-    getById(input: GetEmprestimoByIdInput){
+    async getById(input: GetEmprestimoByIdInput){
         const getEmprestimoByIdUseCase = new GetEmprestimoByIdUseCase(this.emprestimoRepository);
-        return getEmprestimoByIdUseCase.execute(input);
+        return await getEmprestimoByIdUseCase.execute(input);
     }
 
-    delete(input: DeleteEmprestimoInput){
+    async delete(input: DeleteEmprestimoInput){
         const deleteEmprestimoUseCase = new DeleteEmprestimoUseCase(this.emprestimoRepository)
-        return deleteEmprestimoUseCase.execute(input);
+        return await deleteEmprestimoUseCase.execute(input);
     }
 }

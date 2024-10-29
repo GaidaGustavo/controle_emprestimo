@@ -5,8 +5,8 @@ import { DeleteUsuarioOutput } from "./delete-usuario-output";
 export class DeleteUsuarioUseCase {
     constructor(private readonly usuarioRepository: UsuarioRepository) {}
     
-    execute(input: DeleteUsuarioInput):DeleteUsuarioOutput {
-        const item = this.usuarioRepository.delete(input.id);
+    async execute(input: DeleteUsuarioInput):Promise<DeleteUsuarioOutput> {
+        const item = await this.usuarioRepository.delete(input.id);
 
         return {};
     }

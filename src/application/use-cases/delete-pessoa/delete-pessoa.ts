@@ -5,8 +5,8 @@ import { DeletePessoaOutput } from "./delete-pessoa-output";
 export class DeletePessoaUseCase {
     constructor(private readonly pessoaRepository: PessoaRepository) {}
     
-    execute(input: DeletePessoaInput):DeletePessoaOutput {
-        const item = this.pessoaRepository.delete(input.id);
+    async execute(input: DeletePessoaInput):Promise<DeletePessoaOutput> {
+        const item = await this.pessoaRepository.delete(input.id);
 
         return {};
     }

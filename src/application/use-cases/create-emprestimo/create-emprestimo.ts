@@ -13,14 +13,14 @@ export class CreateEmprestimoUseCase {
         private readonly pessoaRepository: PessoaRepository,
         private readonly usuarioRepository: UsuarioRepository) {}
     
-    execute(input: CreateEmprestimoInput):CreateEmprestimoOutput {
-        const item = this.itemRepository.getById(input.itemId)
-        const pessoa = this.pessoaRepository.getById(input.pessoaId)
-        const usuario = this.usuarioRepository.getById(input.usuarioId);
+    async execute(input: CreateEmprestimoInput):Promise<CreateEmprestimoOutput> {
+        const item = await this.itemRepository.getById(input.itemId)
+        const pessoa = await this.pessoaRepository.getById(input.pessoaId)
+        const usuario = await this.usuarioRepository.getById(input.usuarioId);
         
         const emprestimo = new Emprestimo(item, pessoa, usuario)
 
-        this.emprestimoRespository.create(emprestimo);  
+        await this.emprestimoRespository.create(emprestimo);  
 
         return {}
     }

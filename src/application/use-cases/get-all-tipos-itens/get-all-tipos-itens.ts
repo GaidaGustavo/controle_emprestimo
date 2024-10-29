@@ -5,8 +5,8 @@ import { GetAllTiposItensOutput } from "./get-all-tipos-itens-output";
 export class GetAllTipoitensUseCase {
     constructor(readonly tipoItemRepository: TipoItemRepository) {}
     
-    execute(input: GetAllTiposItensInput):GetAllTiposItensOutput[] {
-        const tiposItens = this.tipoItemRepository.getAll();
+    async execute(input: GetAllTiposItensInput):Promise<GetAllTiposItensOutput[]> {
+        const tiposItens = await this.tipoItemRepository.getAll();
 
         const output: GetAllTiposItensOutput[] = [];
 

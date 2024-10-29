@@ -5,8 +5,8 @@ import { DeleteEmprestimoOutput } from "./delete-emprestimo-output";
 export class DeleteEmprestimoUseCase {
     constructor(private readonly emprestimoRepository: EmprestimoRepository) {}
     
-    execute(input: DeleteEmprestimoInput):DeleteEmprestimoOutput {
-        const item = this.emprestimoRepository.delete(input.id);
+    async execute(input: DeleteEmprestimoInput):Promise<DeleteEmprestimoOutput> {
+        const item = await this.emprestimoRepository.delete(input.id);
 
         return {};
     }

@@ -13,12 +13,12 @@ export class UpdateEmprestimoUseCase {
                 private readonly usuarioRepository: UsuarioRepository
     ) {}
     
-    execute(input: UpdateEmprestimoInput): UpdateEmprestimoOutput {
-        const item = this.itemRepository.getById(input.itemId);
-        const pessoa = this.pessoaRepository.getById(input.pessoaId);
-        const usuario = this.usuarioRepository.getById(input.usuarioId);
+    async execute(input: UpdateEmprestimoInput): Promise<UpdateEmprestimoOutput> {
+        const item = await this.itemRepository.getById(input.itemId);
+        const pessoa = await this.pessoaRepository.getById(input.pessoaId);
+        const usuario = await this.usuarioRepository.getById(input.usuarioId);
         const newEmprestimo = new Emprestimo(item, pessoa, usuario, input.id, input.dataDevolução)
-        this.emprestimoRepository.update(newEmprestimo)
+        await this.emprestimoRepository.update(newEmprestimo)
         return {}
     }
 }

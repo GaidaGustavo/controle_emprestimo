@@ -33,25 +33,25 @@ const itemRepositoryMemory = new ItemRepositoryMemory();
 const tipoItemRepositoryMemory = new TipoItemRepositoryMemory
 const itemController = new ItemController(itemRepositoryMemory, tipoItemRepositoryMemory);
 
-app.get('/itens', (request, response) => {
-    response.send(itemController.getAll({}));
+app.get('/itens', async (request, response) => {
+    response.send(await itemController.getAll({}));
 })
 
-app.post('/itens', (request, response) => {
-    response.send(itemController.create(request.body));
+app.post('/itens', async (request, response) => {
+    response.send(await itemController.create(request.body));
 })
 
-app.get('/itens/:id', (request, response) => {
+app.get('/itens/:id', async (request, response) => {
     const id = request.params.id;
-    response.send(itemController.getById({id}));
+    response.send(await itemController.getById({id}));
 })
 
-app.delete('/itens/:id', (request, response) => {
+app.delete('/itens/:id', async (request, response) => {
     const id = request.params.id;
-    response.send(itemController.delete({id}));
+    response.send(await itemController.delete({id}));
 })
 
-app.put('/itens/:id', (request, response) => {
+app.put('/itens/:id', async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     
@@ -59,7 +59,7 @@ app.put('/itens/:id', (request, response) => {
         id,
         ...body
     }
-    response.send(itemController.update(newItem));
+    response.send(await itemController.update(newItem));
 })
 //==============Tipo Item==============
 
@@ -67,20 +67,20 @@ app.put('/itens/:id', (request, response) => {
 
 const tipoItemController = new TipoItemController(tipoItemRepositoryMemory)
 
-app.get('/tipoItens', (request, response) => {
-    response.send(tipoItemController.getAll({}));
+app.get('/tipoItens', async (request, response) => {
+    response.send(await tipoItemController.getAll({}));
 })
 
-app.post('/tipoItens', (request, response) => {
-    response.send(tipoItemController.create(request.body));
+app.post('/tipoItens', async (request, response) => {
+    response.send(await tipoItemController.create(request.body));
 })
 
-app.get('/tipoItens/:id', (request, response) => {
+app.get('/tipoItens/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(tipoItemController.getByID({id}));
+   response.send(await tipoItemController.getByID({id}));
 })
 
-app.put('/tipoItens/:id', (request, response) => {
+app.put('/tipoItens/:id', async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     
@@ -88,12 +88,12 @@ app.put('/tipoItens/:id', (request, response) => {
         id,
         ...body
     }
-    response.send(tipoItemController.update(newTipoItem));
+    response.send(await tipoItemController.update(newTipoItem));
 })
 
-app.delete('/tipoItens/:id', (request, response) => {
+app.delete('/tipoItens/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(tipoItemController.delete({id}));
+   response.send(await tipoItemController.delete({id}));
 })
 
 
@@ -102,20 +102,20 @@ app.delete('/tipoItens/:id', (request, response) => {
 const pessoaRepositoryMemory = new PessoaRepositoryMemory
 const pessoaController = new PessoaController(pessoaRepositoryMemory)
 
-app.get('/pessoas', (request, response) => {
-    response.send(pessoaController.getAll({}));
+app.get('/pessoas', async (request, response) => {
+    response.send(await pessoaController.getAll({}));
 })
 
-app.post('/pessoas', (request, response) => {
-    response.send(pessoaController.create(request.body));
+app.post('/pessoas', async(request, response) => {
+    response.send(await pessoaController.create(request.body));
 })
 
-app.get('/pessoas/:id', (request, response) => {
+app.get('/pessoas/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(pessoaController.getById({id}));
+   response.send(await pessoaController.getById({id}));
 })
 
-app.put('/pessoas/:id', (request, response) => {
+app.put('/pessoas/:id', async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     
@@ -123,12 +123,12 @@ app.put('/pessoas/:id', (request, response) => {
         id,
         ...body
     }
-    response.send(pessoaController.update(newPessoa));
+    response.send(await pessoaController.update(newPessoa));
 })
 
-app.delete('/pessoas/:id', (request, response) => {
+app.delete('/pessoas/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(pessoaController.delete({id}));
+   response.send(await pessoaController.delete({id}));
 })
 
 //==============Usuário==============
@@ -137,25 +137,25 @@ const usuarioRepositoryMemory = new UsuarioRepositoryMemory
 //const pessoaRepositoryMemory = new PessoaRepositoryMemory
 const usuarioController = new UsuarioController(usuarioRepositoryMemory, pessoaRepositoryMemory)
 
-app.get('/usuario', (request, response) => {
-    response.send(usuarioController.getAll({}));
+app.get('/usuario', async (request, response) => {
+    response.send(await usuarioController.getAll({}));
 })
 
-app.post('/usuario', (request, response) => {
-    response.send(usuarioController.create(request.body));
+app.post('/usuario', async (request, response) => {
+    response.send(await usuarioController.create(request.body));
 })
 
-app.get('/usuario/:id', (request, response) => {
+app.get('/usuario/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(usuarioController.getById({id}));
+   response.send(await usuarioController.getById({id}));
 })
 
-app.delete('/usuario/:id', (request, response) => {
+app.delete('/usuario/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(usuarioController.delete({id}));
+   response.send(await usuarioController.delete({id}));
 })
 
-app.put('/usuario/:id', (request, response) => {
+app.put('/usuario/:id', async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     
@@ -163,7 +163,7 @@ app.put('/usuario/:id', (request, response) => {
         id,
         ...body
     }
-    response.send(usuarioController.update(newUsuario));
+    response.send(await usuarioController.update(newUsuario));
 })
 
 //==============Emprestimo==============
@@ -174,25 +174,25 @@ app.put('/usuario/:id', (request, response) => {
 const emprestimoRepositoryMemory = new EmprestimoRepositoryMEmory;
 const emprestimoController = new EmprestimoController(emprestimoRepositoryMemory, itemRepositoryMemory, pessoaRepositoryMemory, usuarioRepositoryMemory)
 
-app.get('/emprestimo', (request, response) => {
-    response.send(emprestimoController.getAll({}));
+app.get('/emprestimo', async (request, response) => {
+    response.send(await emprestimoController.getAll({}));
 })
 
-app.post('/emprestimo', (request, response) => {
-    response.send(emprestimoController.create(request.body));
+app.post('/emprestimo', async (request, response) => {
+    response.send(await emprestimoController.create(request.body));
 })
 
-app.get('/emprestimo/:id', (request, response) => {
+app.get('/emprestimo/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(emprestimoController.getById({id}));
+   response.send(await emprestimoController.getById({id}));
 })
 
-app.delete('/emprestimo/:id', (request, response) => {
+app.delete('/emprestimo/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(emprestimoController.delete({id}));
+   response.send(await emprestimoController.delete({id}));
 })
 
-app.put('/emprestimo/:id', (request, response) => {
+app.put('/emprestimo/:id', async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     
@@ -200,5 +200,5 @@ app.put('/emprestimo/:id', (request, response) => {
         id,
         ...body
     }
-    response.send(emprestimoController.update(newEmprestimo));
+    response.send(await emprestimoController.update(newEmprestimo));
 })

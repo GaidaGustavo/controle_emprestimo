@@ -6,9 +6,9 @@ import { UpdateTipoItemOutput } from "./update-tipo-item-output";
 export class UpdateTipoItemUseCase {
     constructor(readonly tipoItemRepository: TipoItemRepository) {}
     
-    execute(input: UpdateTipoItemInput): UpdateTipoItemOutput {
+    async execute(input: UpdateTipoItemInput): Promise<UpdateTipoItemOutput> {
         const newTipoItem = new TipoItem(input.nome, input.id)
-        this.tipoItemRepository.update(newTipoItem)
+        await this.tipoItemRepository.update(newTipoItem)
         return {}
     }
 }
