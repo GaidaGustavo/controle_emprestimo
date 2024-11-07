@@ -2,7 +2,7 @@ import { Pessoa } from "../../../domain/entity/pessoa";
 import { Usuario } from "../../../domain/entity/usuario";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
 
-export default class UsuarioRepositoryPostgres implements UsuarioRepository{
+export default class UsuarioRepositoryDatabase implements UsuarioRepository{
     constructor(private connection: Connection){
     }
     

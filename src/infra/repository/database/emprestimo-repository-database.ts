@@ -6,7 +6,7 @@ import { Usuario } from "../../../domain/entity/usuario";
 import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
 
 
-export default class EmprestimoRepositoryPostgres implements EmprestimoRepository{
+export default class EmprestimoRepositoryDatabase implements EmprestimoRepository{
     constructor(private connection: Connection){
     }
     
