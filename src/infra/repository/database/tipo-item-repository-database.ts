@@ -53,9 +53,21 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
     }
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0222afc (teste)
 
 
 
 
 
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of a5e55b6 (adição da config do banco e repository factory)
+=======
+>>>>>>> parent of a5e55b6 (adição da config do banco e repository factory)
+>>>>>>> 0222afc (teste)
