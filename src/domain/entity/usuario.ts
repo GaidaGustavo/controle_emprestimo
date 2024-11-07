@@ -2,11 +2,12 @@ import { Pessoa } from "./pessoa";
 import { v4 } from 'uuid';
 
 export class Usuario {
-    readonly id?: string;
-    readonly senha?: string;
+    private id?: string;
+    private username: string;
+    private senha?: string;
     private pessoa: Pessoa;
 
-    constructor(readonly username: string, pessoa: Pessoa, id?: string, senha?: string,) {
+    constructor(username: string, pessoa: Pessoa, id?: string, senha?: string,) {
         if (!id) {
             id = v4();
         };
