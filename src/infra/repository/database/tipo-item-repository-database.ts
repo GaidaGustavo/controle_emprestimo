@@ -1,7 +1,7 @@
 import { TipoItem } from "../../../domain/entity/tipoitem";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
 
-export default class TipoItemRepositoryDatabase implements TipoItemRepository{
+export default class TipoItemRepositoryPostgres implements TipoItemRepository{
     constructor(private connection: Connection){
     }
     
