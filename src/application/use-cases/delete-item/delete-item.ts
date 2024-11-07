@@ -1,9 +1,14 @@
 import { ItemRepository } from "../../../domain/repository/item-repository";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { DeleteItemInput } from "./delete-item-input";
 import { DeleteItemOutput } from "./delete-item-output";
 
 export class DeleteItemUseCase {
-    constructor(private readonly itemRepository: ItemRepository) {}
+    private itemRepository: ItemRepository;
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.itemRepository = repositoryFactory.createItemRepository();
+    }
     
     async execute(input: DeleteItemInput):Promise<DeleteItemOutput> {
         const item = await this.itemRepository.delete(input.id);

@@ -1,11 +1,16 @@
 import { Pessoa } from "../../../domain/entity/pessoa";
 import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { GetAllEmprestimosInput } from "./get-all-emprestimos-input";
 import { GetAllEmprestimosOutput } from "./get-all-emprestimos-output";
 
 
 export class GetAllEmprestimosUseCase {
-    constructor(readonly emprestimoRepository: EmprestimoRepository) {}
+    private emprestimoRepository: EmprestimoRepository;
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
+    }
     
     async execute(input: GetAllEmprestimosInput):Promise<GetAllEmprestimosOutput[]> {
         const emprestimos = await this.emprestimoRepository.getAll();

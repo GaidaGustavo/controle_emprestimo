@@ -9,6 +9,8 @@ import UsuarioRepositoryMemory from './infra/repository/memory/usuario-repositor
 import { UsuarioController } from './application/controller/usuario-controller';
 import { EmprestimoController } from './application/controller/emprestimo-controller';
 import EmprestimoRepositoryMEmory from './infra/repository/memory/emprestimo-repository-memory';
+import { PostgresConnection } from './infra/config-database/postgres-connection';
+import { DatabaseRepositoryFactory } from './infra/config-database/database-repository-factory';
 
 //chama librare
 const app = express();
@@ -25,13 +27,32 @@ app.listen(port, () => {
     console.log("Servidor iniciado na porta " +port)
 })
 
+app.all('*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, access-token');
+    next();
+});
+
+const dadosconexao = {
+user: process.env.DB_USERNAME || '',
+password: process.env.DB_PASSWORD || '',
+database: process.env.DB_DATABASE || '',
+host: process.env.DB_HOST || '',
+port: process.env.DB_PORT || ''
+
+}
+
+console.log(dadosconexao)
+const connectionPostgreSQL = new PostgresConnection(
+dadosconexao
+);
+const repositoryFactory = new DatabaseRepositoryFactory(connectionPostgreSQL);
 
 
 //==============Item==============
 
-const itemRepositoryMemory = new ItemRepositoryMemory();
-const tipoItemRepositoryMemory = new TipoItemRepositoryMemory
-const itemController = new ItemController(itemRepositoryMemory, tipoItemRepositoryMemory);
+const itemController = new ItemController(repositoryFactory);
 
 app.get('/itens', async (request, response) => {
     response.send(await itemController.getAll({}));
@@ -63,9 +84,7 @@ app.put('/itens/:id', async (request, response) => {
 })
 //==============Tipo Item==============
 
-//const tipoItemRepositoryMemory = new TipoItemRepositoryMemory
-
-const tipoItemController = new TipoItemController(tipoItemRepositoryMemory)
+const tipoItemController = new TipoItemController(repositoryFactory)
 
 app.get('/tipoItens', async (request, response) => {
     response.send(await tipoItemController.getAll({}));
@@ -99,8 +118,7 @@ app.delete('/tipoItens/:id', async (request, response) => {
 
 //==============Pessoa==============
 
-const pessoaRepositoryMemory = new PessoaRepositoryMemory
-const pessoaController = new PessoaController(pessoaRepositoryMemory)
+const pessoaController = new PessoaController(repositoryFactory)
 
 app.get('/pessoas', async (request, response) => {
     response.send(await pessoaController.getAll({}));
@@ -133,9 +151,7 @@ app.delete('/pessoas/:id', async (request, response) => {
 
 //==============Usuário==============
 
-const usuarioRepositoryMemory = new UsuarioRepositoryMemory
-//const pessoaRepositoryMemory = new PessoaRepositoryMemory
-const usuarioController = new UsuarioController(usuarioRepositoryMemory, pessoaRepositoryMemory)
+const usuarioController = new UsuarioController(repositoryFactory)
 
 app.get('/usuario', async (request, response) => {
     response.send(await usuarioController.getAll({}));
@@ -168,11 +184,7 @@ app.put('/usuario/:id', async (request, response) => {
 
 //==============Emprestimo==============
 
-//const itemRepositoryMemory = new ItemRepositoryMemory();
-//const usuarioRepositoryMemory = new UsuarioRepositoryMemory
-//const pessoaRepositoryMemory = new PessoaRepositoryMemory
-const emprestimoRepositoryMemory = new EmprestimoRepositoryMEmory;
-const emprestimoController = new EmprestimoController(emprestimoRepositoryMemory, itemRepositoryMemory, pessoaRepositoryMemory, usuarioRepositoryMemory)
+const emprestimoController = new EmprestimoController(repositoryFactory)
 
 app.get('/emprestimo', async (request, response) => {
     response.send(await emprestimoController.getAll({}));

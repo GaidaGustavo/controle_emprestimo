@@ -6,12 +6,21 @@ import { PessoaRepository } from "../../../domain/repository/pessoa-repository";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
 import { CreateEmprestimoInput } from "./create-emprestimo-input";
 import { CreateEmprestimoOutput } from "./create-emprestimo-output";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 
 export class CreateEmprestimoUseCase {
-    constructor(readonly emprestimoRespository: EmprestimoRepository, 
-        private readonly itemRepository: ItemRepository, 
-        private readonly pessoaRepository: PessoaRepository,
-        private readonly usuarioRepository: UsuarioRepository) {}
+    private itemRepository: ItemRepository;
+    private pessoaRepository: PessoaRepository;
+    private usuarioRepository: UsuarioRepository;
+    private emprestimoRepository: EmprestimoRepository;
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.itemRepository = repositoryFactory.createItemRepository();
+        this.pessoaRepository = repositoryFactory.createPessoaRepository();
+        this.usuarioRepository = repositoryFactory.createUsuarioRepository();
+        this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
+
+    }
     
     async execute(input: CreateEmprestimoInput):Promise<CreateEmprestimoOutput> {
         const item = await this.itemRepository.getById(input.itemId)
@@ -20,7 +29,7 @@ export class CreateEmprestimoUseCase {
         
         const emprestimo = new Emprestimo(item, pessoa, usuario)
 
-        await this.emprestimoRespository.create(emprestimo);  
+        await this.emprestimoRepository.create(emprestimo);  
 
         return {}
     }

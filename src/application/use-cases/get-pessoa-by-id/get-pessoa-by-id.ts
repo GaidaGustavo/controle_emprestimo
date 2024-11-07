@@ -1,10 +1,15 @@
 import { PessoaRepository } from "../../../domain/repository/pessoa-repository";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { GetPessoaByIdInput } from "./get-pessoa-by-id-input";
 import { GetPessoaByIdOutput } from "./get-pessoa-by-id-output";
 
 
 export class GetPessoaByIdUseCase {
-    constructor(readonly pessoaRepository: PessoaRepository) { }
+    private pessoaRepository: PessoaRepository
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.pessoaRepository = repositoryFactory.createPessoaRepository();
+    }
 
     async execute(input: GetPessoaByIdInput): Promise<GetPessoaByIdOutput> {
         const pessoa = await this.pessoaRepository.getById(input.id);

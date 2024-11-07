@@ -1,3 +1,4 @@
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
 import { GetUsuarioByIdInput } from "./get-usuario-by-id-input";
 import { GetUsuarioByIdOutput } from "./get-usuario-by-id-output";
@@ -5,7 +6,11 @@ import { GetUsuarioByIdOutput } from "./get-usuario-by-id-output";
 
 
 export class GetUsuarioByIdUseCase {
-    constructor(readonly usuarioRepository: UsuarioRepository) { }
+    private usuarioRepository: UsuarioRepository
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.usuarioRepository = repositoryFactory.createUsuarioRepository();
+    }
 
     async execute(input: GetUsuarioByIdInput): Promise<GetUsuarioByIdOutput> {
         const usuario = await this.usuarioRepository.getById(input.id);

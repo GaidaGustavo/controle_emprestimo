@@ -1,8 +1,9 @@
 import { TipoItem } from "../../../domain/entity/tipoitem";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
+import { Connection } from "../../config-database/connection";
 
-export default class TipoItemRepositoryPostgres implements TipoItemRepository{
-    constructor(){
+export default class TipoItemRepositoryDatabase implements TipoItemRepository{
+    constructor(private connection: Connection){
     }
     async getAll(): Promise<TipoItem[]> {
         throw new Error("Method not implemented.");

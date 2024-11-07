@@ -1,10 +1,15 @@
 import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { GetEmprestimoByIdInput } from "./get-emprestimo-by-id-input";
 import { GetEmprestimoByIdOutput } from "./get-emprestimo-by-id-output";
 
 
 export class GetEmprestimoByIdUseCase {
-    constructor(private readonly emprestimoRepository: EmprestimoRepository) { }
+    private emprestimoRepository: EmprestimoRepository;
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
+    }
 
     async execute(input: GetEmprestimoByIdInput): Promise<GetEmprestimoByIdOutput> {
         const emprestimo = await this.emprestimoRepository.getById(input.id);

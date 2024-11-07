@@ -1,9 +1,10 @@
 import { Pessoa } from "../../../domain/entity/pessoa";
 import { Usuario } from "../../../domain/entity/usuario";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
+import { Connection } from "../../config-database/connection";
 
-export default class UsuarioRepositoryPostgres implements UsuarioRepository{
-    constructor(){
+export default class UsuarioRepositoryDatabase implements UsuarioRepository{
+    constructor(private connection: Connection){
     }
     async getAll(): Promise<Usuario[]> {
         throw new Error("Method not implemented.");

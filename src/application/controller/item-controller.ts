@@ -1,4 +1,4 @@
-import { ItemRepository } from "../../domain/repository/item-repository";
+import { RepositoryFactory } from "../../domain/repository/repository-factory";
 import { TipoItemRepository } from "../../domain/repository/tipoitem-repository";
 import { CreateItemUseCase } from "../use-cases/create-item/create-item";
 import { DeleteItemUseCase } from "../use-cases/delete-item/delete-item";
@@ -9,35 +9,32 @@ import { GetItemByIdInput } from "../use-cases/get-item-by-id/get-item-by-id-inp
 import { UpdateItemUseCase } from "../use-cases/update-item/update-item";
 
 export class ItemController {
-    constructor(
-        private readonly itemRepository: ItemRepository,
-        readonly tipoItemRepository: TipoItemRepository
-    ) { }
+    constructor(private repositoryFactory: RepositoryFactory) { }
 
     async create(input: any) {
-        const createItemUseCase = new CreateItemUseCase(this.itemRepository, this.tipoItemRepository)
+        const createItemUseCase = new CreateItemUseCase(this.repositoryFactory)
         return await createItemUseCase.execute(input);
     }
 
     async update(input: any) {
-        const updateItemUseCase = new UpdateItemUseCase(this.itemRepository, this.tipoItemRepository)
+        const updateItemUseCase = new UpdateItemUseCase(this.repositoryFactory)
         return await updateItemUseCase.execute(input);
     }
 
     async getAll(input: any) {
-        const getAllItensUseCase = new GetAllItensUseCase(this.itemRepository)
+        const getAllItensUseCase = new GetAllItensUseCase(this.repositoryFactory)
         return await getAllItensUseCase.execute(input);
 
     }
 
     async getById(input: GetItemByIdInput) {
         console.log(input);
-        const getItemByIdUseCase = new GetItemByIdUseCase(this.itemRepository)
+        const getItemByIdUseCase = new GetItemByIdUseCase(this.repositoryFactory)
         return await getItemByIdUseCase.execute(input);
     }
 
     async delete(input: DeleteItemInput) {
-        const deleteItemUseCase = new DeleteItemUseCase(this.itemRepository)
+        const deleteItemUseCase = new DeleteItemUseCase(this.repositoryFactory)
         return await deleteItemUseCase.execute(input);
     }
 

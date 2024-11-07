@@ -2,16 +2,24 @@ import { Emprestimo } from "../../../domain/entity/emprestimo";
 import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
 import { ItemRepository } from "../../../domain/repository/item-repository";
 import { PessoaRepository } from "../../../domain/repository/pessoa-repository";
+import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
 import { UpdateEmprestimoInput } from "./update-emprestimo-input";
 import { UpdateEmprestimoOutput } from "./update-emprestimo-output";
 
 export class UpdateEmprestimoUseCase {
-    constructor(private readonly emprestimoRepository: EmprestimoRepository,
-                private readonly itemRepository: ItemRepository,
-                private readonly pessoaRepository: PessoaRepository,
-                private readonly usuarioRepository: UsuarioRepository
-    ) {}
+    private itemRepository: ItemRepository;
+    private pessoaRepository: PessoaRepository;
+    private usuarioRepository: UsuarioRepository;
+    private emprestimoRepository: EmprestimoRepository;
+    constructor(private repositoryFactory: RepositoryFactory
+    ) {
+        this.itemRepository = repositoryFactory.createItemRepository();
+        this.pessoaRepository = repositoryFactory.createPessoaRepository();
+        this.usuarioRepository = repositoryFactory.createUsuarioRepository();
+        this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
+
+    }
     
     async execute(input: UpdateEmprestimoInput): Promise<UpdateEmprestimoOutput> {
         const item = await this.itemRepository.getById(input.itemId);

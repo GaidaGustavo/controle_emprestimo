@@ -1,9 +1,10 @@
 import { Item } from "../../../domain/entity/item";
 import { TipoItem } from "../../../domain/entity/tipoitem";
 import { ItemRepository } from "../../../domain/repository/item-repository";
+import { Connection } from "../../config-database/connection";
 
-export default class ItemRepositoryPostgres implements ItemRepository{
-    constructor(){
+export default class ItemRepositoryDatabase implements ItemRepository{
+    constructor(private connection: Connection){
     }
     async getAll(): Promise<Item[]> {
         throw new Error("Method not implemented.");
