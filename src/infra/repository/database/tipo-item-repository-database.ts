@@ -52,3 +52,10 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
         throw new Error("Method not implemented.");
     }
 }
+
+
+
+
+
+
+
