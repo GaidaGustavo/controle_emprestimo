@@ -1,15 +1,15 @@
 import { v4 } from 'uuid';
 
 export class Pessoa {
-    private id?: string;
-    private name: string;
-
-    constructor(name: string, id?: string) {
+    readonly id?: string;
+    
+    constructor(readonly name: string, readonly documento:string, id?: string) {
         if (!id) {
             id = v4();
         };
         this.id = id;
         this.name = name;
+        this.documento = documento;
     }
 
     getID(): string | undefined{
