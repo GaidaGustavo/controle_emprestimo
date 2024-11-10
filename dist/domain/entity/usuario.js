@@ -4,6 +4,7 @@ exports.Usuario = void 0;
 const uuid_1 = require("uuid");
 class Usuario {
     constructor(username, pessoa, id, senha) {
+        this.username = username;
         if (!id) {
             id = (0, uuid_1.v4)();
         }

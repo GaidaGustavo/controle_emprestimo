@@ -1,5 +1,6 @@
-import { TipoItem } from "../../../domain/entity/tipoitem";
+import { TipoItem } from "../../../domain/entity/tipo-item";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
+import { Connection } from "../../config-database/connection";
 
 export default class TipoItemRepositoryDatabase implements TipoItemRepository{
     constructor(private connection: Connection){
@@ -10,8 +11,8 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
         const output: TipoItem[] = [];
         const tipoItemData = await this.connection.execute(`select id, nome from tipos_item`);
 
-        for (const itemTypeData of tipoItemData) {
-            output.push(new TipoItem(tipoItemData.nome, tipoItemData.id));
+        for (const tipoItem of tipoItemData) {
+            output.push(new TipoItem(tipoItem.nome, tipoItem.id));
         }
         return output;
     }
@@ -27,7 +28,7 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
         );
         
         if(!tipoItemData){
-            throw new Error('Item não encontrado');
+            throw new Error('TipoItem não encontrado');
         }
 
         return new TipoItem(tipoItemData.nome, tipoItemData.id);
@@ -51,6 +52,7 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
     async delete(id: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
+<<<<<<< HEAD
 }
 
 <<<<<<< HEAD
@@ -71,3 +73,6 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
 =======
 >>>>>>> parent of a5e55b6 (adição da config do banco e repository factory)
 >>>>>>> 0222afc (teste)
+=======
+}
+>>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)

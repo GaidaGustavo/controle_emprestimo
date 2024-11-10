@@ -1,4 +1,4 @@
-import { TipoItem } from "../entity/tipoitem";
+import { TipoItem } from "../entity/tipo-item";
 
 export interface TipoItemRepository {
     getAll(): Promise<TipoItem[]>;

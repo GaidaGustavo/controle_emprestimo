@@ -1,16 +1,18 @@
 import express from 'express';
 import { ItemController } from './application/controller/item-controller';
-import { ItemRepositoryMemory } from './infra/repository/memory/item-repository-memory';
-import { TipoItemRepositoryMemory } from './infra/repository/memory/tipo-item-repository-memory';
 import { TipoItemController } from './application/controller/tipo-item-controller';
 import { PessoaController } from './application/controller/pessoa-controller';
-import { PessoaRepositoryMemory} from './infra/repository/memory/pessoa-repository-memory';
-import UsuarioRepositoryMemory from './infra/repository/memory/usuario-repository-memory';
 import { UsuarioController } from './application/controller/usuario-controller';
 import { EmprestimoController } from './application/controller/emprestimo-controller';
+<<<<<<< HEAD
 import EmprestimoRepositoryMEmory from './infra/repository/memory/emprestimo-repository-memory';
 import { PostgresConnection } from './infra/config-database/postgres-connection';
 import { DatabaseRepositoryFactory } from './infra/config-database/database-repository-factory';
+=======
+import { PostgresConnection } from './infra/config-database/postgres-connection';
+import { MemoryRepositoryFactory } from './infra/config-database/memory-repository-factory';
+import { DatabaseRepositoryFactory } from './infra/config-database/database-repository-factory ';
+>>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
 
 //chama librare
 const app = express();
@@ -35,11 +37,19 @@ app.all('*', function (req, res, next) {
 });
 
 const dadosconexao = {
+<<<<<<< HEAD
 user: process.env.DB_USERNAME || '',
 password: process.env.DB_PASSWORD || '',
 database: process.env.DB_DATABASE || '',
 host: process.env.DB_HOST || '',
 port: process.env.DB_PORT || ''
+=======
+user: process.env.DB_USERNAME || 'postgres',
+password: process.env.DB_PASSWORD || '1234',
+database: process.env.DB_DATABASE || 'postgres',
+host: process.env.DB_HOST || 'localhost',
+port: process.env.DB_PORT || '5432'
+>>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
 
 }
 

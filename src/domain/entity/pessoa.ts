@@ -19,4 +19,8 @@ export class Pessoa {
     getName(): string{
         return this.name;
     }   
+
+    getDocumento(): string{
+        return this.documento;
+    }   
 }

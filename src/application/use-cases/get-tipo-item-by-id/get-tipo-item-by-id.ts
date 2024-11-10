@@ -11,6 +11,9 @@ export class GetTipoitemByIdUseCase {
     }
     
     async execute(input: GetTipoItemByIdInput):Promise<GetTipoItemByIdOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const tipoItem = await this.tipoItemRepository.getById(input.id);
         
         const output: GetTipoItemByIdOutput = {

@@ -23,6 +23,9 @@ export class GetAllTipoitensUseCase {
             }
             )
         }
+        if(!output){
+            throw new Error('Nunhum dado encontrado')
+        }
 
         return output;
     }

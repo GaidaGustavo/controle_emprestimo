@@ -12,11 +12,15 @@ export class GetPessoaByIdUseCase {
     }
 
     async execute(input: GetPessoaByIdInput): Promise<GetPessoaByIdOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const pessoa = await this.pessoaRepository.getById(input.id);
 
         const output: GetPessoaByIdOutput = {
             id: pessoa.getID(),
             nome: pessoa.getName(),
+            documento: pessoa.getDocumento()
         }
         return output;
     }

@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const emprestimo_1 = require("../../../domain/entity/emprestimo");
 const item_1 = require("../../../domain/entity/item");
@@ -16,21 +25,35 @@ class EmprestimoRepositoryMemory {
             new emprestimo_1.Emprestimo(item, pessoa, usuario, '7bb91674-3f3c-4f86-923e-dd1f266dfca4', date)
         ];
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.emprestimos = yield this.emprestimos.filter(value => value.getID() !== id);
+        });
+    }
     getAll() {
-        return this.emprestimos;
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.emprestimos;
+        });
     }
     getById(id) {
-        const emprestimo = this.emprestimos.find(valor => valor.getID() == id);
-        if (!emprestimo) {
-            throw new Error('User not Found');
-        }
-        return emprestimo;
+        return __awaiter(this, void 0, void 0, function* () {
+            const emprestimo = yield this.emprestimos.find(valor => valor.getID() == id);
+            if (!emprestimo) {
+                throw new Error('User not Found');
+            }
+            return emprestimo;
+        });
     }
     create(emprestimo) {
-        this.emprestimos.push(emprestimo);
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.emprestimos.push(emprestimo);
+        });
     }
     update(emprestimo) {
-        throw new Error("Method not implemented.");
+        return __awaiter(this, void 0, void 0, function* () {
+            const emprestimoAntigo = yield this.emprestimos.findIndex(value => value.getID() == emprestimo.getID());
+            this.emprestimos[emprestimoAntigo] = emprestimo;
+        });
     }
 }
 exports.default = EmprestimoRepositoryMemory;

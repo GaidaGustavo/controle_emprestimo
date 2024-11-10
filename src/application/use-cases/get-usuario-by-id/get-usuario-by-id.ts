@@ -13,6 +13,9 @@ export class GetUsuarioByIdUseCase {
     }
 
     async execute(input: GetUsuarioByIdInput): Promise<GetUsuarioByIdOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const usuario = await this.usuarioRepository.getById(input.id);
 
         const output: GetUsuarioByIdOutput = {
@@ -22,6 +25,7 @@ export class GetUsuarioByIdUseCase {
             pessoa: {
                 id: usuario.getPessoa().getID(),
                 nome: usuario.getPessoa().getName(),
+                documento: usuario.getPessoa().getDocumento()
             },
           
 

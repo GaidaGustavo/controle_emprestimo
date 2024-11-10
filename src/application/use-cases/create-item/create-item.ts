@@ -15,9 +15,15 @@ export class CreateItemUseCase {
     }
     
     async execute(input: CreateItemInput): Promise<CreateItemOutput> {
+        if(!input.nome){
+            throw new Error('Insira um nome para o item')
+        }
+        if(!input.tipoItemId){
+            throw new Error('Insira um tipo de item')
+        }
         const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
         
-        const item = new Item(input.nome, tipoItem, input.id);
+        const item = new Item(input.nome, tipoItem, input.id, input.itemEPI);
 
         await this.itemRepository.create(item);
 

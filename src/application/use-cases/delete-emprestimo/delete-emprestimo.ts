@@ -11,6 +11,9 @@ export class DeleteEmprestimoUseCase {
     }
     
     async execute(input: DeleteEmprestimoInput):Promise<DeleteEmprestimoOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const item = await this.emprestimoRepository.delete(input.id);
 
         return {};

@@ -12,6 +12,9 @@ export class GetEmprestimoByIdUseCase {
     }
 
     async execute(input: GetEmprestimoByIdInput): Promise<GetEmprestimoByIdOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const emprestimo = await this.emprestimoRepository.getById(input.id);
 
         const output: GetEmprestimoByIdOutput = {
@@ -19,6 +22,7 @@ export class GetEmprestimoByIdUseCase {
             item: {
                 id: emprestimo.getItem().getID(),
                 nome: emprestimo.getItem().getName(),
+                itemEPI: emprestimo.getItem().getItemEPI(),
                 tipoItem: {
                     id: emprestimo.getItem().getTipoItem().getID(),
                     nome: emprestimo.getItem().getTipoItem().getName(),
@@ -29,6 +33,7 @@ export class GetEmprestimoByIdUseCase {
             pessoa: {
                 id: emprestimo.getPessoa().getID(),
                 nome: emprestimo.getPessoa().getName(),
+                documento: emprestimo.getPessoa().getDocumento(),
             },
             usuario: {
                 id: emprestimo.getUsuario().getID(),
@@ -36,7 +41,8 @@ export class GetEmprestimoByIdUseCase {
                 senha: emprestimo.getUsuario().getSenha(),
                 pessoa: {
                     id: emprestimo.getUsuario().getPessoa().getID(),
-                    nome: emprestimo.getUsuario().getPessoa().getName()
+                    nome: emprestimo.getUsuario().getPessoa().getName(),
+                    documento: emprestimo.getUsuario().getPessoa().getDocumento()
                 }
             }
         }

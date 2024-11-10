@@ -11,6 +11,9 @@ export class DeleteUsuarioUseCase {
     }
     
     async execute(input: DeleteUsuarioInput):Promise<DeleteUsuarioOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const item = await this.usuarioRepository.delete(input.id);
 
         return {};

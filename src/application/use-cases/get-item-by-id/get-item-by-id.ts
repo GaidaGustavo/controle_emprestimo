@@ -12,11 +12,15 @@ export class GetItemByIdUseCase {
     }
     
     async execute(input: GetItemByIdInput):Promise<GetItemByIdOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const item = await this.itemRepository.getById(input.id);
         
         const output: GetItemByIdOutput = {
                 id: item.getID(),
                 name: item.getName(),
+                itemEPI: item.getItemEPI(),
                 tipoItem: {
                     id: item.getTipoItem().getID(),
                     name: item.getTipoItem().getName(),

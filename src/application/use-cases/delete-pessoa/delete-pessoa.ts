@@ -11,6 +11,9 @@ export class DeletePessoaUseCase {
     }
     
     async execute(input: DeletePessoaInput):Promise<DeletePessoaOutput> {
+        if(!input.id){
+            throw new Error('Insira um id válido')
+        }
         const item = await this.pessoaRepository.delete(input.id);
 
         return {};

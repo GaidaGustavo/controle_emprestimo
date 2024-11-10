@@ -15,6 +15,15 @@ export class CreateUsuarioUseCase {
     }
     
     async execute(input: CreateUsuarioInput): Promise<CreateUsuarioOutput> {
+        if(!input.username){
+            throw new Error('Insira um nome!')
+        }
+        if(!input.pessoaId){
+            throw new Error('Insira uma pessoa!')
+        }
+        if(!input.senha){
+            throw new Error('Insira uma senha!')
+        }
         const pessoa = await this.pessoaRepository.getById(input.pessoaId)
         
         const usuario = new Usuario(input.username,  pessoa, input.id, input.senha,);

@@ -6,7 +6,7 @@ export class Usuario {
     readonly senha?: string;
     private pessoa: Pessoa;
 
-    constructor(readonly username: string, pessoa: Pessoa, id?: string, senha?: string,) {
+    constructor(readonly username: string, pessoa: Pessoa, id?: string, senha?: string) {
         if (!id) {
             id = v4();
         };

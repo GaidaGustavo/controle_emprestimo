@@ -21,8 +21,12 @@ export class GetAllPessoasUseCase {
             {
                     id: pessoa.getID(),
                     nome: pessoa.getName(),
+                    documento: pessoa.getDocumento()
             }
             )
+        }
+        if(!output){
+            throw new Error('Nunhum dado encontrado')
         }
 
         return output;

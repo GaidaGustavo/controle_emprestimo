@@ -12,7 +12,7 @@ export class UpdatePessoaUseCase {
     }
     
     async execute(input: UpdatePessoaInput): Promise<UpdatePessoaOutput> {
-        const newPessoa = new Pessoa(input.nome, input.id)
+        const newPessoa = new Pessoa(input.nome, input.documento, input.id)
         await this.pessoaRepository.update(newPessoa)
         return {}
     }

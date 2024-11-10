@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { TipoItem } from "../../../domain/entity/tipoitem";
+=======
+import { TipoItem } from "../../../domain/entity/tipo-item";
+>>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
 import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
 import { CreateTipoItemInput } from "./create-tipo-item-input";
@@ -12,6 +16,9 @@ export class CreateTipoitemUseCase {
     }
     
     async execute(input: CreateTipoItemInput): Promise<CreateTipoItemOutput> {
+        if(!input.nome){
+            throw new Error('Insira um nome!')
+        }
         const tipoItem = new TipoItem(input.nome, input.id)
 
         await this.tipoItemRepository.create(tipoItem);

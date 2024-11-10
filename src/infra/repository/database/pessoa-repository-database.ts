@@ -1,5 +1,6 @@
 import { Pessoa } from "../../../domain/entity/pessoa";
 import { PessoaRepository } from "../../../domain/repository/pessoa-repository";
+import { Connection } from "../../config-database/connection";
 
 export default class PessoaRepositoryDatabase implements PessoaRepository{
     constructor(private connection: Connection){
@@ -55,7 +56,7 @@ export default class PessoaRepositoryDatabase implements PessoaRepository{
         await this.connection.execute(`
             insert into pessoas(id, nome, documento)
             values ($1, $2, $3)`,
-            [pessoa.getID, pessoa.getName, pessoa.getDocumento]);        
+            [pessoa.getID(), pessoa.getName(), pessoa.getDocumento()]);        
     }
 
     async update(pessoa: Pessoa): Promise<void> {
@@ -65,7 +66,7 @@ export default class PessoaRepositoryDatabase implements PessoaRepository{
             nome = $2,
             documento = $3
             where id = $4`,
-            [pessoa.getID, pessoa.getName, pessoa.getDocumento]);        
+            [pessoa.getID(), pessoa.getName(), pessoa.getDocumento()]);        
     }
 
     async delete(id: string): Promise<void> {

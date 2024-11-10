@@ -24,6 +24,7 @@ export class GetAllEmprestimosUseCase {
                     item: {
                         id: emprestimo.getItem().getID(),
                         nome: emprestimo.getItem().getName(),
+                        itemEPI: emprestimo.getItem().getItemEPI(),
                         tipoItem: {
                             id: emprestimo.getItem().getTipoItem().getID(),
                             nome: emprestimo.getItem().getTipoItem().getName(),
@@ -34,6 +35,7 @@ export class GetAllEmprestimosUseCase {
                     pessoa: {
                         id: emprestimo.getPessoa().getID(),
                         nome: emprestimo.getPessoa().getName(),
+                        documento: emprestimo.getPessoa().getDocumento(),
                     },
                     usuario: {
                         id: emprestimo.getUsuario().getID(),
@@ -41,13 +43,17 @@ export class GetAllEmprestimosUseCase {
                         senha: emprestimo.getUsuario().getSenha(),
                         pessoa: {
                             id: emprestimo.getUsuario().getPessoa().getID(),
-                            nome: emprestimo.getUsuario().getPessoa().getName()
+                            nome: emprestimo.getUsuario().getPessoa().getName(),
+                            documento: emprestimo.getUsuario().getPessoa().getDocumento()
                         }
 
 
                     }
             }
             )
+        }
+        if(!output){
+            throw new Error('Nunhum dado encontrado')
         }
 
         return output;

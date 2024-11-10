@@ -16,7 +16,7 @@ export class UpdateItemUseCase {
     
     async execute(input: UpdateItemInput): Promise<UpdateItemOutput> {
         const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
-        const newItem = new Item(input.nome, tipoItem, input.id)
+        const newItem = new Item(input.nome, tipoItem, input.id, input.itemEPI)
         await this.itemRepository.update(newItem)
         return {}
     }

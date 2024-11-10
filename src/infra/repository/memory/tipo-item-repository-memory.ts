@@ -1,4 +1,5 @@
-import { TipoItem } from "../../../domain/entity/tipoitem";
+
+import { TipoItem } from "../../../domain/entity/tipo-item";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
 
 

@@ -12,7 +12,13 @@ export class CreatePessoaUseCase {
     }
     
     async execute(input: CreatePessoaInput): Promise<CreatePessoaOutput> {
-        const pessoa = new Pessoa(input.nome, input.id)
+        if(!input.nome){
+            throw new Error('Insira um nome!')
+        }
+        if(!input.documento){
+            throw new Error('Insira um documento valido!')
+        }
+        const pessoa = new Pessoa(input.nome, input.documento, input.id)
         await this.pessoaRepository.create(pessoa)
         return {}
     }

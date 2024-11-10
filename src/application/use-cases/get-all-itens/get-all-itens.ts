@@ -21,12 +21,16 @@ export class GetAllItensUseCase {
             {
                     id: item.getID(),
                     name: item.getName(),
+                    itemEPI: item.getItemEPI(),
                     tipoItem: {
                         id: item.getTipoItem().getID(),
                         name: item.getTipoItem().getName(),
                     }
             }
             )
+        }
+        if(!output){
+            throw new Error('Nunhum dado encontrado')
         }
 
         return output;
