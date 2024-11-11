@@ -52,27 +52,4 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
     async delete(id: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
-<<<<<<< HEAD
 }
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 0222afc (teste)
-
-
-
-
-
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of a5e55b6 (adição da config do banco e repository factory)
-=======
->>>>>>> parent of a5e55b6 (adição da config do banco e repository factory)
->>>>>>> 0222afc (teste)
-=======
-}
->>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)

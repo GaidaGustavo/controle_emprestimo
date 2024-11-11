@@ -1,8 +1,4 @@
 import { RepositoryFactory } from "../../domain/repository/repository-factory";
-<<<<<<< HEAD
-import { TipoItemRepository } from "../../domain/repository/tipoitem-repository";
-=======
->>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
 import { CreateItemUseCase } from "../use-cases/create-item/create-item";
 import { DeleteItemUseCase } from "../use-cases/delete-item/delete-item";
 import { DeleteItemInput } from "../use-cases/delete-item/delete-item-input";
@@ -30,10 +26,7 @@ export class ItemController {
     }
 
     async getById(input: GetItemByIdInput) {
-<<<<<<< HEAD
-        console.log(input);
-=======
->>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
+
         const getItemByIdUseCase = new GetItemByIdUseCase(this.repositoryFactory)
         return await getItemByIdUseCase.execute(input);
     }
