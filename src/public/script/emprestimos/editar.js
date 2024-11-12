@@ -25,11 +25,11 @@ function abrirModalEdicao(id) {
             alert("Empréstimo não encontrado");
         });
 }
-//salva no banco :D
+
+// Função para salvar as edições no banco de dados
 function salvarEdicao(event) {
     event.preventDefault();
 
-    const id = /* ID do item que está sendo editado (armazenado em uma variável global, por exemplo) */;
     const emprestimoAtualizado = {
         item: document.getElementById('editItem').value,
         colaborador: document.getElementById('editColaborador').value,
@@ -39,7 +39,7 @@ function salvarEdicao(event) {
         dataDevolucao: document.getElementById('editDataDevolucao').value
     };
 
-    fetch(`http://seu-backend-url.com/api/emprestimos/${id}`, {
+    fetch(`http://localhost:3011/emprestimo/${idEmEdicao}`, { // Substitua pelo endpoint correto
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -52,12 +52,35 @@ function salvarEdicao(event) {
     })
     .then(data => {
         alert("Alterações salvas com sucesso!");
-        document.getElementById('editModal').classList.remove('show');
-        // Atualize a tabela para refletir as mudanças
-        atualizarTabela();
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+        modal.hide();
+
+        atualizarTabela(); // Atualiza a tabela para refletir as mudanças
     })
     .catch(error => {
         console.error("Erro:", error);
         alert("Erro ao salvar alterações.");
     });
 }
+
+// Função para atualizar a tabela (você precisa implementá-la)
+function atualizarTabela() {
+    // Implemente o código para recarregar ou atualizar os dados da tabela após salvar
+    // Exemplo: chamar o backend para obter a lista atualizada e renderizar as linhas
+    fetch('http://localhost:3011/emprestimo') // URL do endpoint que retorna todos os empréstimos
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = ''; // Limpa a tabela antes de renderizar os dados
+
+            data.forEach(emprestimo => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${emprestimo.id}</td>
+                    <td>${emprestimo.item.nome}</td>
+                    <td>${emprestimo.pessoa.nome}</td>
+                    <td>${emprestimo.item.itemEPI.validade}</td>
+                    <td>${emprestimo.usuario.username}</td>
+                    <td>${emprestimo.dataEmprestimo}</td>
+                    <td>${emprestimo.data
