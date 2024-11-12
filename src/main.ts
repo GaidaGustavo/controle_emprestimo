@@ -9,15 +9,24 @@ import { DatabaseRepositoryFactory } from './infra/config-database/database-repo
 
 //chama librare
 const app = express();
-const port = 3002;
-
+const port = 3011;
+const path = require('path')
+/*
 app.use(express.json())
 //cria uma pagina e escreva a resposta
 app.get('/', (request, response) => {
     response.send("Estoy aqui")
 })
+*/
 
-//define a porta para iniciar servidor
+app.use(express.static(path.join(__dirname, 'public')));
+//define a porta para iniciar 
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+} 
+);
+
 app.listen(port, () => {
     console.log("Servidor iniciado na porta " +port)
 })
