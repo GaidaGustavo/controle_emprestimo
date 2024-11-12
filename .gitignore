@@ -1,8 +1,4 @@
 .env
-<<<<<<< HEAD
-node_modules/
-=======
 node_modules/
 package-lock.json
 package.json
->>>>>>> cc96ba4 (Aprimoramento e correção de erros no respository database)
