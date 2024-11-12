@@ -1,14 +1,19 @@
+let idEmEdicao; // Variável global para armazenar o ID do empréstimo em edição
+
+// Função para abrir o modal de edição e preencher os dados
 function abrirModalEdicao(id) {
-    fetch(`http://${id}`)
+    idEmEdicao = id; // Armazena o ID do empréstimo em edição
+
+    fetch(`http://localhost:3011/emprestimo/${id}`) // Substitua pelo endpoint correto
         .then(response => {
             if (!response.ok) throw new Error("Empréstimo não encontrado");
             return response.json();
         })
         .then(data => {
-            document.getElementById("editItem").value = data.item;
-            document.getElementById("editColaborador").value = data.colaborador;
-            document.getElementById("editValidade").value = data.validade;
-            document.getElementById("editUsuario").value = data.usuario;
+            document.getElementById("editItem").value = data.item.nome;
+            document.getElementById("editColaborador").value = data.pessoa.nome;
+            document.getElementById("editValidade").value = data.item.itemEPI.validade;
+            document.getElementById("editUsuario").value = data.usuario.username;
             document.getElementById("editDataEmprestimo").value = data.dataEmprestimo;
             document.getElementById("editDataDevolucao").value = data.dataDevolucao;
 
