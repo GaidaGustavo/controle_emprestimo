@@ -98,8 +98,9 @@
 
     <div class="container mt-5">
         <h2>Itens em Estoque</h2>
-        <input type="search" id="searchInput" placeholder="Pesquisar.." class="form-control mb-3"
-            onkeyup="filterTable()">
+           <input type="text" id="searchId" placeholder="Digite o ID do empréstimo" class="form-control mb-3">
+              <button class="btn btn-primary" onclick="buscarPorId()">Buscar</button>
+
         <table class="table table-bordered table-striped tablealterada table-hover">
             <thead>
                 <tr class="table-primary">
@@ -167,6 +168,28 @@
             </div>
         </div>
     </div>
+    //modal de pesquisa
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Detalhes do Empréstimo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID:</strong> <span id="emprestimoId"></span></p>
+                <p><strong>Item:</strong> <span id="emprestimoItem"></span></p>
+                <p><strong>Colaborador:</strong> <span id="emprestimoColaborador"></span></p>
+                <p><strong>Data:</strong> <span id="emprestimoData"></span></p>
+                <!-- Adicione outros campos conforme necessário -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script src="script/itens/carregar-tabela.js"></script>
 
     <footer class="text-center mt-5">
