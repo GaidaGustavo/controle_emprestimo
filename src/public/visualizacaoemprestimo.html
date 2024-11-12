@@ -97,8 +97,9 @@
 
     <div class="container mt-5">
         <h2>Empréstimos</h2>
-        <input type="search" id="searchInput" placeholder="Pesquisar.." class="form-control mb-3"
-            onkeyup="filterTable()">
+       <input type="text" id="searchId" placeholder="Digite o ID do empréstimo" class="form-control mb-3">
+        <button class="btn btn-primary" onclick="buscarPorId()">Buscar</button>
+
         <table class="table table-bordered table-striped tablealterada table-hover">
             <thead>
                 <tr class="table-primary">
