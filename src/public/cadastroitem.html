@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="checkAuth(); carregarTiposDeItem();">
+<body onload="">
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
@@ -95,10 +95,10 @@
 
     <div class="container mt-5 containerAlterado">
         <h2>Cadastro de Item</h2>
-        <form id="formCadastro">
+        <form id="cadastroItem">
             <div class="mb-2">
                 <label class="form-label">Nome</label>
-                <input type="text" class="form-control" id="itemNome" placeholder="Nome" required>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" required>
             </div>
             <div class="mb-2">
                 <label class="form-label">Tipo do Item</label>
@@ -111,9 +111,10 @@
             <button type="reset" class="btn btn-danger">Limpar Campos</button>
         </form>
     </div>
-   
 
-        <script src="script/itens/cadastrar.js"></script>
+                <script src="script/itens/selectTipoItem.js"></script>
+                <script src="script/itens/cadastrar.js"></script>
+   
     </body>
     <footer>
         FIESC:SENAI

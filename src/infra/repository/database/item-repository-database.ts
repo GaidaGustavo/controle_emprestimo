@@ -80,6 +80,8 @@ export default class ItemRepositoryDatabase implements ItemRepository{
 
 
     async create(item: Item): Promise<void> {
+        
+        console.log("xalupa"+ item.id, item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade())
 
         if(item.getItemEPI() !== null){
 
@@ -90,8 +92,8 @@ export default class ItemRepositoryDatabase implements ItemRepository{
                 insert into itens_epi(item_id, ca, validade)
                 values ($1, $4, $5);
                 `,
-                [item.id, item.name, item.getTipoItem().getID(), item.getItemEPI()?.getCa,
-                    item.getItemEPI()?.getValidade, item.getTipoItem().getID
+                [item.id, item.name, item.getTipoItem().getID(), 
+                 item.id, item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
                 ]);   
 
         } else {

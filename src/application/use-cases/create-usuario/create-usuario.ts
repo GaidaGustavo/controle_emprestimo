@@ -21,9 +21,6 @@ export class CreateUsuarioUseCase {
         if(!input.pessoaId){
             throw new Error('Insira uma pessoa!')
         }
-        if(!input.senha){
-            throw new Error('Insira uma senha!')
-        }
         const pessoa = await this.pessoaRepository.getById(input.pessoaId)
         
         const usuario = new Usuario(input.username,  pessoa, input.id, input.senha,);

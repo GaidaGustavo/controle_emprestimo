@@ -17,7 +17,7 @@ function fetchItens() {
                     <td>${item.tipoItem.name}</td>
                     <td>${item.itemEPI.ca}</td>
                     <td>
-                        <button class="btn btn-success">Editar</button>
+                        <button class="btn btn-success" onclick="openEditModal()">Editar</button>
                         <button class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal" onclick="setItemId(${item.id})">Excluir</button>
                     </td>

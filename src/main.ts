@@ -57,6 +57,7 @@ app.get('/itens', async (request, response) => {
 
 app.post('/itens', async (request, response) => {
     response.send(await itemController.create(request.body));
+    console.log(request.body)
 })
 
 app.get('/itens/:id', async (request, response) => {

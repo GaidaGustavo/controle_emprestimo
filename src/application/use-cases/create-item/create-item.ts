@@ -4,6 +4,7 @@ import { ItemRepository } from "../../../domain/repository/item-repository";
 import { Item } from "../../../domain/entity/item";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
 import { RepositoryFactory } from "../../../domain/repository/repository-factory";
+import { ItemEPI } from "../../../domain/entity/value-object/item-epi";
 
 export class CreateItemUseCase {
     private itemRepository: ItemRepository;
@@ -15,18 +16,21 @@ export class CreateItemUseCase {
     }
     
     async execute(input: CreateItemInput): Promise<CreateItemOutput> {
-        if(!input.nome){
-            throw new Error('Insira um nome para o item')
+        if (!input.nome) {
+            throw new Error('Insira um nome para o item');
         }
-        if(!input.tipoItemId){
-            throw new Error('Insira um tipo de item')
+        if (!input.tipoItemId) {
+            throw new Error('Insira um tipo de item');
         }
-        const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
-        
-        const item = new Item(input.nome, tipoItem, input.id, input.itemEPI);
-
+    
+        const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId);
+        const itemEPI = new ItemEPI(input.itemEpi?.ca, input.itemEpi?.validade)
+    
+        const item = new Item(input.nome, tipoItem, input.id, itemEPI);
+    
         await this.itemRepository.create(item);
-
-        return {}
+    
+        return {};
     }
+    
 }

@@ -100,8 +100,11 @@
                     <input type="text" class="form-control" id="nome" placeholder="Nome" required id="nome">
                 </div>
                 <div class="mb-2">
-                    <label class="form-label">ID Pessoa</label>
-                    <input type="text" class="form-control" placeholder="ID" required id="pessoaId">
+                    <label class="form-label">Colaborador</label>
+                    <select class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
+                        <option selected>Selecione o colaborador</option>
+                        <!-- Opções do banco de dados serão inseridas aqui -->
+                    </select>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" value="1">Cadastrar</button>
@@ -110,8 +113,7 @@
     </div>
 
     <script src="script/usuarios/cadastrar.js"></script>
-
-    </script>
+    <script src="script/usuarios/selectPessoa.js"></script>
 
 </body>
 <footer>

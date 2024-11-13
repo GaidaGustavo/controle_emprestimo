@@ -3,12 +3,12 @@ document.getElementById('cadastroUsuario').addEventListener('submit', function(e
 
     // Captura o valor do campo de tipo de item
     const nome = document.getElementById('nome').value;
-    const documento = document.getElementById('pessoaId').value;
+    const pessoaId = document.getElementById('pessoa').value;
 
     // Cria o objeto a ser enviado
     const data = {
          username: nome,
-         documento: documento
+         pessoaId: pessoaId
         };
 
     // Envia a requisição para o servidor
@@ -22,7 +22,7 @@ document.getElementById('cadastroUsuario').addEventListener('submit', function(e
     .then(response => {
         if (response.ok) {
             alert('Usuario cadastrado com sucesso!');
-            document.getElementById('cadastroPessoa').reset();  // Limpa o formulário
+            document.getElementById('cadastroUsuario').reset();  // Limpa o formulário
         } else {
             throw new Error('Erro ao cadastrar Usuario');
         }
