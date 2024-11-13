@@ -5,8 +5,8 @@ function buscarPorId() {
         alert("Por favor, insira um ID.");
         return;
     }
-
-    fetch(`http://${id}`)
+    
+    fetch(`http://seu-backend-url.com/api/emprestimos/${id}`)
         .then(response => {
             if (!response.ok) throw new Error("Empréstimo não encontrado");
             return response.json();
@@ -21,10 +21,11 @@ function buscarPorId() {
             alert("Empréstimo não encontrado");
         });
 }
-
 function preencherModalComDados(data) {
-    document.getElementById("emprestimoId").textContent = data.id;
-    document.getElementById("emprestimoItem").textContent = data.itemNome; // Supondo que o nome do item é retornado como `itemNome`
-    document.getElementById("emprestimoColaborador").textContent = data.colaboradorNome; // Supondo que o nome do colaborador é retornado como `colaboradorNome`
-    document.getElementById("emprestimoData").textContent = data.dataEmprestimo; // Supondo que a data do empréstimo é retornada como `dataEmprestimo`
+    document.getElementById('editItem').value = data.item;
+    document.getElementById('editColaborador').value = data.colaborador;
+    document.getElementById('editValidade').value = data.validade;
+    document.getElementById('editUsuario').value = data.usuario;
+    document.getElementById('editDataEmprestimo').value = data.dataEmprestimo;
+    document.getElementById('editDataDevolucao').value = data.dataDevolucao;
 }

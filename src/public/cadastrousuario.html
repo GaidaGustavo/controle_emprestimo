@@ -93,19 +93,15 @@
 
     <div class="container mt-5 containerAlterado">
         <h2>Cadastro de Usuário</h2>
-        <form>
+        <form id="cadastroUsuario">
             <div>
                 <div class="mb-2">
                     <label class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Nome" required>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome" required id="nome">
                 </div>
                 <div class="mb-2">
                     <label class="form-label">ID Pessoa</label>
-                    <input type="text" class="form-control" placeholder="ID" required>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">Senha</label>
-                    <input type="password" class="form-control" placeholder="Senha" required>
+                    <input type="text" class="form-control" placeholder="ID" required id="pessoaId">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" value="1">Cadastrar</button>
@@ -113,7 +109,7 @@
         </form>
     </div>
 
-    <script src="css_script/script.js"></script>
+    <script src="script/usuarios/cadastrar.js"></script>
 
     </script>
 
