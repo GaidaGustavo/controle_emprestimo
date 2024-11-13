@@ -163,6 +163,35 @@
             </div>
         </div>
     </div>
+    <!-- Modal de Edição -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Pessoa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId">
+                    <div class="mb-3">
+                        <label for="editNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNome">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDocumento" class="form-label">Documento Identificador</label>
+                        <input type="text" class="form-control" id="editDocumento">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script src="script/pessoas/carregar-tabela.js" src="script/pessoas/excluir.js"></script>
 
     <footer class="text-center mt-5">
