@@ -24,13 +24,18 @@ export class CreateItemUseCase {
         }
     
         const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId);
-        const itemEPI = new ItemEPI(input.itemEpi?.ca, input.itemEpi?.validade)
     
+        // Criando o Value Object diretamente com os dados do input
+        const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
+    
+        // Criando o Item com o Value Object
         const item = new Item(input.nome, tipoItem, input.id, itemEPI);
     
+        // Persiste o item no banco
         await this.itemRepository.create(item);
     
         return {};
     }
+    
     
 }

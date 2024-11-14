@@ -2,7 +2,7 @@ import { ItemEPI } from "../../../domain/entity/value-object/item-epi";
 
 type itemEPI = {
     ca: string;
-    validade: Date;
+    validade: string;
 }
 
 export type CreateItemInput = {

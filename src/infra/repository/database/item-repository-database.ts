@@ -93,7 +93,7 @@ export default class ItemRepositoryDatabase implements ItemRepository{
                 values ($1, $4, $5);
                 `,
                 [item.id, item.name, item.getTipoItem().getID(), 
-                 item.id, item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
+                 item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
                 ]);   
 
         } else {
