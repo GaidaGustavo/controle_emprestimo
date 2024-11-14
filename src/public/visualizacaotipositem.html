@@ -107,6 +107,31 @@
             </tbody>
         </table>
     </div>
+    <!-- Modal de Edição -->
+<div class="modal fade" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Editar Tipo de Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editItemForm">
+                    <div class="mb-3">
+                        <label for="editItemId" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="editItemId" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editItemName" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editItemName" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="saveEdit()">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Modal de Confirmação de Exclusão -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
         aria-hidden="true">
