@@ -13,7 +13,7 @@ function carregarPessoas() {
                     <td>${pessoa.nome}</td>
                     <td>${pessoa.documento}</td>
                     <td>
-                        <button class="btn btn-success orientacao">Editar</button>
+                        <button class="btn btn-success orientacao" onclick="abrirModalEdicao(${pessoa.id})">Editar</button>
                         <button class="btn btn-danger orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setItemId(${pessoa.id})">Excluir</button>
                     </td>
                 `;
