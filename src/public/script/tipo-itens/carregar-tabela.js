@@ -15,7 +15,9 @@ function loadTiposDeItem() {
                     <td>${tipo.id}</td>
                     <td>${tipo.nome}</td>
                     <td>
-                        <button class="btn btn-success">Editar</button>
+                       <button class="btn btn-primary btn-sm" onclick="openEditModal(${item.id}, '${item.nome}')">
+                            Editar
+                        </button>
                         <button class="btn btn-danger" data-bs-toggle="modal" 
                         data-bs-target="#confirmDeleteModal" onclick="setItemId(${tipo.id})">Excluir</button>
                     </td>
