@@ -31,3 +31,9 @@ function loadTiposDeItem() {
 window.onload = function() {
     loadTiposDeItem();  // Carrega os tipos de item ao carregar a página
 };
+function openEditModal(id, nome) {
+    document.getElementById('editItemId').value = id;
+    document.getElementById('editItemName').value = nome;
+    const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
+    editModal.show();
+}
