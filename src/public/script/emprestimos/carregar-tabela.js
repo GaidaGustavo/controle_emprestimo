@@ -7,7 +7,7 @@ function fetchEmprestimos() {
             tableBody.innerHTML = ''; // Limpa a tabela antes de inserir novos dados
 
             data.forEach(emprestimo => {
-                const row = document.createElement('tr');x
+                const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${emprestimo.id}</td>
                     <td>${emprestimo.item.nome}</td>

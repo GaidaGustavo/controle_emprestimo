@@ -79,7 +79,7 @@ LEFT JOIN
                 item,
                 pessoa,
                 usuario,
-                emprestimoData.id,
+                emprestimoData.emprestimo_id,
                 emprestimoData.data_devolucao,
                 emprestimoData.data_emprestimo,
             );
