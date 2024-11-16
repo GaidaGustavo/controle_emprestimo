@@ -4,12 +4,13 @@ let idEmEdicao; // Variável global para armazenar o ID do empréstimo em ediç�
 function abrirModalEdicao(id) {
     idEmEdicao = id; // Armazena o ID do empréstimo em edição
 
-    fetch(`http://localhost:3011/emprestimo/${id}`) // Substitua pelo endpoint correto
+    fetch(`http://localhost:3011/emprestimo/${id}`)
         .then(response => {
             if (!response.ok) throw new Error("Empréstimo não encontrado");
             return response.json();
         })
         .then(data => {
+            // Preenchendo os campos do modal
             document.getElementById("editItem").value = data.item.nome;
             document.getElementById("editColaborador").value = data.pessoa.nome;
             document.getElementById("editValidade").value = data.item.itemEPI.validade;
@@ -17,12 +18,13 @@ function abrirModalEdicao(id) {
             document.getElementById("editDataEmprestimo").value = data.dataEmprestimo;
             document.getElementById("editDataDevolucao").value = data.dataDevolucao;
 
+            // Exibindo o modal
             const modal = new bootstrap.Modal(document.getElementById("editModal"));
             modal.show();
         })
         .catch(error => {
-            console.error("Erro:", error);
-            alert("Empréstimo não encontrado");
+            console.error("Erro ao carregar dados do empréstimo:", error);
+            alert("Erro ao carregar os dados. Tente novamente.");
         });
 }
 
@@ -66,21 +68,31 @@ function salvarEdicao(event) {
 
 // Função para atualizar a tabela (você precisa implementá-la)
 function atualizarTabela() {
-    // Implemente o código para recarregar ou atualizar os dados da tabela após salvar
-    // Exemplo: chamar o backend para obter a lista atualizada e renderizar as linhas
-    fetch('http://localhost:3011/emprestimo') // URL do endpoint que retorna todos os empréstimos
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = ''; // Limpa a tabela antes de renderizar os dados
-
-            data.forEach(emprestimo => {
-                const row = document.createElement('tr');
+    // Busca a linha correspondente ao empréstimo atualizado
+    const row = document.querySelector(`#row-${idEmEdicao}`);
+    
+    // Caso a linha exista, atualiza os campos dela com os novos dados
+    if (row) {
+        fetch(`http://localhost:3011/emprestimo/${idEmEdicao}`)
+            .then(response => response.json())
+            .then(data => {
                 row.innerHTML = `
-                    <td>${emprestimo.id}</td>
-                    <td>${emprestimo.item.nome}</td>
-                    <td>${emprestimo.pessoa.nome}</td>
-                    <td>${emprestimo.item.itemEPI.validade}</td>
-                    <td>${emprestimo.usuario.username}</td>
-                    <td>${emprestimo.dataEmprestimo}</td>
-                    <td>${emprestimo.data
+                    <td>${data.id}</td>
+                    <td>${data.item.nome}</td>
+                    <td>${data.pessoa.nome}</td>
+                    <td>${data.item.itemEPI.validade}</td>
+                    <td>${data.usuario.username}</td>
+                    <td>${data.dataEmprestimo}</td>
+                    <td>${data.dataDevolucao}</td>
+                    <td>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="abrirModalEdicao(${data.id})">Editar</button>
+                        <button class="btn btn-primary orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setItemId(${data.id})">Devolver</button>
+                    </td>
+                `;
+            })
+            .catch(error => {
+                console.error("Erro ao atualizar tabela:", error);
+            });
+    }
+}
+
