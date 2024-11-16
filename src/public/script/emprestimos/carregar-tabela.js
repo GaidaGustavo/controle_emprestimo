@@ -17,7 +17,8 @@ function fetchEmprestimos() {
                     <td>${emprestimo.dataEmprestimo}</td>
                     <td>${emprestimo.dataDevolucao}</td>
                     <td>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="abrirModalEdicao(${emprestimo.id})">Editar</button>
+                       <button class="btn btn-success" onclick="abrirModalEdicao(${emprestimo.id})">Editar</button>
+
                         <button class="btn btn-primary orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setItemId(${emprestimo.id})">Devolver</button>
                     </td>
                 `;
