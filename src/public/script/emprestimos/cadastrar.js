@@ -15,7 +15,7 @@ document.getElementById('emprestimoForm').addEventListener('submit', function(ev
     document.querySelectorAll('#listaItens li').forEach(item => {
         const itemId = item.getAttribute('data-id'); // Pegando o valor de data-id
         const id = itemId
-        itens.push(id); // Adicionando como um objeto ao array
+        itens.push({id}); // Adicionando como um objeto ao array
     });
 
     alert(itens.id)
