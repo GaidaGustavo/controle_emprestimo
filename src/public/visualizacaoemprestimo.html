@@ -141,48 +141,33 @@
     </div>
 </div>
 
-    <!-- Modal de Edição -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Editar Empréstimo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="editForm">
-          <div class="mb-3">
-            <label for="editItem" class="form-label">Item</label>
-            <input type="text" class="form-control" id="editItem" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="editColaborador" class="form-label">Colaborador</label>
-            <input type="text" class="form-control" id="editColaborador" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="editValidade" class="form-label">Validade</label>
-            <input type="date" class="form-control" id="editValidade" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="editUsuario" class="form-label">Usuário</label>
-            <input type="text" class="form-control" id="editUsuario" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="editDataEmprestimo" class="form-label">Data Empréstimo</label>
-            <input type="date" class="form-control" id="editDataEmprestimo">
-          </div>
-          <div class="mb-3">
-            <label for="editDataDevolucao" class="form-label">Data Devolução</label>
-            <input type="date" class="form-control" id="editDataDevolucao">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar</button>
-      </div>
+    
+ <!-- Modal de Edição -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Empréstimo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário de edição -->
+                <div class="mb-3">
+                    <label for="editItem" class="form-label">Item</label>
+                    <input type="text" class="form-control" id="editItem" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editColaborador" class="form-label">Colaborador</label>
+                    <input type="text" class="form-control" id="editColaborador" required>
+                </div>
+                <input type="hidden" id="editId"> <!-- Campo oculto para o ID do empréstimo -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar Alterações</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
     
