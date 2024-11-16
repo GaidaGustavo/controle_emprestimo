@@ -79,9 +79,9 @@ LEFT JOIN
                 item,
                 pessoa,
                 usuario,
-                emprestimoData.emprestimo_id,
-                emprestimoData.data_devolucao,
                 emprestimoData.data_emprestimo,
+                emprestimoData.data_devolucao,
+                emprestimoData.emprestimo_id
             );
     
             output.push(emprestimo);
@@ -142,6 +142,7 @@ LEFT JOIN
                 usuario,
                 emprestimoData.data_emprestimo,
                 emprestimoData.data_devolucao,
+                emprestimoData.emprestimo_id
             );
     
         return emprestimo;

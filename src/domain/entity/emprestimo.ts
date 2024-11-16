@@ -6,12 +6,12 @@ import { v4 } from 'uuid';
 export class Emprestimo {
     private id?: string;
     private item: Item;
-    private dataEmprestimo?: Date;
+    private dataEmprestimo: Date;
     private dataDevolucao?: Date | undefined;
     private pessoa: Pessoa;
     private usuario: Usuario;
 
-    constructor(item: Item, pessoa: Pessoa, usuario: Usuario, id?: string, dataDevolucao?: Date, dataEmprestimo?: Date) {
+    constructor(item: Item, pessoa: Pessoa, usuario: Usuario, dataEmprestimo: Date, dataDevolucao?: Date, id?: string) {
         this.item = item;
         this.dataDevolucao = dataDevolucao;
         this.dataEmprestimo = dataEmprestimo;
@@ -35,7 +35,7 @@ export class Emprestimo {
         return this.dataDevolucao;
     }
 
-    getdataEmprestimo(): Date | undefined{
+    getdataEmprestimo(): Date{
         return this.dataEmprestimo;
     }
 

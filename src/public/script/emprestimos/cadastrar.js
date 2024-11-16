@@ -22,7 +22,7 @@ document.getElementById('emprestimoForm').addEventListener('submit', function(ev
 
     const emprestimo = {
         pessoaId: nomePessoa,
-        usuarioId: "99999999-9999-9999-9999-999999999999",  // Exemplo de usuário
+        usuarioId: "3ceb0392-2720-4e85-a78e-48b73c379140",  // Exemplo de usuário
         itensId: itens,  // Passando a lista de IDs
     };
 
