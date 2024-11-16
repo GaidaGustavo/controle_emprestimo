@@ -64,16 +64,21 @@ function salvarEdicao(event) {
     });
 }
 
-// Função para atualizar a tabela (você precisa implementá-la)
+// Função para atualizar a tabela
 function atualizarTabela() {
-    // Implemente o código para recarregar ou atualizar os dados da tabela após salvar
-    // Exemplo: chamar o backend para obter a lista atualizada e renderizar as linhas
-    fetch('http://localhost:3011/emprestimo') // URL do endpoint que retorna todos os empréstimos
-        .then(response => response.json())
+    // Fazendo uma requisição para obter os empréstimos do backend
+    fetch('http://localhost:3011/emprestimo') // URL do endpoint
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao buscar os dados da API.');
+            }
+            return response.json();
+        })
         .then(data => {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = ''; // Limpa a tabela antes de renderizar os dados
 
+            // Itera pelos empréstimos e cria as linhas da tabela
             data.forEach(emprestimo => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -82,8 +87,13 @@ function atualizarTabela() {
                     <td>${emprestimo.pessoa.nome}</td>
                     <td>${emprestimo.item.itemEPI.validade}</td>
                     <td>${emprestimo.usuario.username}</td>
-                    <td>${emprestimo.dataEmprestimo}</td>
-                    <td>${emprestimo.data}</td>
-                    ´
-            }
-        
+                    <td>${new Date(emprestimo.dataEmprestimo).toLocaleDateString()}</td>
+                    <td>${new Date(emprestimo.data).toLocaleDateString()}</td>
+                `;
+                tableBody.appendChild(row); // Adiciona a linha à tabela
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar a tabela:', error);
+        });
+}

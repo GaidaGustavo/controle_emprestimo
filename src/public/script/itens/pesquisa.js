@@ -6,7 +6,7 @@ function buscarPorId() {
         return;
     }
 
-    fetch(`http://localhost:3011/itens${id}`)
+    fetch(`http://localhost:3011/itens/${id}`)
         .then(response => {
             if (!response.ok) throw new Error("Item não encontrado");
             return response.json();
