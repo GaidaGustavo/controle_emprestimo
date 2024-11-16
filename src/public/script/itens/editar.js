@@ -39,7 +39,7 @@ function salvarEdicao(event) {
         dataDevolucao: document.getElementById('editDataDevolucao').value
     };
 
-    fetch(`http://localhost:3011/emprestimo/${idEmEdicao}`, { // Substitua pelo endpoint correto
+    fetch(`http://localhost:3011/itens/${idEmEdicao}`, { // Substitua pelo endpoint correto
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
