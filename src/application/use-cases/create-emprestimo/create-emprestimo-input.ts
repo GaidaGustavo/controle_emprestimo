@@ -1,6 +1,10 @@
+type itensId = {
+    id: string;
+}
+
 export type CreateEmprestimoInput = {
     id: string | undefined;
-    itemId: string;
     pessoaId: string;
     usuarioId: string;
+    itensId: itensId[];
 }

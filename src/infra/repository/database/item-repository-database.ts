@@ -45,38 +45,49 @@ export default class ItemRepositoryDatabase implements ItemRepository{
 
 
     async getById(id: string): Promise<Item> {
-    
+        // Realiza a consulta no banco de dados
         const [ itemData ] = await this.connection.execute(`
             SELECT i.id, i.nome, ti.id AS tipo_item_id, ti.nome AS nome_tipoitem, ie.ca, ie.validade
-            from itens i left join tipos_item ti on i.tipo_item_id = ti.id
-            left join itens_epi ie on i.id = ie.item_id
-            where i.id = $1`,
+            FROM itens i
+            LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
+            LEFT JOIN itens_epi ie ON i.id = ie.item_id
+            WHERE i.id = $1`,
             [id]
         );
-        
-        if(!itemData){
-            throw new Error('Item não encontrado');
+    
+        // Se nenhum item for encontrado, lança um erro
+        if (!itemData) {
+            throw new Error(`Item com ID ${id} não encontrado`);
         }
-
+    
+        // Verifica se os dados necessários para criar os objetos existem
+        if (!itemData.nome_tipoitem || !itemData.tipo_item_id) {
+            throw new Error(`Informações incompletas para o item com ID ${id}`);
+        }
+    
+        // Cria o objeto TipoItem com os dados obtidos
         const tipoItem = new TipoItem(
             itemData.nome_tipoitem,
             itemData.tipo_item_id
-        )
-
-        const itenEpi = new ItemEPI(
-            itemData.ca,
-            itemData.validade
-        )
-
+        );
+    
+        // Cria o objeto ItemEPI, validando os dados
+        const itemEpi = new ItemEPI(
+            itemData.ca || '',  // Caso o CA ou validade não sejam encontrados, passamos um valor padrão
+            itemData.validade || ''
+        );
+    
+        // Cria o objeto Item com os dados obtidos e os objetos relacionados
         const item = new Item(
             itemData.nome,
             tipoItem,
             itemData.id,
-            itenEpi
-        )
-
+            itemEpi
+        );
+    
         return item;
     }
+    
 
 
     async create(item: Item): Promise<void> {

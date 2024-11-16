@@ -4,12 +4,20 @@ document.getElementById('cadastroItem').addEventListener('submit', function(even
     // Captura o valor do campo de tipo de item
     const nome = document.getElementById('nome').value;
     const tipoItemId = document.getElementById('tipoItem').value;
+    const ca = document.getElementById('ca').value;
+    const validade = document.getElementById('validade').value;
+
 
     // Cria o objeto a ser enviado
+    const itemEPI = {
+        ca: ca,
+        validade: validade
+    }
 
     const data = {
          nome: nome,
-         tipoItemId: tipoItemId
+         tipoItemId: tipoItemId,
+         itemEPI
         };
 
     // Envia a requisição para o servidor

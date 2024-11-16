@@ -4,29 +4,7 @@
 
 // Empréstimo de Itens
 
-// Função para adicionar um item à lista
-function adicionarItem() {
-    const inputItem = document.getElementById("inputItem");
-    const itemNome = inputItem.value.trim();
-
-    if (itemNome) {
-        const listaItens = document.getElementById("listaItens");
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = itemNome;
-
-        // Botão de remoção para cada item adicionado
-        const removeBtn = document.createElement("button");
-        removeBtn.className = "btn btn-danger btn-sm float-end";
-        removeBtn.textContent = "Remover";
-        removeBtn.onclick = () => listaItens.removeChild(li);
-
-        li.appendChild(removeBtn);
-        listaItens.appendChild(li);
-
-        inputItem.value = ""; // Limpa o campo após adicionar o item
-    }
-}
+// Função para adicionar um item à list
 
 //============================funcao para cadastro item============================================================
 
@@ -63,39 +41,6 @@ document.getElementById('formCadastro').addEventListener('submit', function(even
 });
 
 //=============função para fazer empréstimo=================================
-document.getElementById('emprestimoForm').addEventListener('submit', function(event) {
-    event.preventDefault();  // Evita o recarregamento da página ao enviar o formulário
-    
-    // Captura os dados dos campos do formulário
-    const nomePessoa = document.getElementById('pessoa').value;
-    const itens = Array.from(document.querySelectorAll('#listaItens li'))
-                       .map(item => item.textContent.replace("Remover", "").trim());  // Captura os itens da lista
-
-    // Cria o objeto com os dados do empréstimo
-    const emprestimo = {
-        nomePessoa: nomePessoa,
-        itens: itens
-    };
-    
-    // Envia os dados para o servidor
-    fetch('http://localhost:3002/', {  // Endpoint da API para cadastrar o empréstimo
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(emprestimo)
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Empréstimo cadastrado com sucesso!');
-            document.getElementById('emprestimoForm').reset();  // Limpa o formulário
-            document.getElementById('listaItens').innerHTML = '';  // Limpa a lista de itens
-        } else {
-            throw new Error('Erro ao cadastrar empréstimo');
-        }
-    })
-    .catch(error => console.error('Erro:', error));
-});
 
 
 // Exclusão de Item=============================================================

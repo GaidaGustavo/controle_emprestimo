@@ -93,13 +93,13 @@
         <form id="emprestimoForm" id="emprestimoForm" onsubmit="cadastrarEmprestimo(event)">
             <!-- Removido o campo de Data de Devolução -->
             <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="text"  class="form-control " id="pessoa" placeholder="Nome da Pessoa" required>
+                <label class="form-label">Pessoa</label>
+                <input type="text"  class="form-control " id="pessoa" placeholder="ID da pessoa" required>
             </div>
 
-            <h5>Itens</h5>
+            <label class="form-label">Itens</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="inputItem" placeholder="Nome do Item" required>
+                <input type="text" class="form-control" id="inputItem" placeholder="ID do Item">
                 <button type="button" class="btn btn-primary" onclick="adicionarItem()">Adicionar Item</button>
             </div>
 
@@ -111,7 +111,7 @@
         </form>
     </div>
 
-    <script src="css_script/script.js"></script>
+    <script src="script/emprestimos/cadastrar.js"></script>
     <footer>
         FIESC:SENAI
         Todos os Direitos Reservados ®

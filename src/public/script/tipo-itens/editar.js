@@ -2,7 +2,7 @@ function saveEdit() {
     const id = document.getElementById('editItemId').value;
     const nome = document.getElementById('editItemName').value;
 
-    fetch(`http://localhost:3011/tipos-itens/${id}`, {
+    fetch(`http://localhost:3011/tipoItens/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

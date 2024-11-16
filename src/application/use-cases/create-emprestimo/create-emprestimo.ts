@@ -23,23 +23,25 @@ export class CreateEmprestimoUseCase {
     }
     
     async execute(input: CreateEmprestimoInput):Promise<CreateEmprestimoOutput> {
-        if(!input.itemId){
-            throw new Error('Insira um Item')
-        }
+        
         if(!input.pessoaId){
             throw new Error('Insira uma Pessoa')
         }
         if(!input.usuarioId){
             throw new Error('Logue com um usuário')
         }
-        const item = await this.itemRepository.getById(input.itemId)
+
+        console.log(input.pessoaId, input.usuarioId, input.itensId)
+        
         const pessoa = await this.pessoaRepository.getById(input.pessoaId)
         const usuario = await this.usuarioRepository.getById(input.usuarioId);
+
+        for (const itemId of input.itensId) {
+            const item = await this.itemRepository.getById(itemId.id);
+            const emprestimo = new Emprestimo(item, pessoa, usuario);
+            await this.emprestimoRepository.create(emprestimo);
+        }
         
-        const emprestimo = new Emprestimo(item, pessoa, usuario)
-
-        await this.emprestimoRepository.create(emprestimo);  
-
         return {}
     }
 }

@@ -16,6 +16,7 @@ function fetchItens() {
                     <td>${item.name}</td>
                     <td>${item.tipoItem.name}</td>
                     <td>${item.itemEPI.ca}</td>
+                    <td>${item.itemEPI.validade}</td>
                     <td>
                         <button class="btn btn-success" onclick="openEditModal()">Editar</button>
                         <button class="btn btn-danger" data-bs-toggle="modal"

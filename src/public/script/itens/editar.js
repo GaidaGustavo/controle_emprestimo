@@ -83,4 +83,7 @@ function atualizarTabela() {
                     <td>${emprestimo.item.itemEPI.validade}</td>
                     <td>${emprestimo.usuario.username}</td>
                     <td>${emprestimo.dataEmprestimo}</td>
-                    <td>${emprestimo.data
+                    <td>${emprestimo.data}</td>
+                    ´
+            }
+        

@@ -150,12 +150,18 @@ LEFT JOIN
 
     async create(emprestimo: Emprestimo): Promise<void> {
         await this.connection.execute(`
-            insert into emprestimos(id, pessoa_id, usuario_id, item_id, data_emprestimo, data_devolucao)
-            values ($1, $2, $3, $4, $5, $6)`,
-            [emprestimo.getID, emprestimo.getPessoa().getID(),
-            emprestimo.getUsuario().getID(), emprestimo.getItem().getID,
-            emprestimo.getdataEmprestimo, emprestimo.getdataDevolucao]);        
+            insert into emprestimos(id, pessoa_id, usuario_id, item_id, data_emprestimo)
+            values ($1, $2, $3, $4, $5)`,
+            [
+                emprestimo.getID(),
+                emprestimo.getPessoa().getID(),
+                emprestimo.getUsuario().getID(),
+                emprestimo.getItem().getID(), // Adicione os parênteses após getID
+                emprestimo.getdataEmprestimo()
+            ]
+        );        
     }
+    
 
 
     async update(emprestimo: Emprestimo): Promise<void> {
