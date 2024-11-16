@@ -34,6 +34,7 @@ window.onload = function() {
     loadTiposDeItem();  // Carrega os tipos de item ao carregar a página
 };
 
+
 // Função para abrir o modal de edição
 function openEditModal(id, nome) {
     document.getElementById('editItemId').value = id;

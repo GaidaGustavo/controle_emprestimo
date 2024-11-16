@@ -12,14 +12,17 @@ function saveEdit() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            loadTiposDeItem();
             alert("Tipo de item atualizado com sucesso!");
             location.reload(); // Recarrega a tabela
         } else {
             alert("Erro ao atualizar o tipo de item.");
         }
+        loadTiposDeItem()
     })
     .catch(error => {
         console.error("Erro:", error);
         alert("Erro ao atualizar o tipo de item.");
     });
+
 }

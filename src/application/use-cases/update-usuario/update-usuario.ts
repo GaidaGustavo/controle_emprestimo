@@ -21,9 +21,6 @@ export class UpdateUsuarioUseCase {
         if(!input.pessoaId){
             throw new Error('Insira uma pessoa!')
         }
-        if(!input.senha){
-            throw new Error('Insira uma senha!')
-        }
         const pessoa = await this.pessoaRepository.getById(input.pessoaId);
         const newUsuario = new Usuario(input.username, pessoa, input.id, input.senha);
         await this.usuarioRepository.update(newUsuario)

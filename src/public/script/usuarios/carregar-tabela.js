@@ -14,7 +14,7 @@ function carregarUsuarios() {
                     <td>${usuario.pessoa.nome}</td>
                     <td>${usuario.nome}</td>
                     <td>
-                        <button class="btn btn-success orientacao">Editar</button>
+                        <button class="btn btn-success orientacao" onclick="openEditModal(${usuario.id})")">Editar</button>
                         <button class="btn btn-danger orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setItemId(${usuario.id})">Excluir</button>
                     </td>
                 `;
@@ -28,3 +28,10 @@ function carregarUsuarios() {
 window.onload = function () {
     carregarUsuarios();
 };
+
+function openEditModal(id, nome) {
+    const username = document.getElementById('editUserName').value;
+    const pessoaId = document.getElementById('editUserPessoa').value;
+    const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
+    editModal.show();
+}

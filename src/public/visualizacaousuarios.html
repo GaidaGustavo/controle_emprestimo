@@ -115,9 +115,8 @@
                     <td>João Silva</td>
                     <td>joao.silva</td>
                     <td>
-                        <button class="btn btn-success orientacao">Editar</button>
-                        <button class="btn btn-danger orientacao" data-bs-toggle="modal"
-                            data-bs-target="#confirmDeleteModal" onclick="setItemId(1)">Excluir</button>
+                        <button class="btn btn-success orientacao" onclick="saveEdit()">Editar</button>
+                        <button class="btn btn-danger orientacao" data-bs-toggle="modal"data-bs-target="#confirmDeleteModal" onclick="setItemId(1)">Excluir</button>
                     </td>
                 </tr>
                 <tr>
@@ -162,14 +161,14 @@
                         <input type="text" class="form-control" id="editUserName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editUserLogin" class="form-label">Login</label>
-                        <input type="text" class="form-control" id="editUserLogin" required>
+                        <label for="editUserPessoa" class="form-label">Id da pessoa</label>
+                        <input type="text" class="form-control" id="editUserPessoa" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="saveUserEdit()">Salvar</button>
+                <button type="button" class="btn btn-primary" onclick="saveEdit()">Salvar</button>
             </div>
         </div>
     </div>
@@ -197,6 +196,7 @@
     </div>
     <script src="script/usuarios/carregar-tabela.js"></script>
     <script src="script/usuarios/pesquisa.js"></script>
+    <script src="script/usuarios/editar.js"></script>
 
     <footer class="text-center mt-5">
         FIESC:SENAI - Todos os Direitos Reservados ®
