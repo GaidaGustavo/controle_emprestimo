@@ -143,6 +143,7 @@
 
     
  <!-- Modal de Edição -->
+<!-- Modal de Edição -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -151,7 +152,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Formulário de edição -->
                 <div class="mb-3">
                     <label for="editItem" class="form-label">Item</label>
                     <input type="text" class="form-control" id="editItem" required>
@@ -159,6 +159,24 @@
                 <div class="mb-3">
                     <label for="editColaborador" class="form-label">Colaborador</label>
                     <input type="text" class="form-control" id="editColaborador" required>
+                </div>
+
+                <!-- Campos desabilitados para não permitir edição -->
+                <div class="mb-3">
+                    <label for="editValidade" class="form-label">Validade</label>
+                    <input type="text" class="form-control" id="editValidade" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="editUsuario" class="form-label">Usuário</label>
+                    <input type="text" class="form-control" id="editUsuario" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="editDataEmprestimo" class="form-label">Data do Empréstimo</label>
+                    <input type="date" class="form-control" id="editDataEmprestimo" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="editDataDevolucao" class="form-label">Data de Devolução</label>
+                    <input type="date" class="form-control" id="editDataDevolucao" disabled>
                 </div>
                 <input type="hidden" id="editId"> <!-- Campo oculto para o ID do empréstimo -->
             </div>
@@ -169,6 +187,7 @@
         </div>
     </div>
 </div>
+
 
     <script src="script/emprestimos/carregar-tabela.js"></script>
     <script src="script/emprestimos/editar.js"></script>
