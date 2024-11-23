@@ -29,15 +29,15 @@ app.get('/filmes', async (req, res) => {
 })
 
 app.post('/filmes', async (req,res) => {
-    await conexao.query('insert into filmes (nome, status) values ($1,$2)',
-        [req.body.nome, req.body.status]
+    await conexao.query('insert into filmes (nome, status, trailer) values ($1,$2,$3)',
+        [req.body.nome, req.body.status, req.body.trailer]
     );
     res.json({mesage:"cadastrado"});
 })
 
 app.put('/filmes', async (req,res) => {
-    await conexao.query('update filmes set nome = $1, status = $2 where id = $3',
-        [req.body.nome, req.body.status, req.body.id]
+    await conexao.query('update filmes set nome = $1, status = $2, trailer = $3 where id = $4',
+        [req.body.nome, req.body.status, req.body.trailer, req.body.id]
     );
     res.json({mesage:"Atualizado"});
 })
