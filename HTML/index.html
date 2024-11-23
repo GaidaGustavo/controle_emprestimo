@@ -58,32 +58,17 @@
         <div class="row lista">
             <div class="col-md-4">
                 <h2 class="mb-2">Disponíveis</h2>
-                <div id="disponiveis"></div>
-                <div class="filme">
-                    <h3 class="">Titanic</h3>
-                    <button class="btn btn-success">Alugar</button>
-                    <a href="https://www.youtube.com/watch?v=CHekzSiZjrY" target="_blank"
-                        class="btn btn-link">Trailer</a>
+                <div id="disponiveis">
                 </div>
             </div>
             <div class="col-md-4">
                 <h2>Alugados</h2>
-                <div id="alugados"></div>
-                <div class="filme">
-                    <h3 class="">A espera de um milagre</h3>
-                    <button class="btn btn-primary">Devolver</button>
-                    <a href="https://www.youtube.com/watch?v=Ki4haFrqSrw" target="_blank"
-                        class="btn btn-link">Trailer</a>
+                <div id="alugados">
                 </div>
             </div>
             <div class="col-md-4">
                 <h2>Somente venda</h2>
-                <div id="venda"></div>
-                <div class="filme">
-                    <h3 class="">Deadpoll and Wolverine</h3>
-                    <button class="btn btn-warning">Comprar</button>
-                    <a href="https://www.youtube.com/watch?v=73_1biulkYk" target="_blank"
-                        class="btn btn-link">Trailer</a>
+                <div id="venda">
                 </div>
             </div>
         </div>
@@ -112,35 +97,30 @@
             //Para cada filme vai criar uma div class listaFilmes com todo o conteúdo HTML dentro
             filmes.forEach(filme => {
                 const div = document.createElement('div');
-                div.className = "listaFilmes";
-                if (filme.id == 1) {
-                    filme.id = "alugados";
+                div.className = "filme";
+                statusId = filme.status;
+                if (filme.status === 1) {
+                    filme.status = "alugados";
                     botao = `<button class="btn btn-primary">Devolver</button>`;
-                } else if (filme.id == 0) {
-                    filme.id = "disponiveis"
+                } else if (filme.status === 0) {
+                    filme.status = "disponiveis"
                     botao = `<button class="btn btn-success">Alugar</button>`;
                 } else {
-                    filme.id = "venda"
+                    filme.status = "venda"
                     botao = `<button class="btn btn-warning">Comprar</button>`;
                 };
 
                 div.innerHTML = `
-                <div class="col-md-4">
-                <h2 class="mb-2">${filme.id}</h2>
-                    <div id="${filme.id}"></div>
-                    <div class="filme">
                         <h3 class="">${filme.nome}</h3>
                         ${botao}
                         <a href="${filme.trailer}" target="_blank" class="btn btn-link">Trailer</a>
-                    </div>
-                </div>
             `
-                if (filmes.id === 1) {
+                if (statusId === 1) {
                     alugados.appendChild(div);
-                } else if (filmes.id === 2) {
-                    disponiveis.appendChild(div);
-                } else {
+                } else if (statusId === 2) {
                     venda.appendChild(div);
+                } else {
+                    disponiveis.appendChild(div);
                 }
 
             })
