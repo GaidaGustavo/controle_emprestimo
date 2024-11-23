@@ -1,5 +1,6 @@
 import express from "express";
 import pgp from "pg-promise";
+import cors from "cors";
 
 const host = "localhost";
 const database = "postgres";
@@ -16,7 +17,9 @@ const conexao = pgp()({
 })
 
 const app = express();
+app.use(cors());
 app.use(express.json());
+
 
 app.get('*', (req, res, next) => {
     res.header("Access-Controll-Allow-Origin", '*');
