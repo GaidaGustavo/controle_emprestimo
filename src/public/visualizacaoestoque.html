@@ -149,42 +149,64 @@
             </tbody>
         </table>
     </div>
-    <!-- Modal de Confirmação de Exclusão -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza de que deseja excluir este item?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteButton"
-                        onclick="deleteItem()">Excluir</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+ <!-- Modal de Confirmação de Exclusão -->
+ <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Detalhes do Empréstimo</h5>
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p><strong>ID:</strong> <span id="emprestimoId"></span></p>
-                <p><strong>Item:</strong> <span id="emprestimoItem"></span></p>
-                <p><strong>Colaborador:</strong> <span id="emprestimoColaborador"></span></p>
-                <p><strong>Data:</strong> <span id="emprestimoData"></span></p>
-                <!-- Adicione outros campos conforme necessário -->
+                <label>Certifique-se de que este campo não está associado a outro para realizar a exclusão!</label>
+                <br>
+                <br>
+                <label>Tem certeza de que deseja realizar a exclusão?</label> <br> <label for="">ID - </label>
+                <label id="idExclusão"></label>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="excluir()">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+     <!-- Modal de Edição com item EPI-->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Pessoa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="ide">
+                    <div class="mb-3">
+                        <label for="editId" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="id" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTipoItem" class="form-label">Tipo de Item</label>
+                        <input type="text" class="form-control" id="tipoItemId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCa" class="form-label">CA</label>
+                        <input type="text" class="form-control" id="ca">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editValidade" class="form-label">Validade</label>
+                        <input type="date" class="form-control" id="validade">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar</button>
             </div>
         </div>
     </div>
@@ -193,6 +215,7 @@
     <script src="script/itens/carregar-tabela.js"></script>
     <script src="script/itens/pesquisa.js"></script>
     <script src="script/itens/editar.js"></script>
+    <script src="script/itens/excluir.js"></script>
 
 
     <footer class="text-center mt-5">

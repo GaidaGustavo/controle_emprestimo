@@ -143,28 +143,30 @@
             </tbody>
         </table>
     </div>
-    <!-- Modal de Confirmação de Exclusão -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza de que deseja excluir este item?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteButton"
-                        onclick="excluirItem(id)">Excluir</button>
-                </div>
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label>Certifique-se de que este campo não está associado a outro para realizar a exclusão!</label>
+                <br>
+                <br>
+                <label>Tem certeza de que deseja realizar a exclusão?</label> <br> <label for="">ID - </label>
+                <label id="idExclusão"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="excluir()">Excluir</button>
             </div>
         </div>
     </div>
+</div>
     <!-- Modal de Edição -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,14 +175,18 @@
             </div>
             <div class="modal-body">
                 <form id="editForm">
-                    <input type="hidden" id="editId">
+                    <input type="hidden" id="ide">
                     <div class="mb-3">
-                        <label for="editNome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="editNome">
+                        <label for="editId" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="id" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="editDocumento" class="form-label">Documento Identificador</label>
-                        <input type="text" class="form-control" id="editDocumento">
+                        <label for="editNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDocumento" class="form-label">Documento</label>
+                        <input type="text" class="form-control" id="documento">
                     </div>
                 </form>
             </div>
@@ -195,6 +201,7 @@
     <script src="script/pessoas/carregar-tabela.js"></script>
     <script src="script/pessoas/pesquisa.js"></script>
     <script src="script/pessoas/editar.js"></script>
+    <script src="script/pessoas/excluir.js"></script>
     <footer class="text-center mt-5">
         FIESC:SENAI - Todos os Direitos Reservados ®
     </footer>

@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body onload="checkAuth()">
+<body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
@@ -121,30 +121,28 @@
         </table>
     </div>
 
-    <!-- Modal de Confirmação de Devolução -->
-  <!-- Modal de Confirmação de Exclusão -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Tem certeza de que deseja excluir este empréstimo?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" onclick="excluirItem()">Excluir</button>
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label>Tem certeza de que deseja realizar a exclusão?</label> <br> <label for="">ID - </label>
+                    <label id="idExclusão"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="excluir()">Excluir</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-    
- <!-- Modal de Edição -->
 <!-- Modal de Edição -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -153,32 +151,25 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
+                    <label for="editId" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="id" readonly>
+                </div>
+                <div class="mb-3">
                     <label for="editItem" class="form-label">Item</label>
-                    <input type="text" class="form-control" id="editItem" required>
+                    <input type="text" class="form-control" id="itemId" required>
                 </div>
                 <div class="mb-3">
                     <label for="editColaborador" class="form-label">Colaborador</label>
-                    <input type="text" class="form-control" id="editColaborador" required>
-                </div>
-
-                <!-- Campos desabilitados para não permitir edição -->
-                <div class="mb-3">
-                    <label for="editValidade" class="form-label">Validade</label>
-                    <input type="text" class="form-control" id="editValidade" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="editUsuario" class="form-label">Usuário</label>
-                    <input type="text" class="form-control" id="editUsuario" disabled>
+                    <input type="text" class="form-control" id="pessoaId" required>
                 </div>
                 <div class="mb-3">
                     <label for="editDataEmprestimo" class="form-label">Data do Empréstimo</label>
-                    <input type="date" class="form-control" id="editDataEmprestimo" disabled>
+                    <input type="text" class="form-control" id="dataEmprestimo" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="editDataDevolucao" class="form-label">Data de Devolução</label>
-                    <input type="date" class="form-control" id="editDataDevolucao" disabled>
+                    <input type="date" class="form-control" id="dataDevolucao" required>
                 </div>
-                <input type="hidden" id="editId"> <!-- Campo oculto para o ID do empréstimo -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -192,6 +183,7 @@
     <script src="script/emprestimos/carregar-tabela.js"></script>
     <script src="script/emprestimos/editar.js"></script>
     <script src="script/emprestimos/pesquisa.js"></script>
+    <script src="script/emprestimos/excluir.js"></script>
     <footer class="text-center mt-5">
         FIESC: SENAI - Todos os Direitos Reservados ®
     </footer>

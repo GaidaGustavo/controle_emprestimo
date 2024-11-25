@@ -1,7 +1,16 @@
-function saveEdit(id) {   
+function openEditModal(id, username, colaboradorId) {
+    document.getElementById('id').value = id;
+    document.getElementById('username').value = username;
+    document.getElementById('colaboradorId').value = colaboradorId;
+    const editModal = new bootstrap.Modal(document.getElementById('modal'));
+    editModal.show();
+}
+
+function saveEdit() {   
     // Captura o valor do campo de tipo de item
-    const username = document.getElementById('editUserName').value;
-    const pessoaId = document.getElementById('editUserPessoa').value;
+    const id = document.getElementById('id').value
+    const username = document.getElementById('username').value;
+    const pessoaId = document.getElementById('colaboradorId').value;
 
     // Cria o objeto a ser enviado
     const data = {
@@ -17,18 +26,18 @@ function saveEdit(id) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            loadTiposDeItem();
-            alert("Tipo de item atualizado com sucesso!");
+        if (data = {}) {
+            carregarUsuarios();
+            alert("Usuário atualizado com sucesso!");
             location.reload(); // Recarrega a tabela
         } else {
-            alert("Erro ao atualizar o tipo de item.");
+            alert("Erro ao atualizar Usuário.");
         }
-        loadTiposDeItem()
+        carregarUsuarios()
     })
     .catch(error => {
         console.error("Erro:", error);
-        alert("Erro ao atualizar o tipo de item.");
+        alert("Erro ao atualizar Usuário.");
     });
 
 }

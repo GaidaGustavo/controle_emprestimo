@@ -18,8 +18,8 @@ function loadTiposDeItem() {
                        <button class="btn btn-primary btn-sm" onclick="openEditModal('${tipo.id}', '${tipo.nome}')">
                             Editar
                         </button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" 
-                        data-bs-target="#confirmDeleteModal" onclick="setItemId('${tipo.id}')">Excluir</button>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" 
+                        data-bs-target="#confirmDeleteModal" onclick="modalExclusaoTipoItem('${tipo.id}')">Excluir</button>
                     </td>
                 `;
                 
@@ -33,13 +33,4 @@ function loadTiposDeItem() {
 window.onload = function() {
     loadTiposDeItem();  // Carrega os tipos de item ao carregar a página
 };
-
-
-// Função para abrir o modal de edição
-function openEditModal(id, nome) {
-    document.getElementById('editItemId').value = id;
-    document.getElementById('editItemName').value = nome;
-    const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
-    editModal.show();
-}
 

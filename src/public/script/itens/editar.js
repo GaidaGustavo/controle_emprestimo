@@ -1,99 +1,96 @@
-let idEmEdicao; // Variável global para armazenar o ID do empréstimo em edição
+function openEditModal(id, nome, tipoItemId, ca, validade) {
 
-// Função para abrir o modal de edição e preencher os dados
-function abrirModalEdicao(id) {
-    idEmEdicao = id; // Armazena o ID do empréstimo em edição
-
-    fetch(`http://localhost:3011/emprestimo/${id}`) // Substitua pelo endpoint correto
-        .then(response => {
-            if (!response.ok) throw new Error("Empréstimo não encontrado");
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById("editItem").value = data.item.nome;
-            document.getElementById("editColaborador").value = data.pessoa.nome;
-            document.getElementById("editValidade").value = data.item.itemEPI.validade;
-            document.getElementById("editUsuario").value = data.usuario.username;
-            document.getElementById("editDataEmprestimo").value = data.dataEmprestimo;
-            document.getElementById("editDataDevolucao").value = data.dataDevolucao;
-
-            const modal = new bootstrap.Modal(document.getElementById("editModal"));
-            modal.show();
-        })
-        .catch(error => {
-            console.error("Erro:", error);
-            alert("Empréstimo não encontrado");
-        });
+    console.log("Abrindo modalEpi");
+    document.getElementById('id').value = id;
+    document.getElementById('nome').value = nome;
+    document.getElementById('tipoItemId').value = tipoItemId;
+    document.getElementById('ca').value = ca 
+    document.getElementById('validade').value = validade
+    const editModal = new bootstrap.Modal(document.getElementById('modal'));
+    editModal.show();
 }
 
-// Função para salvar as edições no banco de dados
-function salvarEdicao(event) {
-    event.preventDefault();
 
-    const emprestimoAtualizado = {
-        item: document.getElementById('editItem').value,
-        colaborador: document.getElementById('editColaborador').value,
-        validade: document.getElementById('editValidade').value,
-        usuario: document.getElementById('editUsuario').value,
-        dataEmprestimo: document.getElementById('editDataEmprestimo').value,
-        dataDevolucao: document.getElementById('editDataDevolucao').value
-    };
+// Função para salvar a edição
+function salvarEdicao() {
+    const id = document.getElementById('id').value;
+    const nome = document.getElementById('nome').value;
+    const tipoItemId = document.getElementById('tipoItemId').value;
+    var ca = document.getElementById('ca').value;
+    var validade = document.getElementById('validade').value
 
-    fetch(`http://localhost:3011/itens/${idEmEdicao}`, { // Substitua pelo endpoint correto
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(emprestimoAtualizado)
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Erro ao salvar alterações");
-        return response.json();
-    })
-    .then(data => {
-        alert("Alterações salvas com sucesso!");
-        
-        const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
-        modal.hide();
+    itemEPI = {
+        ca: ca,
+        validade: validade
+    }
 
-        atualizarTabela(); // Atualiza a tabela para refletir as mudanças
-    })
-    .catch(error => {
-        console.error("Erro:", error);
-        alert("Erro ao salvar alterações.");
-    });
-}
-
-// Função para atualizar a tabela
-function atualizarTabela() {
-    // Fazendo uma requisição para obter os empréstimos do backend
-    fetch('http://localhost:3011/emprestimo') // URL do endpoint
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao buscar os dados da API.');
-            }
-            return response.json();
+    if (ca == 'null' || !ca || validade == 'mm/dd/yyy' || !validade || validade == 'null') {
+        fetch(`http://localhost:3011/itens/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                tipoItemId: tipoItemId,
+            })
         })
-        .then(data => {
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = ''; // Limpa a tabela antes de renderizar os dados
+            .then(response => {
+                if (!response.ok){
+                    throw new Error('Não foi possível realizar a edição');
+                    alert("Erro ao salvar as alterações.");
+                } 
+                
+                return response.json();
+            })
+            .then(() => {
+                alert("Item atualizado com sucesso!");
+                // Fechar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modal'));
+                modal.hide();
 
-            // Itera pelos empréstimos e cria as linhas da tabela
-            data.forEach(emprestimo => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${emprestimo.id}</td>
-                    <td>${emprestimo.item.nome}</td>
-                    <td>${emprestimo.pessoa.nome}</td>
-                    <td>${emprestimo.item.itemEPI.validade}</td>
-                    <td>${emprestimo.usuario.username}</td>
-                    <td>${new Date(emprestimo.dataEmprestimo).toLocaleDateString()}</td>
-                    <td>${new Date(emprestimo.data).toLocaleDateString()}</td>
-                `;
-                tableBody.appendChild(row); // Adiciona a linha à tabela
+                // Atualize a tabela na interface ou recarregue os dados
+                fetchItens();
+            })
+            .catch(error => {
+                console.error("Erro ao salvar as alterações:", error);
+                alert("Erro ao salvar as alterações");
             });
+
+
+    }else if (ca && validade) {
+        fetch(`http://localhost:3011/itens/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                tipoItemId: tipoItemId,
+                itemEPI
+            })
         })
-        .catch(error => {
-            console.error('Erro ao atualizar a tabela:', error);
-        });
+            .then(response => {
+                if (!response.ok){
+                    alert("Erro ao salvar as alterações. Verifique o id do tipo de item.");
+                    throw new Error("Erro ao salvar as alterações.");
+                }
+                return response.json();
+            })
+            .then(() => {
+                alert("Item atualizado com sucesso!");
+                // Fechar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modal'));
+                modal.hide();
+
+                // Atualize a tabela na interface ou recarregue os dados
+                fetchItens();
+            })
+            .catch(error => {
+                console.error("Erro ao salvar as alterações:", error);
+                alert("Erro ao salvar as alterações.");
+            });
+    }else{
+        alert("Um Item não pode deixar de ser EPI e só pode ser EPI com os campos CA e VALIDADE preenchidos.");
+    }
 }

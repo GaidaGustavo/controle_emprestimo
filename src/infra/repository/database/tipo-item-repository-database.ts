@@ -27,10 +27,6 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
             [id]
         );
         
-        if(!tipoItemData){
-            throw new Error('TipoItem não encontrado');
-        }
-
         return new TipoItem(tipoItemData.nome, tipoItemData.id);
     }
 
@@ -50,6 +46,6 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository{
     }
 
     async delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        await this.connection.execute(`delete from tipos_item where id = $1`, [id]);
     }
 }

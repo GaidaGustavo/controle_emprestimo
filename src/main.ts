@@ -78,6 +78,7 @@ app.put('/itens/:id', async (request, response) => {
         id,
         ...body
     }
+    console.log(newItem)
     response.send(await itemController.update(newItem));
 })
 //==============Tipo Item==============
@@ -189,6 +190,7 @@ app.get('/emprestimo', async (request, response) => {
 })
 
 app.post('/emprestimo', async (request, response) => {
+    console.log(request.body)
     response.send(await emprestimoController.create(request.body));
 })
 
@@ -199,7 +201,8 @@ app.get('/emprestimo/:id', async (request, response) => {
 
 app.delete('/emprestimo/:id', async (request, response) => {
     const id = request.params.id;
-   response.send(await emprestimoController.delete({id}));
+    console.log(id)
+    response.send(await emprestimoController.delete({id}));
 })
 
 app.put('/emprestimo/:id', async (request, response) => {

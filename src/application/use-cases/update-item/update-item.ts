@@ -1,4 +1,5 @@
 import { Item } from "../../../domain/entity/item";
+import { ItemEPI } from "../../../domain/entity/value-object/item-epi";
 import { ItemRepository } from "../../../domain/repository/item-repository";
 import { RepositoryFactory } from "../../../domain/repository/repository-factory";
 import { TipoItemRepository } from "../../../domain/repository/tipoitem-repository";
@@ -16,8 +17,18 @@ export class UpdateItemUseCase {
     
     async execute(input: UpdateItemInput): Promise<UpdateItemOutput> {
         const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId)
-        const newItem = new Item(input.nome, tipoItem, input.id, input.itemEPI)
-        await this.itemRepository.update(newItem)
+        var item
+        if (!input.itemEPI) {
+            item = new Item(input.nome, tipoItem, input.id);
+        } else {
+            // Criando o Value Object diretamente com os dados do input
+            const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
+
+            // Criando o Item com o Value Object
+            item = new Item(input.nome, tipoItem, input.id, itemEPI);
+            console.log(item)
+        }
+        await this.itemRepository.update(item)
         return {}
     }
 }

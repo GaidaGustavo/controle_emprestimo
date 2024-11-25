@@ -14,7 +14,7 @@ export class CreateItemUseCase {
         this.itemRepository = repositoryFactory.createItemRepository();
         this.tipoItemRepository = repositoryFactory.createTipoItemRepository();
     }
-    
+
     async execute(input: CreateItemInput): Promise<CreateItemOutput> {
         if (!input.nome) {
             throw new Error('Insira um nome para o item');
@@ -22,20 +22,26 @@ export class CreateItemUseCase {
         if (!input.tipoItemId) {
             throw new Error('Insira um tipo de item');
         }
-    
+
         const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId);
-    
-        // Criando o Value Object diretamente com os dados do input
-        const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
-    
-        // Criando o Item com o Value Object
-        const item = new Item(input.nome, tipoItem, input.id, itemEPI);
-    
+
+        var item
+        if (input.itemEPI.ca == '' || !input.itemEPI.ca || input.itemEPI.validade == "0NaN-NaN-NaNTNaN:NaN:NaN.NaN+NaN:NaN" || !input.itemEPI.validade) {
+            item = new Item(input.nome, tipoItem, input.id);
+        } else {
+            // Criando o Value Object diretamente com os dados do input
+            const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
+
+            // Criando o Item com o Value Object
+            item = new Item(input.nome, tipoItem, input.id, itemEPI);
+            console.log(item)
+        }
+
         // Persiste o item no banco
         await this.itemRepository.create(item);
-    
+
         return {};
     }
-    
-    
+
+
 }

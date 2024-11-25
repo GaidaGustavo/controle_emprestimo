@@ -3,5 +3,6 @@ export type UpdateEmprestimoInput = {
     itemId: string;
     pessoaId: string;
     usuarioId: string;
-    dataDevolução: Date | undefined;
+    dataEmprestimo: Date;
+    dataDevolucao: Date | undefined;
 }

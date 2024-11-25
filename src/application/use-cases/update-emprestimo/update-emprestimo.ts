@@ -23,9 +23,11 @@ export class UpdateEmprestimoUseCase {
     
     async execute(input: UpdateEmprestimoInput): Promise<UpdateEmprestimoOutput> {
         const item = await this.itemRepository.getById(input.itemId);
+        console.log(input.dataDevolucao)
         const pessoa = await this.pessoaRepository.getById(input.pessoaId);
         const usuario = await this.usuarioRepository.getById(input.usuarioId);
-        const newEmprestimo = new Emprestimo(item, pessoa, usuario, input.id, input.dataDevolução)
+        const newEmprestimo = new Emprestimo(item, pessoa, usuario, input.dataEmprestimo, input.dataDevolucao, input.id);
+        console.log(newEmprestimo)
         await this.emprestimoRepository.update(newEmprestimo)
         return {}
     }

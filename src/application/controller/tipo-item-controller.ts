@@ -26,12 +26,17 @@ export class TipoItemController{
     }
 
     async getByID(input: GetTipoItemByIdInput){
+        try{
         const getTipoItemById = new GetTipoitemByIdUseCase(this.repositoryFactory);
         return await getTipoItemById.execute(input);
+        }catch{
+            return {message: "Tipo Item não encontrado"};
+        }
     }
 
     async delete(input: DeleteTipoItemInput){
         const deleteTipoItemUseCase = new DeleteTipoItemUseCase(this.repositoryFactory);
-        return await deleteTipoItemUseCase.execute(input);
-    }
+        return await deleteTipoItemUseCase.execute(input)
+        }
+    
 }

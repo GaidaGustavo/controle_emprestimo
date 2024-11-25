@@ -1,5 +1,5 @@
-function modalExclusaoEmprestimo(id) {
-    document.getElementById('idExclusão').textContent = id
+function modalExclusaoUsuario(id) {
+    document.getElementById('idExclusão').textContent = id;
     const modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'));
     modalDelete.show();
 }
@@ -7,7 +7,7 @@ function modalExclusaoEmprestimo(id) {
 function excluir() {
     const id = document.getElementById('idExclusão').textContent
 
-    fetch(`http://localhost:3011/emprestimo/${id}`, {
+    fetch(`http://localhost:3011/usuario/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -24,8 +24,7 @@ function excluir() {
         modal.hide();
 
         // Atualize a tabela na interface ou recarregue os dados
-        fetchEmprestimos();
+        carregarUsuarios();
     })
     .catch(error => console.error("Erro ao salvar as alterações:", error));
 }
-

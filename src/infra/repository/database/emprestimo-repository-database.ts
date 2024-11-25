@@ -49,7 +49,7 @@ LEFT JOIN
             const pessoa = new Pessoa(
                 emprestimoData.pessoa_nome,
                 emprestimoData.pessoa_documento,
-                emprestimoData.id_pessoa
+                emprestimoData.pessoa_id
         )
     
             const usuario = new Usuario(
@@ -133,7 +133,7 @@ LEFT JOIN
         const pessoa = new Pessoa(
             emprestimoData.pessoa_nome,
             emprestimoData.pessoa_documento,
-            emprestimoData.id_pessoa
+            emprestimoData.pessoa_id
     )
 
         const usuario = new Usuario(
@@ -196,14 +196,15 @@ LEFT JOIN
             item_id = $3,
             data_emprestimo = $4,
             data_devolucao = $5
-            wheere id = $6;
+            where id = $6;
             `,
             [emprestimo.getPessoa().getID(), emprestimo.getUsuario().getID(),
-            emprestimo.getItem().getID, emprestimo.getdataEmprestimo,
-            emprestimo.getdataDevolucao, emprestimo.getID]);        
+            emprestimo.getItem().getID(), emprestimo.getdataEmprestimo(),
+            emprestimo.getdataDevolucao(), emprestimo.getID()]);        
     }
 
     async delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        console.log(id)
+        await this.connection.execute(`delete from emprestimos where id = $1`, [id])
     }
 }

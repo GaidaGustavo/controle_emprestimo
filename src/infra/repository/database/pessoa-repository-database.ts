@@ -62,14 +62,13 @@ export default class PessoaRepositoryDatabase implements PessoaRepository{
     async update(pessoa: Pessoa): Promise<void> {
         await this.connection.execute(`
             update pessoas set
-            id = $1,
-            nome = $2,
-            documento = $3
-            where id = $4`,
-            [pessoa.getID(), pessoa.getName(), pessoa.getDocumento()]);        
+            nome = $1,
+            documento = $2
+            where id = $3`,
+            [pessoa.getName(), pessoa.getDocumento(), pessoa.getID()]);        
     }
 
     async delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        await this.connection.execute(`delete from pessoas where id = $1`, [id])
     }
 }

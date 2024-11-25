@@ -1,3 +1,11 @@
+// Função para abrir o modal de edição
+function openEditModal(id, nome) {
+    document.getElementById('editItemId').value = id;
+    document.getElementById('editItemName').value = nome;
+    const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
+    editModal.show();
+}
+
 function saveEdit() {
     const id = document.getElementById('editItemId').value;
     const nome = document.getElementById('editItemName').value;

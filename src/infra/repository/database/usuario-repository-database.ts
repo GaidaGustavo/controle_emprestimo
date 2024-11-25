@@ -86,6 +86,6 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository{
     }
 
     async delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        await this.connection.execute(`delete from usuarios where id = $1`, [id])    
     }
 }

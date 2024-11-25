@@ -1,37 +1,32 @@
-let itemIdToDelete;
-
-// Função para definir o ID do item a ser excluído e abrir o modal de confirmação
-function setItemIdToDelete(id) {
-    itemIdToDelete = id;
-    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-    modal.show();
+function modalExclusaoTipoItem(id) {
+    document.getElementById('idExclusão').textContent = id
+    const modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'));
+    modalDelete.show();
 }
 
-// Função para excluir o item
-function excluirItem() {
-    if (!itemIdToDelete) return;
+function excluir() {
+    const id = document.getElementById('idExclusão').textContent
 
-    fetch(`http://localhost:3011/emprestimos/${itemIdToDelete}`, { // Substitua pelo endpoint correto
-        method: 'DELETE'
+    fetch(`http://localhost:3011/tipoItens/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
     })
     .then(response => {
-        if (!response.ok) throw new Error("Falha ao excluir o empréstimo.");
+        if (response == 'erro') {
+            throw new Error("Erro ao realizar exclusão. Certifique-se de que o tipo de item não está associado a nenhum item.");
+        }
         return response.json();
     })
     .then(() => {
-        // Remove o item da tabela
-        document.getElementById(`row-${itemIdToDelete}`).remove();
-        alert("Empréstimo excluído com sucesso.");
-
-        // Fecha o modal de confirmação
-        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+        alert("Exclusão realizada com sucesso!");
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalDelete'));
         modal.hide();
 
-        // Limpa a variável itemIdToDelete
-        itemIdToDelete = null;
+        // Atualize a tabela na interface ou recarregue os dados
+        loadTiposDeItem();
     })
-    .catch(error => {
-        console.error("Erro:", error);
-        alert("Erro ao excluir o empréstimo.");
-    });
+    .catch(error => console.error("Erro ao salvar as alterações:", error));
 }
