@@ -31,6 +31,12 @@ app.get('/filmes', async (req, res) => {
     res.json(filmes);
 })
 
+app.get('/filmes/:id', async (req, res) => {
+    const { id } = req.params
+    const filmes = await conexao.query('select * from filmes where $1 = id', [id]);
+    res.json(filmes);
+})
+
 app.post('/filmes', async (req,res) => {
     await conexao.query('insert into filmes (nome, status, trailer) values ($1,$2,$3)',
         [req.body.nome, req.body.status, req.body.trailer]

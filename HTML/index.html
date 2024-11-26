@@ -37,6 +37,11 @@
             margin-bottom: 30px;
             box-shadow: 3px 3px 10px rgba(0.1, 0.1, 0.1, 0.4);
         }
+
+        .atualizar{
+            background-color: #f8d3a5;
+            border-color: #FFD0C4;
+        }
     </style>
 </head>
 
@@ -114,6 +119,7 @@
                         <h3 class="">${filme.nome}</h3>
                         ${botao}
                         <a href="${filme.trailer}" target="_blank" class="btn btn-link">Trailer</a>
+                        <button class="btn btn-warning atualizar" onclick="abrirAtualizar(${filme.id})">Atualizar</button>
             `
                 if (statusId === 1) {
                     alugados.appendChild(div);
@@ -124,6 +130,11 @@
                 }
 
             })
+        }
+
+        async function abrirAtualizar(id){
+            window.location.href = ("atualizar.html?id="+id);
+
         }
 
         carregarFilmes()
