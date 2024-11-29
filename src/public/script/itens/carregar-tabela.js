@@ -1,6 +1,6 @@
 //===============================função para buscar infos da tabela de itens=======
 
-function fetchItens() {
+function carregarItens() {
     fetch('http://localhost:3011/itens')  // Requisição GET para o backend
         .then(response => response.json())  // Parse da resposta JSON
         .then(data => {
@@ -57,5 +57,5 @@ function fetchItens() {
 
 // Chama a função quando a página é carregada
 window.onload = function () {
-    fetchItens();
+    carregarItens();
 }
