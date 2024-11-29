@@ -63,12 +63,12 @@ function adicionarItem() {
         li.textContent = itemNome;  // Coloca o nome do item no texto do LI
 
         // Botão de remoção para cada item adicionado
-        const removeBtn = document.createElement("button");
-        removeBtn.className = "btn btn-danger btn-sm float-end";
-        removeBtn.textContent = "Remover";
-        removeBtn.onclick = () => listaItens.removeChild(li); // Remover o item quando clicado
+        const botaoRemocao = document.createElement("button");
+        botaoRemocao.className = "btn btn-danger btn-sm float-end";
+        botaoRemocao.textContent = "Remover";
+        botaoRemocao.onclick = () => listaItens.removeChild(li); // Remover o item quando clicado
 
-        li.appendChild(removeBtn); // Adiciona o botão de remoção ao LI
+        li.appendChild(botaoRemocao); // Adiciona o botão de remoção ao LI
         listaItens.appendChild(li); // Adiciona o LI à lista
 
         inputItem.value = ""; // Limpa o campo de input após adicionar o item
