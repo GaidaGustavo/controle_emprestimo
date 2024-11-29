@@ -31,6 +31,6 @@ function carregarTiposDeItem() {
 
 // Chama a função ao carregar a página
 window.onload = function() {
-    loadTiposDeItem();  // Carrega os tipos de item ao carregar a página
+    carregarTiposDeItem();  // Carrega os tipos de item ao carregar a página
 };
 
