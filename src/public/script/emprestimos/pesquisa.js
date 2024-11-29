@@ -1,5 +1,5 @@
 // Função para carregar um empréstimo do backend e preencher a tabela
-function pesquisaEmprestimo() {
+function loadEmprestimo() {
     const id = document.getElementById('searchId').value; // Obtém o ID do input
 
     fetch(`http://localhost:3011/emprestimo/${id}`) // Endpoint do backend
