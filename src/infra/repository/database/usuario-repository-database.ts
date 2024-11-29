@@ -88,4 +88,32 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository{
     async delete(id: string): Promise<void> {
         await this.connection.execute(`delete from usuarios where id = $1`, [id])    
     }
+
+    async getByUsername(username: string): Promise<Usuario> {
+        const [ usuarioData ] = await this.connection.execute(`
+            SELECT u.id AS usuario_id,u.nome_usuario, u.senha, p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento
+            FROM usuarios u JOIN pessoas p ON u.pessoa_id = p.id
+            where u.nome_usuario = $1`,
+            [username]
+        );
+        
+        if(!usuarioData){
+            throw new Error('Usuário não encontrado');
+        }
+        
+            const pessoa = new Pessoa(
+                usuarioData.pessoa_nome,
+                usuarioData.pessoa_documento,
+                usuarioData.pessoa_id
+            )
+
+            const usuario = new Usuario(
+                usuarioData.nome_usuario,
+                pessoa,
+                usuarioData.usuario_id,
+                usuarioData.senha
+            )
+
+        return usuario;    
+    }
 }

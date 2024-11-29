@@ -5,6 +5,7 @@ import { DeleteUsuarioInput } from "../use-cases/delete-usuario/delete-usuario-i
 import { GetAllUsuariosUseCase } from "../use-cases/get-all-usuarios/get-all-usuarios";
 import { GetUsuarioByIdUseCase } from "../use-cases/get-usuario-by-id/get-usuario-by-id";
 import { GetUsuarioByIdInput } from "../use-cases/get-usuario-by-id/get-usuario-by-id-input";
+import { GetUsuarioByUsernameUseCase } from "../use-cases/get-usuario-by-username/get-usuario-by-username";
 import { UpdateUsuarioUseCase } from "../use-cases/update-usuario/update-usuario";
 
 export class UsuarioController{
@@ -33,5 +34,10 @@ export class UsuarioController{
     async delete(input: DeleteUsuarioInput){
         const deleteUsuarioUseCase = new DeleteUsuarioUseCase(this.repositoryFactory);
         return await deleteUsuarioUseCase.execute(input);
+    }
+
+    async getByUsername(input: any){
+        const getUsuarioByUsernameUseCase = new GetUsuarioByUsernameUseCase(this.repositoryFactory);
+        return await getUsuarioByUsernameUseCase.execute(input);
     }
 }

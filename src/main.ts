@@ -181,6 +181,13 @@ app.put('/usuario/:id', async (request, response) => {
     response.send(await usuarioController.update(newUsuario));
 })
 
+app.get('/usuario/username', async (request, response) => {
+    const username = request.body.username;
+   response.send(await usuarioController.getByUsername({username}));
+})
+
+
+
 //==============Emprestimo==============
 
 const emprestimoController = new EmprestimoController(repositoryFactory)
