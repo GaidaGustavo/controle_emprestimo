@@ -1,5 +1,5 @@
 // Função para carregar os tipos de item do backend e preencher a tabela
-function loadTiposDeItem() {
+function carregarTiposDeItem() {
     fetch('http://localhost:3011/tipoItens')  // Endereço do endpoint que retorna os dados dos tipos de item
         .then(response => response.json())  // Converte a resposta em JSON
         .then(data => {
@@ -15,7 +15,7 @@ function loadTiposDeItem() {
                     <td>${tipo.id}</td>
                     <td>${tipo.nome}</td>
                     <td>
-                       <button class="btn btn-primary btn-sm" onclick="openEditModal('${tipo.id}', '${tipo.nome}')">
+                       <button class="btn btn-primary btn-sm" onclick="modalEdicao('${tipo.id}', '${tipo.nome}')">
                             Editar
                         </button>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" 
@@ -31,6 +31,6 @@ function loadTiposDeItem() {
 
 // Chama a função ao carregar a página
 window.onload = function() {
-    loadTiposDeItem();  // Carrega os tipos de item ao carregar a página
+    carregarTiposDeItem();  // Carrega os tipos de item ao carregar a página
 };
 

@@ -9,8 +9,8 @@ function modalEdicao(id, itemId, pessoaId,  dataEmprestimo, dataDevolucao) {
     document.getElementById('pessoaId').value = pessoaId;
     document.getElementById('dataEmprestimo').value = dataEmprestimo;
     document.getElementById('dataDevolucao').value = dataDevolucao;
-    const editModal = new bootstrap.Modal(document.getElementById('modal'));
-    editModal.show(); 
+    const modalEdicao = new bootstrap.Modal(document.getElementById('modal'));
+    modalEdicao.show(); 
 }
 
 function salvarEdicao() {

@@ -1,5 +1,5 @@
 // Função para buscar informações da tabela de empréstimos
-function fetchEmprestimos() {
+function carregarEmprestimos() {
     fetch('http://localhost:3011/emprestimo')  // Endpoint do backend
         .then(response => response.json())
         .then(data => {
@@ -55,5 +55,5 @@ function fetchEmprestimos() {
 
 // Chama a função fetchEmprestimos ao carregar a página
 window.onload = function () {
-    fetchEmprestimos();
+    carregarEmprestimos();
 };

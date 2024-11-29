@@ -1,4 +1,4 @@
-function openEditModal(id, nome, tipoItemId, ca, validade) {
+function modalEdicao(id, nome, tipoItemId, ca, validade) {
 
     console.log("Abrindo modalEpi");
     document.getElementById('id').value = id;

@@ -1,4 +1,4 @@
-function openEditModal(id, username, colaboradorId) {
+function modalEdicao(id, username, colaboradorId) {
     document.getElementById('id').value = id;
     document.getElementById('username').value = username;
     document.getElementById('colaboradorId').value = colaboradorId;

@@ -1,4 +1,4 @@
-function openEditModal(id, nome, documento) {
+function modalEdicao(id, nome, documento) {
     document.getElementById('id').value = id;
     document.getElementById('nome').value = nome;
     document.getElementById('documento').value = documento;

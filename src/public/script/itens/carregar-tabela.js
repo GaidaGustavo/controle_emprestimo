@@ -1,6 +1,6 @@
 //===============================função para buscar infos da tabela de itens=======
 
-function fetchItens() {
+function carregarItens() {
     fetch('http://localhost:3011/itens')  // Requisição GET para o backend
         .then(response => response.json())  // Parse da resposta JSON
         .then(data => {
@@ -41,7 +41,7 @@ function fetchItens() {
                     <td>${ca}</td>
                     <td>${dataFormatada}</td>
                     <td>
-                        <button class="btn btn-success" onclick="openEditModal('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
+                        <button class="btn btn-success" onclick="modalEdicao('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
                         <button class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal" onclick="modalExclusaoItem('${item.id}')">Excluir</button>
                     </td>
@@ -57,5 +57,5 @@ function fetchItens() {
 
 // Chama a função quando a página é carregada
 window.onload = function () {
-    fetchItens();
+    carregarItens();
 }
