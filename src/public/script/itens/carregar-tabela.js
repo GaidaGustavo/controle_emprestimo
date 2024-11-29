@@ -41,8 +41,8 @@ function carregarItens() {
                     <td>${ca}</td>
                     <td>${dataFormatada}</td>
                     <td>
-                        <button class="btn btn-success" onclick="modalEdicao('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
-                        <button class="btn btn-danger" data-bs-toggle="modal"
+                        <button class="btn btn-success orientacao" onclick="modalEdicao('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
+                        <button class="btn btn-danger orientacao" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal" onclick="modalExclusaoItem('${item.id}')">Excluir</button>
                     </td>
                 `;
