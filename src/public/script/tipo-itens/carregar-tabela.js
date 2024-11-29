@@ -1,5 +1,5 @@
 // Função para carregar os tipos de item do backend e preencher a tabela
-function loadTiposDeItem() {
+function carregarTiposDeItem() {
     fetch('http://localhost:3011/tipoItens')  // Endereço do endpoint que retorna os dados dos tipos de item
         .then(response => response.json())  // Converte a resposta em JSON
         .then(data => {
