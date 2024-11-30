@@ -14,7 +14,7 @@ function carregarUsuarios() {
                     <td>${usuario.pessoa.nome}</td>
                     <td>${usuario.nome}</td>
                     <td>
-                        <button class="btn btn-success orientacao" onclick="openEditModal('${usuario.id}', '${usuario.nome}', '${usuario.pessoa.id}')")">Editar</button>
+                        <button class="btn btn-success orientacao" onclick="modalEdicao('${usuario.id}', '${usuario.nome}', '${usuario.pessoa.id}')")">Editar</button>
                         <button class="btn btn-danger orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoUsuario('${usuario.id}')">Excluir</button>
                     </td>
                 `;
