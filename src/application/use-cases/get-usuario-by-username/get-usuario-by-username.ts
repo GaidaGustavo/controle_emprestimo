@@ -18,16 +18,16 @@ export class GetUsuarioByUsernameUseCase {
         }
         const usuario = await this.usuarioRepository.getByUsername(input.username);
 
-        if(usuario.senha == input.senha && usuario.username == input.username){
-            //gerar token para enviar para o front
-        }else{
-            throw new Error()
-        }
-
         const output: GetUsuarioByUsernameOutput = {
-            //não sei oque fazer aqui
-        }
 
+            id: usuario.getID(),
+            nome: usuario.getName(),
+            pessoa: {
+                id: usuario.getPessoa().getID(),
+                nome: usuario.getPessoa().getName(),
+                documento: usuario.getPessoa().getDocumento()
+            },
+        }
         return output;
     }
 }

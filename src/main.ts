@@ -6,6 +6,8 @@ import { UsuarioController } from './application/controller/usuario-controller';
 import { EmprestimoController } from './application/controller/emprestimo-controller';
 import { PostgresConnection } from './infra/config-database/postgres-connection';
 import { DatabaseRepositoryFactory } from './infra/config-database/database-repository-factory ';
+import { LoginController } from './application/controller/loginControler';
+import { autenticacao } from './infra/express/autenticacao';
 
 //chama librare
 const app = express();
@@ -18,6 +20,13 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true 
 }));
+
+app.all('*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, access-token');
+    next();
+});
 
 app.use(express.json());
 
@@ -34,9 +43,9 @@ app.listen(port, () => {
 
 const dadosconexao = {
     user: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD || '1234',
-    database: process.env.DB_DATABASE || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
+    password: process.env.DB_PASSWORD || 'dev@123',
+    database: process.env.DB_DATABASE || 'graxa',
+    host: process.env.DB_HOST || '159.89.46.66',
     port: process.env.DB_PORT || '5432'  
     }
 
@@ -192,7 +201,7 @@ app.get('/usuario/username', async (request, response) => {
 
 const emprestimoController = new EmprestimoController(repositoryFactory)
 
-app.get('/emprestimo', async (request, response) => {
+app.get('/emprestimo', autenticacao, async (request, response) => {
     response.send(await emprestimoController.getAll({}));
 })
 
@@ -222,3 +231,12 @@ app.put('/emprestimo/:id', async (request, response) => {
     }
     response.send(await emprestimoController.update(newEmprestimo));
 })
+
+
+//==============Login==============
+
+const loginController = new LoginController(repositoryFactory)
+
+app.post('/login',async (request, response) => {
+    response.send(await loginController.login(request.body));
+});
