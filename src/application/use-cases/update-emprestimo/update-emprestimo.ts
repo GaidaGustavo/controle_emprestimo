@@ -12,23 +12,53 @@ export class UpdateEmprestimoUseCase {
     private pessoaRepository: PessoaRepository;
     private usuarioRepository: UsuarioRepository;
     private emprestimoRepository: EmprestimoRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.itemRepository = repositoryFactory.createItemRepository();
         this.pessoaRepository = repositoryFactory.createPessoaRepository();
         this.usuarioRepository = repositoryFactory.createUsuarioRepository();
         this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
-
     }
-    
+
     async execute(input: UpdateEmprestimoInput): Promise<UpdateEmprestimoOutput> {
-        const item = await this.itemRepository.getById(input.itemId);
-        console.log(input.dataDevolucao)
-        const pessoa = await this.pessoaRepository.getById(input.pessoaId);
-        const usuario = await this.usuarioRepository.getById(input.usuarioId);
-        const newEmprestimo = new Emprestimo(item, pessoa, usuario, input.dataEmprestimo, input.dataDevolucao, input.id);
-        console.log(newEmprestimo)
-        await this.emprestimoRepository.update(newEmprestimo)
-        return {}
+        try {
+            if (!input.id || !input.itemId || !input.pessoaId || !input.usuarioId) {
+                throw new Error('Campos obrigatórios não fornecidos');
+            }
+
+            const item = await this.itemRepository.getById(input.itemId);
+            if (!item) {
+                throw new Error('Item não encontrado');
+            }
+
+            const pessoa = await this.pessoaRepository.getById(input.pessoaId);
+            if (!pessoa) {
+                throw new Error('Pessoa não encontrada');
+            }
+
+            const usuario = await this.usuarioRepository.getById(input.usuarioId);
+            if (!usuario) {
+                throw new Error('Usuário não encontrado');
+            }
+
+            const newEmprestimo = new Emprestimo(
+                item,
+                pessoa,
+                usuario,
+                input.dataEmprestimo,
+                input.dataDevolucao,
+                input.id
+            );
+
+            await this.emprestimoRepository.update(newEmprestimo);
+
+            return {
+                message: 'Empréstimo atualizado com sucesso',
+                emprestimoId: newEmprestimo.getID(),
+            };
+
+        } catch (error) {
+            throw new Error('Erro ao tentar atualizar o empréstimo');
+        }
     }
 }

@@ -21,10 +21,8 @@ export class UpdateItemUseCase {
         if (!input.itemEPI) {
             item = new Item(input.nome, tipoItem, input.id);
         } else {
-            // Criando o Value Object diretamente com os dados do input
             const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
 
-            // Criando o Item com o Value Object
             item = new Item(input.nome, tipoItem, input.id, itemEPI);
             console.log(item)
         }

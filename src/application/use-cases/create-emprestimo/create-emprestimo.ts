@@ -1,4 +1,3 @@
-import e from "express";
 import { Emprestimo } from "../../../domain/entity/emprestimo";
 import { EmprestimoRepository } from "../../../domain/repository/emprestimo-repository";
 import { ItemRepository } from "../../../domain/repository/item-repository";
@@ -13,36 +12,52 @@ export class CreateEmprestimoUseCase {
     private pessoaRepository: PessoaRepository;
     private usuarioRepository: UsuarioRepository;
     private emprestimoRepository: EmprestimoRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.itemRepository = repositoryFactory.createItemRepository();
         this.pessoaRepository = repositoryFactory.createPessoaRepository();
         this.usuarioRepository = repositoryFactory.createUsuarioRepository();
         this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
-
     }
-    
-    async execute(input: CreateEmprestimoInput):Promise<CreateEmprestimoOutput> {
-        
-        if(!input.pessoaId){
-            throw new Error('Insira uma Pessoa')
-        }
-        if(!input.usuarioId){
-            throw new Error('Logue com um usuário')
-        }
 
-        console.log(input.pessoaId, input.usuarioId, input.itensId)
-        
-        const pessoa = await this.pessoaRepository.getById(input.pessoaId)
-        const usuario = await this.usuarioRepository.getById(input.usuarioId);
+    async execute(input: CreateEmprestimoInput): Promise<CreateEmprestimoOutput> {
+        try {
+            if (!input.pessoaId) {
+                throw new Error('Pessoa não informada');
+            }
 
-        for (const itemId of input.itensId) {
-            const item = await this.itemRepository.getById(itemId.id);
-            const dataEmpresimo = new Date();
-            const emprestimo = new Emprestimo(item, pessoa, usuario, dataEmpresimo);
-            await this.emprestimoRepository.create(emprestimo);
+            if (!input.usuarioId) {
+                throw new Error('Usuário não logado');
+            }
+
+            if (!input.itensId || input.itensId.length == 0) {
+                throw new Error('Pelo menos um item precisa ser informado');
+            }
+
+            const pessoa = await this.pessoaRepository.getById(input.pessoaId);
+            if (!pessoa) {
+                throw new Error('Pessoa não encontrada');
+            }
+
+            const usuario = await this.usuarioRepository.getById(input.usuarioId);
+            if (!usuario) {
+                throw new Error('Usuário não encontrado');
+            }
+
+            for (const itemId of input.itensId) {
+                const item = await this.itemRepository.getById(itemId.id);
+                if (!item) {
+                    throw new Error(`Item com ID ${itemId.id} não encontrado`);
+                }
+
+                const dataEmprestimo = new Date();
+                const emprestimo = new Emprestimo(item, pessoa, usuario, dataEmprestimo);
+                await this.emprestimoRepository.create(emprestimo);
+            }
+
+            return { success: true };
+        } catch (error) {
+            throw new Error(`Erro ao criar empréstimo`);
         }
-        
-        return {}
     }
 }

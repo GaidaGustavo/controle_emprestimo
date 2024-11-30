@@ -8,22 +8,38 @@ import { UpdateUsuarioOutput } from "./update-usuario-output";
 export class UpdateUsuarioUseCase {
     private pessoaRepository: PessoaRepository;
     private usuarioRepository: UsuarioRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.pessoaRepository = repositoryFactory.createPessoaRepository();
         this.usuarioRepository = repositoryFactory.createUsuarioRepository();
     }
     
     async execute(input: UpdateUsuarioInput): Promise<UpdateUsuarioOutput> {
-        if(!input.username){
-            throw new Error('Insira um nome!')
+        try {
+            if (!input.username) {
+                throw new Error('O nome de usuário é obrigatório!');
+            }
+
+            if (!input.pessoaId) {
+                throw new Error('O ID da pessoa é obrigatório!');
+            }
+
+            const pessoa = await this.pessoaRepository.getById(input.pessoaId);
+
+            if (!pessoa) {
+                throw new Error('Pessoa não encontrada!');
+            }
+
+            const newUsuario = new Usuario(input.username, pessoa, input.id, input.senha);
+
+            await this.usuarioRepository.update(newUsuario);
+
+            return {
+                message: 'Usuário atualizado com sucesso!',
+                usuarioId: newUsuario.getID(),
+            };
+        } catch (error) {
+            throw new Error('Erro ao atualizar usuário');
         }
-        if(!input.pessoaId){
-            throw new Error('Insira uma pessoa!')
-        }
-        const pessoa = await this.pessoaRepository.getById(input.pessoaId);
-        const newUsuario = new Usuario(input.username, pessoa, input.id, input.senha);
-        await this.usuarioRepository.update(newUsuario)
-        return {}
     }
 }

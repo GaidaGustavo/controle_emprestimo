@@ -5,17 +5,22 @@ import { DeleteItemOutput } from "./delete-item-output";
 
 export class DeleteItemUseCase {
     private itemRepository: ItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.itemRepository = repositoryFactory.createItemRepository();
     }
-    
-    async execute(input: DeleteItemInput):Promise<DeleteItemOutput> {
-        if(!input.id){
-            throw new Error('Insira um id válido')
-        }
-        const item = await this.itemRepository.delete(input.id);
 
-        return {};
+    async execute(input: DeleteItemInput): Promise<DeleteItemOutput> {
+        try {
+            if (!input.id) {
+                throw new Error('Insira um id válido');
+            }
+
+            await this.itemRepository.delete(input.id);
+
+            return {};
+        } catch (error) {
+            throw new Error('Erro ao deletar item');
+        }
     }
 }

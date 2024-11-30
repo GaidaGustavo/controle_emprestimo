@@ -15,23 +15,28 @@ export class LoginUseCase {
 
     async execute(input: LoginUseCaseInput): Promise<LoginUseCaseOutput> {
         console.log(input.username)
+        
         const usuario = await this.usuarioRepository.getByUsername(input.username);
+        if (!usuario) {
+            throw new Error("Usuário não encontrado");
+        }
+
         const senha = usuario.getSenha()!;
+        console.log(input.password);
+        console.log(usuario.getSenha());
 
-        console.log(input.password)
-        console.log(senha)
-
-        const isValidPassword = await compare(input.password, senha);
-        if (isValidPassword) {
+        const senhaValida = await compare(input.password, senha);
+        if (!senhaValida) {
             throw new Error("Senha Inválida");
         }
+
         const token = sign({
-            id: usuario.id,
+            id: usuario.getID(),
             username: input.username,
-            senha: senha
-        }, 'teste');
+        }, process.env.JWT_SECRET || 'default_secret', { expiresIn: '1h' });
+
         return {
             token
-        }
+        };
     }
 }

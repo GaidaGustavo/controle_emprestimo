@@ -3,37 +3,35 @@ import { RepositoryFactory } from "../../../domain/repository/repository-factory
 import { GetAllItensInput } from "./get-all-itens-input";
 import { GetAllItensOutput } from "./get-all-itens-output";
 
-
 export class GetAllItensUseCase {
     private itemRepository: ItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.itemRepository = repositoryFactory.createItemRepository();
     }
-    
-    async execute(input: GetAllItensInput):Promise<GetAllItensOutput[]> {
-        const itens = await this.itemRepository.getAll();
 
-        const output: GetAllItensOutput[] = [];
+    async execute(input: GetAllItensInput): Promise<GetAllItensOutput[]> {
+        try {
+            const itens = await this.itemRepository.getAll();
 
-        for(const item of itens){
-            output.push(
-            {
-                    id: item.getID(),
-                    name: item.getName(),
-                    itemEPI: item.getItemEPI(),
-                    tipoItem: {
-                        id: item.getTipoItem().getID(),
-                        name: item.getTipoItem().getName(),
-                    }
+            if (itens.length == 0) {
+                throw new Error('Nenhum dado encontrado');
             }
-            )
-        }
-        if(!output){
-            throw new Error('Nunhum dado encontrado')
-        }
 
-        return output;
-            
+            const output: GetAllItensOutput[] = itens.map((item) => ({
+                id: item.getID(),
+                name: item.getName(),
+                itemEPI: item.getItemEPI(),
+                tipoItem: {
+                    id: item.getTipoItem().getID(),
+                    name: item.getTipoItem().getName(),
+                }
+            }));
+
+            return output;
+        } catch (error) {
+            throw new Error('Erro ao obter itens');
+        }
     }
 }
+

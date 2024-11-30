@@ -5,17 +5,22 @@ import { DeleteTipoItemOutput } from "./delete-tipo-item-output";
 
 export class DeleteTipoItemUseCase {
     private tipoItemRepository: TipoItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.tipoItemRepository = repositoryFactory.createTipoItemRepository();
     }
     
-    async execute(input: DeleteTipoItemInput):Promise<DeleteTipoItemOutput> {
-        if(!input.id){
-            throw new Error('Insira um id válido')
-        }
-        const item = await this.tipoItemRepository.delete(input.id);
+    async execute(input: DeleteTipoItemInput): Promise<DeleteTipoItemOutput> {
+        try {
+            if (!input.id) {
+                throw new Error('Insira um id válido');
+            }
 
-        return {};
+            await this.tipoItemRepository.delete(input.id);
+
+            return {};
+        } catch (error) {
+            throw new Error('Erro ao deletar tipo de item');
+        }
     }
 }

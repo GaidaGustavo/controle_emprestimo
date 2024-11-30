@@ -4,18 +4,23 @@ import { DeleteUsuarioInput } from "./delete-usuario-input";
 import { DeleteUsuarioOutput } from "./delete-usuario-output";
 
 export class DeleteUsuarioUseCase {
-    private usuarioRepository: UsuarioRepository
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+    private usuarioRepository: UsuarioRepository;
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.usuarioRepository = repositoryFactory.createUsuarioRepository();
     }
     
-    async execute(input: DeleteUsuarioInput):Promise<DeleteUsuarioOutput> {
-        if(!input.id){
-            throw new Error('Insira um id válido')
-        }
-        const item = await this.usuarioRepository.delete(input.id);
+    async execute(input: DeleteUsuarioInput): Promise<DeleteUsuarioOutput> {
+        try {
+            if (!input.id) {
+                throw new Error('Insira um id válido');
+            }
 
-        return {};
+            await this.usuarioRepository.delete(input.id);
+
+            return {};
+        } catch (error) {
+            throw new Error('Erro ao deletar usuário');
+        }
     }
 }

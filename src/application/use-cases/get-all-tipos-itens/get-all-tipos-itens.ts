@@ -5,28 +5,28 @@ import { GetAllTiposItensOutput } from "./get-all-tipos-itens-output";
 
 export class GetAllTipoitensUseCase {
     private tipoItemRepository: TipoItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.tipoItemRepository = repositoryFactory.createTipoItemRepository();
     }
-    
-    async execute(input: GetAllTiposItensInput):Promise<GetAllTiposItensOutput[]> {
-        const tiposItens = await this.tipoItemRepository.getAll();
 
-        const output: GetAllTiposItensOutput[] = [];
+    async execute(input: GetAllTiposItensInput): Promise<GetAllTiposItensOutput[]> {
+        try {
+            const tiposItens = await this.tipoItemRepository.getAll();
 
-        for(const tipoItem of tiposItens){
-            output.push(
-            {
-                    id: tipoItem.getID(),
-                    nome: tipoItem.getName(),
+            if (!tiposItens || tiposItens.length == 0) {
+                throw new Error('Nenhum dado encontrado');
             }
-            )
-        }
-        if(!output){
-            throw new Error('Nunhum dado encontrado')
-        }
 
-        return output;
+            const output: GetAllTiposItensOutput[] = tiposItens.map(tipoItem => ({
+                id: tipoItem.getID(),
+                nome: tipoItem.getName(),
+            }));
+
+            return output;
+        } catch (error) {
+            throw new Error(`Erro ao obter tipos de itens`);
+        }
     }
 }
+

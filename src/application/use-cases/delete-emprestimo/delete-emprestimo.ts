@@ -5,17 +5,22 @@ import { DeleteEmprestimoOutput } from "./delete-emprestimo-output";
 
 export class DeleteEmprestimoUseCase {
     private emprestimoRepository: EmprestimoRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.emprestimoRepository = repositoryFactory.createEmprestimoRepository();
     }
-    
-    async execute(input: DeleteEmprestimoInput):Promise<DeleteEmprestimoOutput> {
-        if(!input.id){
-            throw new Error('Insira um id válido')
-        }
-        const item = await this.emprestimoRepository.delete(input.id);
 
-        return {};
+    async execute(input: DeleteEmprestimoInput): Promise<DeleteEmprestimoOutput> {
+        try {
+            if (!input.id) {
+                throw new Error('Insira um id válido');
+            }
+
+            await this.emprestimoRepository.delete(input.id);
+
+            return {};
+        } catch (error) {
+            throw new Error('Erro ao deletar empréstimo');
+        }
     }
 }

@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { Pessoa } from "../../../domain/entity/pessoa";
 import { Usuario } from "../../../domain/entity/usuario";
 import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
@@ -70,10 +71,12 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
 
     async create(usuario: Usuario): Promise<void> {
         try {
+            const senha = usuario.senha!;
+            const senhaCriptografada = await hash(senha, 10);
             await this.connection.execute(`
                 INSERT INTO usuarios(id, pessoa_id, nome_usuario, senha)
                 VALUES ($1, $2, $3, $4);
-            `, [usuario.getID(), usuario.getPessoa().getID(), usuario.username, usuario.senha]);
+            `, [usuario.getID(), usuario.getPessoa().getID(), usuario.username, senhaCriptografada]);
         } catch (error) {
             throw new Error('Erro ao criar usuário');
         }

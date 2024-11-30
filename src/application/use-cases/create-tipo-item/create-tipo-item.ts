@@ -6,18 +6,24 @@ import { CreateTipoItemOutput } from "./create-tipo-item-output";
 
 export class CreateTipoitemUseCase {
     private tipoItemRepository: TipoItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.tipoItemRepository = repositoryFactory.createTipoItemRepository();
     }
-    
-    async execute(input: CreateTipoItemInput): Promise<CreateTipoItemOutput> {
-        if(!input.nome){
-            throw new Error('Insira um nome!')
-        }
-        const tipoItem = new TipoItem(input.nome, input.id)
 
-        await this.tipoItemRepository.create(tipoItem);
-        return {}
+    async execute(input: CreateTipoItemInput): Promise<CreateTipoItemOutput> {
+        try {
+            if (!input.nome) {
+                throw new Error('Insira um nome!');
+            }
+
+            const tipoItem = new TipoItem(input.nome, input.id);
+
+            await this.tipoItemRepository.create(tipoItem);
+
+            return {};
+        } catch (error) {
+            throw new Error('Erro ao criar tipo de item');
+        }
     }
 }

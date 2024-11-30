@@ -9,39 +9,41 @@ import { ItemEPI } from "../../../domain/entity/value-object/item-epi";
 export class CreateItemUseCase {
     private itemRepository: ItemRepository;
     private tipoItemRepository: TipoItemRepository;
-    constructor(private repositoryFactory: RepositoryFactory
-    ) {
+
+    constructor(private repositoryFactory: RepositoryFactory) {
         this.itemRepository = repositoryFactory.createItemRepository();
         this.tipoItemRepository = repositoryFactory.createTipoItemRepository();
     }
 
     async execute(input: CreateItemInput): Promise<CreateItemOutput> {
-        if (!input.nome) {
-            throw new Error('Insira um nome para o item');
+        try {
+            if (!input.nome) {
+                throw new Error('Insira um nome para o item');
+            }
+
+            if (!input.tipoItemId) {
+                throw new Error('Insira um tipo de item');
+            }
+
+            const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId);
+
+            if (!tipoItem) {
+                throw new Error('Tipo de item não encontrado');
+            }
+
+            let item;
+            if (!input.itemEPI.ca || input.itemEPI.ca == '' || !input.itemEPI.validade || input.itemEPI.validade == "0NaN-NaN-NaNTNaN:NaN:NaN.NaN+NaN:NaN") {
+                item = new Item(input.nome, tipoItem, input.id);
+            } else {
+                const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
+                item = new Item(input.nome, tipoItem, input.id, itemEPI);
+            }
+
+            await this.itemRepository.create(item);
+
+            return {};
+        } catch (error) {
+            throw new Error(`Erro ao criar item`);
         }
-        if (!input.tipoItemId) {
-            throw new Error('Insira um tipo de item');
-        }
-
-        const tipoItem = await this.tipoItemRepository.getById(input.tipoItemId);
-
-        var item
-        if (input.itemEPI.ca == '' || !input.itemEPI.ca || input.itemEPI.validade == "0NaN-NaN-NaNTNaN:NaN:NaN.NaN+NaN:NaN" || !input.itemEPI.validade) {
-            item = new Item(input.nome, tipoItem, input.id);
-        } else {
-            // Criando o Value Object diretamente com os dados do input
-            const itemEPI = new ItemEPI(input.itemEPI.ca, new Date(input.itemEPI.validade));
-
-            // Criando o Item com o Value Object
-            item = new Item(input.nome, tipoItem, input.id, itemEPI);
-            console.log(item)
-        }
-
-        // Persiste o item no banco
-        await this.itemRepository.create(item);
-
-        return {};
     }
-
-
 }
