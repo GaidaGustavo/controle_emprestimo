@@ -65,14 +65,14 @@ export default class ItemRepositoryDatabase implements ItemRepository {
                     INSERT INTO itens_epi(item_id, ca, validade)
                     VALUES ($1, $4, $5);
                 `, [
-                    item.id, item.name, item.getTipoItem().getID(),
+                    item.getID(), item.getName(), item.getTipoItem().getID(),
                     item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
                 ]);
             } else {
                 await this.connection.execute(`
                     INSERT INTO itens(id, nome, tipo_item_id)
                     VALUES ($1, $2, $3);
-                `, [item.id, item.name, item.getTipoItem().getID()]);
+                `, [item.getID(), item.getName(), item.getTipoItem().getID()]);
             }
         } catch (error) {
             throw new Error('Erro ao criar item');
@@ -86,7 +86,7 @@ export default class ItemRepositoryDatabase implements ItemRepository {
                     UPDATE itens
                     SET nome = $1, tipo_item_id = $2
                     WHERE id = $3;
-                `, [item.name, item.getTipoItem().getID(), item.id]);
+                `, [item.getName(), item.getTipoItem().getID(), item.getID()]);
             } else {
                 await this.connection.execute(`
                     UPDATE itens
@@ -96,7 +96,7 @@ export default class ItemRepositoryDatabase implements ItemRepository {
                     SET ca = $4, validade = $5
                     WHERE item_id = $3;
                 `, [
-                    item.name, item.getTipoItem().getID(), item.id,
+                    item.getName(), item.getTipoItem().getID(), item.getID(),
                     item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
                 ]);
             }
