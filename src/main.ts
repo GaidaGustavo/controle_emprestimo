@@ -167,7 +167,7 @@ app.get('/usuario/username', async (request, response) => {
 //==============Emprestimo==============
 const emprestimoController = new EmprestimoController(repositoryFactory);
 
-app.get('/emprestimo', autenticacao, async (request, response) => {
+app.get('/emprestimo', async (request, response) => {
     response.send(await emprestimoController.getAll({}));
 });
 
