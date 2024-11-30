@@ -38,75 +38,79 @@
         </div>
     </nav>
 
-    <div class="container mt-5 containerAlterado">
+    <div class="container mt-5 containerAlterado " style="height: 560px;">
         <h2>Bem Vindo</h2>
         <br> <br>
-        <div class="row row-cols-1 row-cols-md-3 g-3">
 
-            <!-- Botões de navegação com ícones e tamanhos iguais -->
-            <div class="col">
-                <a href="fazeremprestimo.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-arrow-down-circle me-2"></i>Fazer Empréstimo</a>
-            </div>
-
-
-            <div class="col">
-                <a href="cadastrousuario.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-person-badge-fill me-2"></i>Cadastrar Usuário</a>
-            </div>
-            <div class="col">
-                <a href="cadastrotipoitem.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-clipboard-plus me-2"></i>Cadastrar Tipo de Item</a>
-            </div>
-
-            <div class="col">
-                <a href="visualizacaoemprestimo.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-bar-chart-fill me-2"></i>Dashboard de Empréstimo</a>
-            </div>
-            <div class="col">
+        <div class="row">
+            <!-- Coluna 1: Estoque -->
+            <div class="col-md-4">
+                <p class="context-title">Estoque</p>
                 <a href="cadastroitem.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center mb-3"><i
                         class="bi bi-plus-circle-fill me-2"></i>Cadastrar Item</a>
-            </div>
-            <div class="col">
                 <a href="visualizacaoestoque.html"
                     class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
                         class="bi bi-box-seam me-2"></i>Dashboard de Itens</a>
             </div>
-            <div class="col">
-                <a href="cadastropessoa.html"
+
+            <!-- Coluna 2: Tipos de Item -->
+            <div class="col-md-4">
+                <p class="context-title">Tipos de Item</p>
+                <a href="cadastrotipoitem.html"
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center mb-3"><i
+                        class="bi bi-clipboard-plus me-2"></i>Cadastrar Tipo de Item</a>
+                <a href="visualizacaotipositem.html"
                     class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-person-plus-fill me-2"></i>Cadastrar Colaborador</a>
+                        class="bi bi-card-checklist me-2"></i>Dashboard de Tipos de Item</a>
             </div>
-            <div class="col">
+
+            <!-- Coluna 3: Empréstimos -->
+            <div class="col-md-4">
+                <p class="context-title">Empréstimos</p>
+                <a href="fazeremprestimo.html"
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center mb-3"><i
+                        class="bi bi-arrow-down-circle me-2"></i>Fazer Empréstimo</a>
+                <a href="visualizacaoemprestimo.html"
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
+                        class="bi bi-bar-chart-fill me-2"></i>Dashboard de Empréstimo</a>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <!-- Coluna 1: Colaboradores -->
+            <div class="col-md-4">
+                <p class="context-title">Colaboradores</p>
+                <a href="cadastropessoa.html"
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center mb-3"><i
+                        class="bi bi-person-plus-fill me-2"></i>Cadastrar Colaborador</a>
                 <a href="visualizacaopessoas.html"
                     class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
                         class="bi bi-people-fill me-2"></i>Dashboard de Colaboradores</a>
             </div>
 
-            <div class="col">
+            <!-- Coluna 2: Usuários -->
+            <div class="col-md-4">
+                <p class="context-title">Usuários</p>
+                <a href="cadastrousuario.html"
+                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center mb-3"><i
+                        class="bi bi-person-badge-fill me-2"></i>Cadastrar Usuário</a>
                 <a href="visualizacaousuarios.html"
                     class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
                         class="bi bi-person-lines-fill me-2"></i>Dashboard de Usuários</a>
             </div>
 
-            <div class="col">
-                <a href="visualizacaotipositem.html"
-                    class="btn btn-primary btn-uniform d-flex justify-content-center align-items-center"><i
-                        class="bi bi-card-checklist me-2"></i>Dashboard de Tipos de Item</a>
-            </div>
-            <div class="col">
+            <!-- Coluna 3: Acesso -->
+            <div class="col-md-4">
+                <p class="context-title">Acesso</p>
                 <a href="login.html"
                     class="btn btn-secondary btn-uniform d-flex justify-content-center align-items-center"><i
                         class="bi bi-box-arrow-in-right me-2"></i>Login</a>
             </div>
         </div>
     </div>
-
     <script src="css_script/script.js"></script>
 
 </body>
