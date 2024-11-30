@@ -14,7 +14,7 @@ export class GetUsuarioByUsernameUseCase {
 
     async execute(input: GetUsuarioByUsernameInput): Promise<GetUsuarioByUsernameOutput> {
         if (!input.username) {
-            throw new Error('Insira um id válido')
+            throw new Error('Insira um usuario válido')
         }
         const usuario = await this.usuarioRepository.getByUsername(input.username);
 

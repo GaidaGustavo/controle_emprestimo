@@ -13,6 +13,9 @@ export default class UsuarioRepositoryMemory implements UsuarioRepository{
             new Usuario('gabriel_anel', pessoa2, '3b4596dd-45d4-4f0e-ac57-d7e18d46fdfe', '123')
         ]
     }
+    getByUsername(username: string): Promise<Usuario> {
+        throw new Error("Method not implemented.");
+    }
     async delete(id: string): Promise<void> {
         this.usuarios = await this.usuarios.filter(value => value.getID() !== id);
     }

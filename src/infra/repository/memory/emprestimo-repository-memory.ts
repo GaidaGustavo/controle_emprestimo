@@ -18,7 +18,7 @@ export default class EmprestimoRepositoryMemory implements EmprestimoRepository{
         const usuario = new Usuario('jacson_santos', pessoa, '7e461e53-0793-4ba3-8c34-dc5f45481b31', '123');
         
         this.emprestimos = [
-            new Emprestimo(item,  pessoa, usuario, '7bb91674-3f3c-4f86-923e-dd1f266dfca4', date)
+            new Emprestimo(item,  pessoa, usuario, date, date, '7bb91674-3f3c-4f86-923e-dd1f266dfca4')
         ]
     }
     async delete(id: string): Promise<void> {

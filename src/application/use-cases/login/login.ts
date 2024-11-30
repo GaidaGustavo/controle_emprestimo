@@ -14,10 +14,15 @@ export class LoginUseCase {
     }
 
     async execute(input: LoginUseCaseInput): Promise<LoginUseCaseOutput> {
+        console.log(input.username)
         const usuario = await this.usuarioRepository.getByUsername(input.username);
         const senha = usuario.getSenha()!;
+
+        console.log(input.password)
+        console.log(senha)
+
         const isValidPassword = await compare(input.password, senha);
-        if (!isValidPassword) {
+        if (isValidPassword) {
             throw new Error("Senha Inválida");
         }
         const token = sign({
@@ -28,6 +33,5 @@ export class LoginUseCase {
         return {
             token
         }
-
     }
 }

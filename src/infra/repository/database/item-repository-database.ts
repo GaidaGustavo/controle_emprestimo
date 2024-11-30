@@ -1,4 +1,3 @@
-import { GetTipoitemByIdUseCase } from "../../../application/use-cases/get-tipo-item-by-id/get-tipo-item-by-id";
 import { Item } from "../../../domain/entity/item";
 import { TipoItem } from "../../../domain/entity/tipo-item";
 import { ItemEPI } from "../../../domain/entity/value-object/item-epi";
@@ -6,146 +5,111 @@ import { ItemRepository } from "../../../domain/repository/item-repository";
 import { Connection } from "../../config-database/connection";
 
 export default class ItemRepositoryDatabase implements ItemRepository {
-    constructor(private connection: Connection) {
-    }
+    constructor(private connection: Connection) {}
 
     async getAll(): Promise<Item[]> {
-
-        const output: Item[] = [];
-        const itensData = await this.connection.execute(`
-            select i.id, i.nome, ti.id AS tipo_item_id, ti.nome AS nome_tipoitem, ie.ca, ie.validade
-            from itens i left join tipos_item ti on i.tipo_item_id = ti.id
-            left join itens_epi ie on i.id = ie.item_id;
+        try {
+            const output: Item[] = [];
+            const itensData = await this.connection.execute(`
+                SELECT i.id, i.nome, ti.id AS tipo_item_id, ti.nome AS nome_tipoitem, 
+                    ie.ca, ie.validade
+                FROM itens i 
+                LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
+                LEFT JOIN itens_epi ie ON i.id = ie.item_id;
             `);
 
-        for (const itemData of itensData) {
-            const tipoItem = new TipoItem(
-                itemData.nome_tipoitem,
-                itemData.tipo_item_id
-            )
+            for (const itemData of itensData) {
+                const tipoItem = new TipoItem(itemData.nome_tipoitem, itemData.tipo_item_id);
+                const itemEpi = new ItemEPI(itemData.ca, itemData.validade);
+                const item = new Item(itemData.nome, tipoItem, itemData.id, itemEpi);
+                output.push(item);
+            }
 
-            const itenEpi = new ItemEPI(
-                itemData.ca,
-                itemData.validade
-            )
-
-            const item = new Item(
-                itemData.nome,
-                tipoItem,
-                itemData.id,
-                itenEpi
-            )
-
-            output.push(item)
-
+            return output;
+        } catch (error) {
+            throw new Error('Erro ao buscar itens');
         }
-
-        return output;
     }
-
 
     async getById(id: string): Promise<Item> {
-        // Realiza a consulta no banco de dados
-        const [itemData] = await this.connection.execute(`
-            SELECT i.id, i.nome, ti.id AS tipo_item_id, ti.nome AS nome_tipoitem, ie.ca, ie.validade
-            FROM itens i
-            LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
-            LEFT JOIN itens_epi ie ON i.id = ie.item_id
-            WHERE i.id = $1`,
-            [id]
-        );
+        try {
+            const [itemData] = await this.connection.execute(`
+                SELECT i.id, i.nome, ti.id AS tipo_item_id, ti.nome AS nome_tipoitem, 
+                    ie.ca, ie.validade
+                FROM itens i
+                LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
+                LEFT JOIN itens_epi ie ON i.id = ie.item_id
+                WHERE i.id = $1;
+            `, [id]);
 
-        // Se nenhum item for encontrado, lança um erro
-        if (!itemData) {
-            throw new Error(`Item com ID ${id} não encontrado`);
+            if (!itemData) {
+                throw new Error(`Item com ID ${id} não encontrado`);
+            }
+
+            const tipoItem = new TipoItem(itemData.nome_tipoitem, itemData.tipo_item_id);
+            const itemEpi = new ItemEPI(itemData.ca || '', itemData.validade || '');
+            const item = new Item(itemData.nome, tipoItem, itemData.id, itemEpi);
+
+            return item;
+        } catch (error) {
+            throw new Error('Erro ao buscar o item');
         }
-
-        // Verifica se os dados necessários para criar os objetos existem
-        if (!itemData.nome_tipoitem || !itemData.tipo_item_id) {
-            throw new Error(`Informações incompletas para o item com ID ${id}`);
-        }
-
-        // Cria o objeto TipoItem com os dados obtidos
-        const tipoItem = new TipoItem(
-            itemData.nome_tipoitem,
-            itemData.tipo_item_id
-        );
-
-        // Cria o objeto ItemEPI, validando os dados
-        const itemEpi = new ItemEPI(
-            itemData.ca || '',  // Caso o CA ou validade não sejam encontrados, passamos um valor padrão
-            itemData.validade || ''
-        );
-
-        // Cria o objeto Item com os dados obtidos e os objetos relacionados
-        const item = new Item(
-            itemData.nome,
-            tipoItem,
-            itemData.id,
-            itemEpi
-        );
-
-        return item;
     }
-
-
 
     async create(item: Item): Promise<void> {
-
-        console.log("xalupa" + item.id, item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade())
-
-        if (item.getItemEPI() !== null) {
-
-            await this.connection.execute(`            
-                insert into itens(id, nome, tipo_item_id)
-                values ($1, $2, $3);
-                
-                insert into itens_epi(item_id, ca, validade)
-                values ($1, $4, $5);
-                `,
-                [item.id, item.name, item.getTipoItem().getID(),
-                item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
+        try {
+            if (item.getItemEPI() !== null) {
+                await this.connection.execute(`
+                    INSERT INTO itens(id, nome, tipo_item_id)
+                    VALUES ($1, $2, $3);
+                    INSERT INTO itens_epi(item_id, ca, validade)
+                    VALUES ($1, $4, $5);
+                `, [
+                    item.id, item.name, item.getTipoItem().getID(),
+                    item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
                 ]);
-
-        } else {
-            await this.connection.execute(`            
-                insert into itens(id, nome, tipo_item_id)
-                values ($1, $2, $3);
-                `,
-                [item.id, item.name, item.getTipoItem().getID()]);
+            } else {
+                await this.connection.execute(`
+                    INSERT INTO itens(id, nome, tipo_item_id)
+                    VALUES ($1, $2, $3);
+                `, [item.id, item.name, item.getTipoItem().getID()]);
+            }
+        } catch (error) {
+            throw new Error('Erro ao criar item');
         }
     }
 
-
-
     async update(item: Item): Promise<void> {
-        console.log(item.getItemEPI()?.getCa())
-
-        if (!item.getItemEPI()){
-            await this.connection.execute(`
-                update itens set
-                nome = $1,
-                tipo_item_id = $2
-                where id = $3
-                `,
-                    [item.name, item.getTipoItem().getID(), item.id]);
-        }else{
-            await this.connection.execute(`
-                update itens set
-                nome = $1,
-                tipo_item_id = $2
-                where id = $3;
-
-                update itens_epi set
-                ca = $4,
-                validade = $5
-                where item_id = $3;
-                `,
-                    [item.name, item.getTipoItem().getID(), item.id, item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()]);
-        } 
+        try {
+            if (!item.getItemEPI()) {
+                await this.connection.execute(`
+                    UPDATE itens
+                    SET nome = $1, tipo_item_id = $2
+                    WHERE id = $3;
+                `, [item.name, item.getTipoItem().getID(), item.id]);
+            } else {
+                await this.connection.execute(`
+                    UPDATE itens
+                    SET nome = $1, tipo_item_id = $2
+                    WHERE id = $3;
+                    UPDATE itens_epi
+                    SET ca = $4, validade = $5
+                    WHERE item_id = $3;
+                `, [
+                    item.name, item.getTipoItem().getID(), item.id,
+                    item.getItemEPI()?.getCa(), item.getItemEPI()?.getValidade()
+                ]);
+            }
+        } catch (error) {
+            throw new Error('Erro ao atualizar item');
+        }
     }
 
     async delete(id: string): Promise<void> {
-        await this.connection.execute(`delete from itens where id = $1`, [id])
+        try {
+            await this.connection.execute(`DELETE FROM itens WHERE id = $1;`, [id]);
+        } catch (error) {
+            throw new Error('Erro ao excluir item');
+        }
     }
 }

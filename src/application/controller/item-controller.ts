@@ -11,29 +11,47 @@ export class ItemController {
     constructor(private repositoryFactory: RepositoryFactory) { }
 
     async create(input: any) {
-        const createItemUseCase = new CreateItemUseCase(this.repositoryFactory)
-        return await createItemUseCase.execute(input);
+        try {
+            const createItemUseCase = new CreateItemUseCase(this.repositoryFactory);
+            return await createItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao criar item");
+        }
     }
 
     async update(input: any) {
-        const updateItemUseCase = new UpdateItemUseCase(this.repositoryFactory)
-        return await updateItemUseCase.execute(input);
+        try {
+            const updateItemUseCase = new UpdateItemUseCase(this.repositoryFactory);
+            return await updateItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao atualizar item");
+        }
     }
 
     async getAll(input: any) {
-        const getAllItensUseCase = new GetAllItensUseCase(this.repositoryFactory)
-        return await getAllItensUseCase.execute(input);
+        try {
+            const getAllItensUseCase = new GetAllItensUseCase(this.repositoryFactory);
+            return await getAllItensUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao obter todos os itens");
+        }
     }
 
     async getById(input: GetItemByIdInput) {
-
-        const getItemByIdUseCase = new GetItemByIdUseCase(this.repositoryFactory)
-        return await getItemByIdUseCase.execute(input);
+        try {
+            const getItemByIdUseCase = new GetItemByIdUseCase(this.repositoryFactory);
+            return await getItemByIdUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao obter item por ID");
+        }
     }
 
     async delete(input: DeleteItemInput) {
-        const deleteItemUseCase = new DeleteItemUseCase(this.repositoryFactory)
-        return await deleteItemUseCase.execute(input);
+        try {
+            const deleteItemUseCase = new DeleteItemUseCase(this.repositoryFactory);
+            return await deleteItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao deletar item");
+        }
     }
-
 }

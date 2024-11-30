@@ -7,36 +7,51 @@ import { GetTipoitemByIdUseCase } from "../use-cases/get-tipo-item-by-id/get-tip
 import { GetTipoItemByIdInput } from "../use-cases/get-tipo-item-by-id/get-tipo-item-by-id-input";
 import { UpdateTipoItemUseCase } from "../use-cases/update-tipo-item/update-tipo-item";
 
-export class TipoItemController{
-    constructor(private repositoryFactory: RepositoryFactory){}
+export class TipoItemController {
+    constructor(private repositoryFactory: RepositoryFactory) {}
 
-    async create(input: any){
-        const createTipoItemUseCase = new CreateTipoitemUseCase(this.repositoryFactory);
-        return await createTipoItemUseCase.execute(input);
-    }
-
-    async update(input: any){
-        const updateTipoItemUseCase = new UpdateTipoItemUseCase(this.repositoryFactory);
-        return await updateTipoItemUseCase.execute(input);
-    }
-
-    async getAll(input: any){
-        const getAllTipoItemUseCase = new GetAllTipoitensUseCase(this.repositoryFactory);
-        return await getAllTipoItemUseCase.execute(input);
-    }
-
-    async getByID(input: GetTipoItemByIdInput){
-        try{
-        const getTipoItemById = new GetTipoitemByIdUseCase(this.repositoryFactory);
-        return await getTipoItemById.execute(input);
-        }catch{
-            return {message: "Tipo Item não encontrado"};
+    async create(input: any) {
+        try {
+            const createTipoItemUseCase = new CreateTipoitemUseCase(this.repositoryFactory);
+            return await createTipoItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao criar Tipo Item");
         }
     }
 
-    async delete(input: DeleteTipoItemInput){
-        const deleteTipoItemUseCase = new DeleteTipoItemUseCase(this.repositoryFactory);
-        return await deleteTipoItemUseCase.execute(input)
+    async update(input: any) {
+        try {
+            const updateTipoItemUseCase = new UpdateTipoItemUseCase(this.repositoryFactory);
+            return await updateTipoItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao atualizar Tipo Item");
         }
-    
+    }
+
+    async getAll(input: any) {
+        try {
+            const getAllTipoItemUseCase = new GetAllTipoitensUseCase(this.repositoryFactory);
+            return await getAllTipoItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao obter todos os Tipo Items");
+        }
+    }
+
+    async getByID(input: GetTipoItemByIdInput) {
+        try {
+            const getTipoItemById = new GetTipoitemByIdUseCase(this.repositoryFactory);
+            return await getTipoItemById.execute(input);
+        } catch (error) {
+            return { message: "Tipo Item não encontrado" };
+        }
+    }
+
+    async delete(input: DeleteTipoItemInput) {
+        try {
+            const deleteTipoItemUseCase = new DeleteTipoItemUseCase(this.repositoryFactory);
+            return await deleteTipoItemUseCase.execute(input);
+        } catch (error) {
+            throw new Error("Erro ao deletar Tipo Item");
+        }
+    }
 }
