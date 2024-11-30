@@ -1,26 +1,29 @@
 import { v4 } from 'uuid';
 
 export class Pessoa {
-    readonly id?: string;
+    private id: string;
+    private name: string;
+    private documento: string;
     
-    constructor(readonly name: string, readonly documento:string, id?: string) {
+    constructor(name: string, documento: string, id?: string) {
         if (!id) {
             id = v4();
-        };
+        }
         this.id = id;
         this.name = name;
         this.documento = documento;
     }
 
-    getID(): string | undefined{
+    // Métodos Getter
+    getID(): string {
         return this.id;
     }
 
-    getName(): string{
+    getName(): string {
         return this.name;
-    }   
+    }
 
-    getDocumento(): string{
+    getDocumento(): string {
         return this.documento;
-    }   
+    }
 }
