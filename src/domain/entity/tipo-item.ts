@@ -13,7 +13,7 @@ export class TipoItem {
     }
 
    
-     getID(): string | undefined {
+     getID(): string  {
         return this.id;
     }
 
