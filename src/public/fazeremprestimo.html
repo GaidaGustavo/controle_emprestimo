@@ -9,11 +9,13 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style/style.css" >
-    <script src="script/usuarios/selectPessoa.js"></script>
+    <script src="script/usuarios/selectPessoa.js "></script>
+    <script  src="script/emprestimos/selectItem.js" ></script>
+   
     <title>Fazer Empréstimos</title>
 </head>
 
-<body onload="checkAuth()">
+<body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
@@ -91,19 +93,22 @@
     <!-- Configura a div principal para expandir conforme os itens são adicionados -->
     <div class="container mb-5 mt-5 containerAlterado container-scrollable">
         <h2>Empréstimo de Itens</h2>
-        <form id="emprestimoForm" id="emprestimoForm" onsubmit="cadastrarEmprestimo(event)">
+        <form id="emprestimoForm"  onsubmit="cadastrarEmprestimo(event)">
             <!-- Removido o campo de Data de Devolução -->
             <div class="mb-3">
                 <label class="form-label">Pessoa</label>
-              <select class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
-                        <option selected>Selecione o colaborador</option>
-                     
-                    </select>
+                <select class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
+                    <option selected>Selecione o colaborador</option>
+                    <!-- Opções do banco de dados serão inseridas aqui -->
+                </select>
             </div>
 
             <label class="form-label">Itens</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="inputItem" placeholder="ID do Item">
+                 <select class="form-select" id="itens" required aria-label="Default select example" style="border-color: black;">
+                        <option selected>Selecione o Item</option>
+                        <!-- Opções do banco de dados serão inseridas aqui -->
+                    </select>
                 <button type="button" class="btn btn-primary" onclick="adicionarItem()">Adicionar Item</button>
             </div>
 
@@ -114,7 +119,7 @@
             <ul class="list-group mt-2 mb-3" id="listaItens"></ul>
         </form>
     </div>
-
+    
     <script src="script/emprestimos/cadastrar.js"></script>
     <footer>
         FIESC:SENAI
