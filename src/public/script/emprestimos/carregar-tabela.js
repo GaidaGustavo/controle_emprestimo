@@ -42,10 +42,10 @@ function carregarEmprestimos() {
                     <td>${dataFormatadaEmprestimo}</td>
                     <td>${dataFormatadaDevolucao}</td>
                     <td>
-                       <button class="btn btn-success orientacao" onclick="modalEdicao('${emprestimo.id}', '${emprestimo.item.id}', '${emprestimo.pessoa.id}', '${emprestimo.dataEmprestimo}', '${emprestimo.dataDevolucao}')">Editar</button>
-
-                        <button class="btn btn-danger orientacao" onclick="modalExclusaoEmprestimo('${emprestimo.id}')">Excluir</button>
-                    </td>
+                      <div class="d-flex justify-content-start">
+            <button class="btn btn-success me-2" onclick="modalEdicao('${emprestimo.id}', '${emprestimo.item.id}', '${emprestimo.pessoa.id}', '${emprestimo.dataEmprestimo}', '${emprestimo.dataDevolucao}')">Editar</button>
+            <button class="btn btn-danger" onclick="modalExclusaoEmprestimo('${emprestimo.id}')">Excluir</button>
+        </div> </td>
                 `;
                 tableBody.appendChild(row);
             });
