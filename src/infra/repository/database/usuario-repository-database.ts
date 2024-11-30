@@ -71,7 +71,7 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
 
     async create(usuario: Usuario): Promise<void> {
         try {
-            const senha = usuario.getSenha();
+            const senha = usuario.getSenha()!;
             const senhaCriptografada = await hash(senha, 10);
             await this.connection.execute(`
                 INSERT INTO usuarios(id, pessoa_id, nome_usuario, senha)
@@ -84,11 +84,13 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
 
     async update(usuario: Usuario): Promise<void> {
         try {
+            const senha = usuario.getSenha()!;
+            const senhaCriptografada = await hash(senha, 10);
             await this.connection.execute(`
                 UPDATE usuarios
                 SET pessoa_id = $1, nome_usuario = $2, senha = $3
                 WHERE id = $4;
-            `, [usuario.getPessoa().getID(), usuario.getName(), usuario.getSenha(), usuario.getID()]);
+            `, [usuario.getPessoa().getID(), usuario.getName(), senhaCriptografada, usuario.getID()]);
         } catch (error) {
             throw new Error('Erro ao atualizar usuário');
         }
@@ -127,8 +129,8 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
             return new Usuario(
                 usuarioData.nome_usuario,
                 pessoa,
+                usuarioData.senha,
                 usuarioData.usuario_id,
-                usuarioData.senha
             );
         } catch (error) {
             throw new Error('Erro ao buscar usuário pelo nome');

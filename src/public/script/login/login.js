@@ -1,25 +1,33 @@
 // Login
 async function login() {
-    username = document.getElementById('username').value;
-    password = document.getElementById('password').value
-    token = await fetch('http://localhost:3011/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username, password})
-    })
-    .then(response => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    try {
+        const response = await fetch('http://localhost:3011/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
         if (response.ok) {
+            const data = await response.json(); // Converte o corpo da resposta para um objeto JSON
             alert('Login efetuado com sucesso');
-            alert(token)
+            alert(data.token); // Acesse o token da resposta
+
+            // Aqui você pode armazenar o token no localStorage ou cookie, por exemplo
+            // localStorage.setItem('token', data.token);
         } else {
             throw new Error('Erro ao efetuar login');
         }
-    })
-    .catch(error => console.error('Erro ao efetuar login', error));
-    alert(token.token)
+    } catch (error) {
+        console.error('Erro ao efetuar login', error);
+        alert('Erro ao efetuar login');
+    }
 }
+
 
 // Função para verificar autenticação e redirecionar se não estiver logado
 function checkAuth() {

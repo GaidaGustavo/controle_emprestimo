@@ -25,7 +25,7 @@ export class CreateUsuarioUseCase {
 
             const pessoa = await this.pessoaRepository.getById(input.pessoaId);
 
-            const usuario = new Usuario(input.username, pessoa, input.id, input.senha);
+            const usuario = new Usuario(input.username, pessoa, input.senha, input.id);
 
             await this.usuarioRepository.create(usuario);
 
