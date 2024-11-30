@@ -8,7 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css" >
+    <script src="script/usuarios/selectPessoa.js"></script>
     <title>Fazer Empréstimos</title>
 </head>
 
@@ -94,7 +95,10 @@
             <!-- Removido o campo de Data de Devolução -->
             <div class="mb-3">
                 <label class="form-label">Pessoa</label>
-                <input type="text"  class="form-control " id="pessoa" placeholder="ID do Colaborador" required>
+              <select class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
+                        <option selected>Selecione o colaborador</option>
+                     
+                    </select>
             </div>
 
             <label class="form-label">Itens</label>
