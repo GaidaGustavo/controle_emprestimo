@@ -1,4 +1,4 @@
-// script/itens/cadastrar.js
+
 
 async function carregarItens() {
     try {
@@ -6,6 +6,8 @@ async function carregarItens() {
         if (!response.ok) throw new Error('Erro ao carregar itens');
 
         const itens = await response.json();
+        console.log(itens);
+
         const itensSelect = document.getElementById('itens');
         
         // Limpar as opções anteriores e adicionar a opção padrão
@@ -15,7 +17,7 @@ async function carregarItens() {
         itens.forEach(item => {
             const option = document.createElement('option');
             option.value = item.id;
-            option.textContent = item.nome;
+            option.textContent = item.name;
             itensSelect.appendChild(option);
         });
     } catch (error) {
@@ -24,6 +26,4 @@ async function carregarItens() {
 }
 
 // Chama a função quando a página é carregada
-window.onload = function() {
-    carregarItens(); // Nome da função corrigido
-};
+document.addEventListener('DOMContentLoaded', carregarItens);
