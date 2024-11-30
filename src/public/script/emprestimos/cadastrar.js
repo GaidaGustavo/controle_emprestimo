@@ -22,7 +22,7 @@ function cadastrarEmprestimo(event) {
 
     const emprestimo = {
         pessoaId: nomePessoa,
-        usuarioId: "0c1cd55e-a7a7-442e-8b15-5ff553d4e631",  // Exemplo de usuário
+        usuarioId: "550e8400-e29b-41d4-a716-446655440017",  // Exemplo de usuário
         itensId: itens,  // Passando a lista de IDs
     };
 

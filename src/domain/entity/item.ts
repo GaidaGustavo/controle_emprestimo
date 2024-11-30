@@ -3,11 +3,12 @@ import { TipoItem } from "./tipo-item";
 import { v4 } from 'uuid';
 
 export class Item {
-    readonly id?: string;
+    private id?: string;
     private tipoItem: TipoItem;
     private itemEPI?: ItemEPI;
+    private name: string;
 
-    constructor(readonly name: string, tipoItem: TipoItem, id?: string, itemEPI?: ItemEPI) {
+    constructor(name: string, tipoItem: TipoItem, id?: string, itemEPI?: ItemEPI) {
         if (!id) {
             id = v4();
         };
