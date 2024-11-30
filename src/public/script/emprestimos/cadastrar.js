@@ -1,4 +1,4 @@
-document.getElementById('emprestimoForm').addEventListener('submit', function(event) {
+function cadastrarEmprestimo(event) {
     event.preventDefault();  // Evita o envio padrão do formulário
 
     // Captura os dados do formulário
@@ -14,15 +14,15 @@ document.getElementById('emprestimoForm').addEventListener('submit', function(ev
     const itens = [];
     document.querySelectorAll('#listaItens li').forEach(item => {
         const itemId = item.getAttribute('data-id'); // Pegando o valor de data-id
-        const id = itemId
+        const id = itemId;
         itens.push({id}); // Adicionando como um objeto ao array
     });
 
-    alert(itens.id)
+    alert('cadastro realizado com sucesso');
 
     const emprestimo = {
         pessoaId: nomePessoa,
-        usuarioId: "bf6dc6b4-1aa6-4c6b-8b41-3a4d6c02f9c1",  // Exemplo de usuário
+        usuarioId: "0c1cd55e-a7a7-442e-8b15-5ff553d4e631",  // Exemplo de usuário
         itensId: itens,  // Passando a lista de IDs
     };
 
@@ -41,15 +41,16 @@ document.getElementById('emprestimoForm').addEventListener('submit', function(ev
             document.getElementById('emprestimoForm').reset();  // Limpa o formulário
             document.getElementById('listaItens').innerHTML = '';  // Limpa a lista de itens
         } else {
-            alert('Erro ao cadastrar empréstimo');
+         
         }
     })
     .catch(error => console.error('Erro:', error));  // Caso haja erro no fetch
-});
+}
+
 
 
 function adicionarItem() {
-    const inputItem = document.getElementById("inputItem");
+    const inputItem = document.getElementById("itens");
     const itemNome = inputItem.value.trim();
 
     if (itemNome) {

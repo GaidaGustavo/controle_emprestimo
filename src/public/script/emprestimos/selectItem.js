@@ -1,4 +1,4 @@
-
+// script/itens/cadastrar.js
 
 async function carregarItens() {
     try {
@@ -11,7 +11,7 @@ async function carregarItens() {
         const itensSelect = document.getElementById('itens');
         
         // Limpar as opções anteriores e adicionar a opção padrão
-        itensSelect.innerHTML = '<option selected>Selecione o item</option>';
+        itensSelect.innerHTML = '<option selected>   </option>';
         
         // Inserir cada tipo como uma opção no select
         itens.forEach(item => {

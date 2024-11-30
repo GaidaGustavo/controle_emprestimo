@@ -93,12 +93,12 @@
     <!-- Configura a div principal para expandir conforme os itens são adicionados -->
     <div class="container mb-5 mt-5 containerAlterado container-scrollable">
         <h2>Empréstimo de Itens</h2>
-        <form id="emprestimoForm"  onsubmit="cadastrarEmprestimo(event)">
+        <form id="emprestimoForm" id="emprestimoForm"  onsubmit="cadastrarEmprestimo(event)">
             <!-- Removido o campo de Data de Devolução -->
             <div class="mb-3">
                 <label class="form-label">Pessoa</label>
-                <select class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
-                    <option selected>Selecione o colaborador</option>
+                <select  class="form-select" id="pessoa" required aria-label="Default select example" style="border-color: black;">
+                    <option selected></option>
                     <!-- Opções do banco de dados serão inseridas aqui -->
                 </select>
             </div>
@@ -106,7 +106,7 @@
             <label class="form-label">Itens</label>
             <div class="input-group mb-3">
                  <select class="form-select" id="itens" required aria-label="Default select example" style="border-color: black;">
-                        <option selected>Selecione o Item</option>
+                        <option selected></option>
                         <!-- Opções do banco de dados serão inseridas aqui -->
                     </select>
                 <button type="button" class="btn btn-primary" onclick="adicionarItem()">Adicionar Item</button>

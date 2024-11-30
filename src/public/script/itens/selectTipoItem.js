@@ -9,7 +9,7 @@ async function carregarTiposDeItem() {
         const tipoItemSelect = document.getElementById('tipoItem');
         
         // Limpar as opções anteriores e adicionar a opção padrão
-        tipoItemSelect.innerHTML = '<option selected>Selecione o tipo de item</option>';
+        tipoItemSelect.innerHTML = '<option selected></option>';
         
         // Inserir cada tipo como uma opção no select
         tipos.forEach(tipo => {

@@ -9,7 +9,7 @@ async function carregarPessoas() {
         const pessoasSelect = document.getElementById('pessoa');
         
         // Limpar as opções anteriores e adicionar a opção padrão
-        pessoasSelect.innerHTML = '<option selected>Selecione o colaborador</option>';
+        pessoasSelect.innerHTML = '<option selected></option>';
         
         // Inserir cada tipo como uma opção no select
         pessoas.forEach(pessoa => {
