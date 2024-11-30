@@ -1,40 +1,80 @@
-document.getElementById('cadastroItem').addEventListener('submit', function(event) {
-    event.preventDefault();  // Evita o recarregamento da página
+function cadastrarEmprestimo(event) {
+    event.preventDefault();  // Evita o envio padrão do formulário
 
-    // Captura o valor do campo de tipo de item
-    const nome = document.getElementById('nome').value;
-    const tipoItemId = document.getElementById('tipoItem').value;
-    const ca = document.getElementById('ca').value;
-    const validade = document.getElementById('validade').value;
+    // Captura os dados do formulário
+    const nomePessoa = document.getElementById('pessoa').value;
 
-
-    // Cria o objeto a ser enviado
-    const itemEPI = {
-        ca: ca,
-        validade: validade
+    // Valida os campos obrigatórios
+    if (!nomePessoa) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;  // Não envia o formulário se algum campo estiver vazio
     }
 
-    const data = {
-         nome: nome,
-         tipoItemId: tipoItemId,
-         itemEPI
-        };
+    // Captura os itens da lista, pegando apenas o ID (sem o objeto)
+    const itens = [];
+    document.querySelectorAll('#listaItens li').forEach(item => {
+        const itemId = item.getAttribute('data-id'); // Pegando o valor de data-id
+        const id = itemId;
+        itens.push({id}); // Adicionando como um objeto ao array
+    });
 
-    // Envia a requisição para o servidor
-    fetch('http://localhost:3011/itens', {
+    alert('cadastro realizado com sucesso');
+
+    const emprestimo = {
+        pessoaId: nomePessoa,
+        usuarioId: "0c1cd55e-a7a7-442e-8b15-5ff553d4e631",  // Exemplo de usuário
+        itensId: itens,  // Passando a lista de IDs
+    };
+
+    // Envia os dados para o servidor
+    fetch('http://localhost:3011/emprestimo', {  
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(emprestimo)  // Envia o objeto JSON com os IDs
     })
-    .then(response => {
-        if (response.ok) {
-            alert('Item cadastrado com sucesso!');
-            document.getElementById('cadastroItem').reset();  // Limpa o formulário
+    .then(response => response.json())  // Espera a resposta como JSON
+    .then(data => {
+        if (data.mensagem) {
+            alert(data.mensagem);  // Mostra a mensagem de sucesso ou erro
+            document.getElementById('emprestimoForm').reset();  // Limpa o formulário
+            document.getElementById('listaItens').innerHTML = '';  // Limpa a lista de itens
         } else {
-            throw new Error('Erro ao cadastrar Item');
+         
         }
     })
-    .catch(error => console.error('Erro aquiiiiiiiiiiiiiiiiiiiiiiiiiiii', error));
-});
+    .catch(error => console.error('Erro:', error));  // Caso haja erro no fetch
+}
+
+
+
+function adicionarItem() {
+    const inputItem = document.getElementById("itens");
+    const itemNome = inputItem.value.trim();
+
+    if (itemNome) {
+        const listaItens = document.getElementById("listaItens");
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        
+        // Atribui o ID ao elemento LI através do atributo data-id
+        li.setAttribute('data-id', itemNome); // Atribui o nome do item como ID (você pode modificar para usar IDs reais se preferir)
+
+        li.textContent = itemNome;  // Coloca o nome do item no texto do LI
+
+        // Botão de remoção para cada item adicionado
+        const botaoRemocao = document.createElement("button");
+        botaoRemocao.className = "btn btn-danger btn-sm float-end";
+        botaoRemocao.textContent = "Remover";
+        botaoRemocao.onclick = () => listaItens.removeChild(li); // Remover o item quando clicado
+
+        li.appendChild(botaoRemocao); // Adiciona o botão de remoção ao LI
+        listaItens.appendChild(li); // Adiciona o LI à lista
+
+        inputItem.value = ""; // Limpa o campo de input após adicionar o item
+    }
+}
+
+
+
