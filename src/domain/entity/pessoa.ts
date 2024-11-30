@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 
 export class Pessoa {
-    private id: string;
+    private id?: string;
     private name: string;
     private documento: string;
     
@@ -14,8 +14,7 @@ export class Pessoa {
         this.documento = documento;
     }
 
-    // Métodos Getter
-    getID(): string {
+    getID(): string | undefined{
         return this.id;
     }
 

@@ -12,8 +12,7 @@ export class TipoItem {
         this.id = id;
     }
 
-   
-     getID(): string  {
+     getID(): string | undefined {
         return this.id;
     }
 
