@@ -26,8 +26,8 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
                 const usuario = new Usuario(
                     usuarioData.nome_usuario,
                     pessoa,
-                    usuarioData.usuario_id,
-                    usuarioData.senha
+                    usuarioData.senha,
+                    usuarioData.usuario_id
                 );
 
                 output.push(usuario);
