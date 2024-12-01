@@ -1,9 +1,9 @@
 import { RepositoryFactory } from "../../../domain/repository/repository-factory";
-import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
-import { LoginUseCaseInput } from "./login-input";
-import { LoginUseCaseOutput } from "./login-output";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
+import { UsuarioRepository } from "../../../domain/repository/usuario-repository";
+import { LoginUseCaseOutput } from "./login-output";
+import { LoginUseCaseInput } from "./login-input";
 
 export class LoginUseCase {
 
@@ -14,29 +14,22 @@ export class LoginUseCase {
     }
 
     async execute(input: LoginUseCaseInput): Promise<LoginUseCaseOutput> {
-        console.log(input.username)
-        
         const usuario = await this.usuarioRepository.getByUsername(input.username);
-        if (!usuario) {
-            throw new Error("Usuário não encontrado");
-        }
-
-        const senha = usuario.getSenha()!;
-        console.log(input.password);
-        console.log(usuario.getSenha());
-
-        const senhaValida = await compare(input.password, senha);
-        if (!senhaValida) {
+        const senha = usuario.getSenha()!
+        const isValidPassword = await compare(input.password, senha);
+        if (!isValidPassword) {
             throw new Error("Senha Inválida");
         }
-
         const token = sign({
             id: usuario.getID(),
-            username: input.username,
-        }, process.env.JWT_SECRET || 'default_secret', { expiresIn: '1h' });
+            username: usuario.getName(),
+            password: usuario.getSenha()
+        }, 'teste');
 
+        console.log(token)
         return {
             token
-        };
+        }
+
     }
 }

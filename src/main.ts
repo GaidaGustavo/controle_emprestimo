@@ -50,25 +50,26 @@ const repositoryFactory = new DatabaseRepositoryFactory(connectionPostgreSQL);
 //==============Item==============
 const itemController = new ItemController(repositoryFactory);
 
-app.get('/itens', async (request, response) => {
+app.get('/itens', autenticacao, async (request, response) => {
     response.send(await itemController.getAll({}));
 });
 
-app.post('/itens', async (request, response) => {
+app.post('/itens', autenticacao, async (request, response) => {
     response.send(await itemController.create(request.body));
 });
 
-app.get('/itens/:id', async (request, response) => {
+app.get('/itens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await itemController.getById({ id }));
 });
 
-app.delete('/itens/:id', async (request, response) => {
+app.delete('/itens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
-    response.send(await itemController.delete({ id }));
+    //response.send(await itemController.delete({ id }));
+    response.status(501).json({ message: 'Método não implementado' });
 });
 
-app.put('/itens/:id', async (request, response) => {
+app.put('/itens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     const newItem = { id, ...body };
@@ -78,88 +79,91 @@ app.put('/itens/:id', async (request, response) => {
 //==============Tipo Item==============
 const tipoItemController = new TipoItemController(repositoryFactory);
 
-app.get('/tipoItens', async (request, response) => {
+app.get('/tipoItens', autenticacao, async (request, response) => {
     response.send(await tipoItemController.getAll({}));
 });
 
-app.post('/tipoItens', async (request, response) => {
+app.post('/tipoItens', autenticacao, async (request, response) => {
     response.send(await tipoItemController.create(request.body));
 });
 
-app.get('/tipoItens/:id', async (request, response) => {
+app.get('/tipoItens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await tipoItemController.getByID({ id }));
 });
 
-app.put('/tipoItens/:id', async (request, response) => {
+app.put('/tipoItens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     const newTipoItem = { id, ...body };
     response.send(await tipoItemController.update(newTipoItem));
 });
 
-app.delete('/tipoItens/:id', async (request, response) => {
+app.delete('/tipoItens/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
-    response.send(await tipoItemController.delete({ id }));
+    //response.send(await tipoItemController.delete({ id }));
+    response.status(501).json({ message: 'Método não implementado' });
 });
 
 //==============Pessoa==============
 const pessoaController = new PessoaController(repositoryFactory);
 
-app.get('/pessoas', async (request, response) => {
+app.get('/pessoas', autenticacao, async (request, response) => {
     response.send(await pessoaController.getAll({}));
 });
 
-app.post('/pessoas', async (request, response) => {
+app.post('/pessoas', autenticacao, async (request, response) => {
     response.send(await pessoaController.create(request.body));
 });
 
-app.get('/pessoas/:id', async (request, response) => {
+app.get('/pessoas/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await pessoaController.getById({ id }));
 });
 
-app.put('/pessoas/:id', async (request, response) => {
+app.put('/pessoas/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     const newPessoa = { id, ...body };
     response.send(await pessoaController.update(newPessoa));
 });
 
-app.delete('/pessoas/:id', async (request, response) => {
+app.delete('/pessoas/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
-    response.send(await pessoaController.delete({ id }));
+    //response.send(await pessoaController.delete({ id }));
+    response.status(501).json({ message: 'Método não implementado' });
 });
 
 //==============Usuário==============
 const usuarioController = new UsuarioController(repositoryFactory);
 
-app.get('/usuario', async (request, response) => {
+app.get('/usuario', autenticacao, async (request, response) => {
     response.send(await usuarioController.getAll({}));
 });
 
-app.post('/usuario', async (request, response) => {
+app.post('/usuario', autenticacao, async (request, response) => {
     response.send(await usuarioController.create(request.body));
 });
 
-app.get('/usuario/:id', async (request, response) => {
+app.get('/usuario/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await usuarioController.getById({ id }));
 });
 
-app.delete('/usuario/:id', async (request, response) => {
+app.delete('/usuario/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
-    response.send(await usuarioController.delete({ id }));
+    //response.send(await usuarioController.delete({ id }));
+    response.status(501).json({ message: 'Método não implementado' });
 });
 
-app.put('/usuario/:id', async (request, response) => {
+app.put('/usuario/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     const newUsuario = { id, ...body };
     response.send(await usuarioController.update(newUsuario));
 });
 
-app.get('/usuario/username', async (request, response) => {
+app.get('/usuario/username', autenticacao, async (request, response) => {
     const username = request.body.username;
     response.send(await usuarioController.getByUsername({ username }));
 });
@@ -167,25 +171,25 @@ app.get('/usuario/username', async (request, response) => {
 //==============Emprestimo==============
 const emprestimoController = new EmprestimoController(repositoryFactory);
 
-app.get('/emprestimo', async (request, response) => {
+app.get('/emprestimo', autenticacao, async (request, response) => {
     response.send(await emprestimoController.getAll({}));
 });
 
-app.post('/emprestimo', async (request, response) => {
+app.post('/emprestimo', autenticacao, async (request, response) => {
     response.send(await emprestimoController.create(request.body));
 });
 
-app.get('/emprestimo/:id', async (request, response) => {
+app.get('/emprestimo/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await emprestimoController.getById({ id }));
 });
 
-app.delete('/emprestimo/:id', async (request, response) => {
+app.delete('/emprestimo/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     response.send(await emprestimoController.delete({ id }));
 });
 
-app.put('/emprestimo/:id', async (request, response) => {
+app.put('/emprestimo/:id', autenticacao, async (request, response) => {
     const id = request.params.id;
     const body = request.body;
     const newEmprestimo = { id, ...body };
