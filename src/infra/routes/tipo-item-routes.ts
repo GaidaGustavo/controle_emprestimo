@@ -30,7 +30,7 @@ app.get('/tipoItens/:id', async (request, response) => {
 
 app.put('/tipoItens/:id', async (request, response) => {
     const id = request.params.id;
-    const body = request.body;
+    const body = request.body;  
     
     const newTipoItem = {
         id,
