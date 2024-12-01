@@ -16,7 +16,7 @@ function carregarTiposDeItem() {
                     <td>${tipo.nome}</td>
                     <td>
                        <button class="btn btn-primary btn-sm orientacao" onclick="modalEdicao('${tipo.id}', '${tipo.nome}')">Editar</button>
-                        <button class="btn btn-danger btn-sm orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoTipoItem('${tipo.id}')">Excluir</button>
+                        <button class="btn btn-danger btn-sm orientacao" disabled data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoTipoItem('${tipo.id}')">Excluir</button>
                     </td>
                 `;
                 
