@@ -10,7 +10,9 @@ import { LoginController } from './application/controller/loginControler';
 import { autenticacao } from './infra/express/autenticacao';
 import cors from 'cors';
 import path from 'path';
+import { config } from 'dotenv';
 
+config();
 const app = express();
 const port = 3011;
 
@@ -37,11 +39,11 @@ app.get('/', (req, res) => {
 app.listen(port);
 
 const dadosconexao = {
-    user: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'dev@123',
-    database: process.env.DB_DATABASE || 'graxa',
-    host: process.env.DB_HOST || '159.89.46.66',
-    port: process.env.DB_PORT || '5432'  
+    user: process.env.DB_USERNAME || '',
+	password: process.env.DB_PASSWORD || '',
+	database: process.env.DB_DATABASE || '',
+	host: process.env.DB_HOST || '',
+	port: process.env.DB_PORT || ''  
 };
 
 const connectionPostgreSQL = new PostgresConnection(dadosconexao);
@@ -171,7 +173,7 @@ app.get('/usuario/username', autenticacao, async (request, response) => {
 //==============Emprestimo==============
 const emprestimoController = new EmprestimoController(repositoryFactory);
 
-app.get('/emprestimo', autenticacao, async (request, response) => {
+app.get('/emprestimo', async (request, response) => {
     response.send(await emprestimoController.getAll({}));
 });
 
