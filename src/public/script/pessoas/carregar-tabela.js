@@ -14,7 +14,7 @@ function carregarPessoas() {
                     <td>${pessoa.documento}</td>
                     <td>
                         <button class="btn btn-success orientacao" onclick="modalEdicao('${pessoa.id}', '${pessoa.nome}', '${pessoa.documento}')">Editar</button>
-                        <button class="btn btn-danger orientacao" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoPessoa('${pessoa.id}')">Excluir</button>
+                        <button class="btn btn-danger orientacao" disabled data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoPessoa('${pessoa.id}')">Excluir</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
