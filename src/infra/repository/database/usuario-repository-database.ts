@@ -11,9 +11,16 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
         try {
             const output: Usuario[] = [];
             const usuariosData = await this.connection.execute(`
-                SELECT u.id AS usuario_id, u.nome_usuario, u.senha, p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento
+                SELECT u.id AS usuario_id, 
+                    u.nome_usuario, 
+                    u.senha, 
+                    p.id AS pessoa_id, 
+                    p.nome AS pessoa_nome, 
+                    p.documento AS pessoa_documento
                 FROM usuarios u
-                JOIN pessoas p ON u.pessoa_id = p.id;
+                JOIN pessoas p ON u.pessoa_id = p.id
+                WHERE u.ativo = TRUE
+                AND p.ativo = TRUE;
             `);
 
             for (const usuarioData of usuariosData) {
@@ -42,10 +49,17 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
     async getById(id: string): Promise<Usuario> {
         try {
             const [usuarioData] = await this.connection.execute(`
-                SELECT u.id AS usuario_id, u.nome_usuario, u.senha, p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento
+                SELECT u.id AS usuario_id, 
+                    u.nome_usuario, 
+                    u.senha, 
+                    p.id AS pessoa_id, 
+                    p.nome AS pessoa_nome, 
+                    p.documento AS pessoa_documento
                 FROM usuarios u
                 JOIN pessoas p ON u.pessoa_id = p.id
-                WHERE u.id = $1;
+                WHERE u.id = $1
+                AND u.ativo = TRUE
+                AND p.ativo = TRUE;
             `, [id]);
 
             if (!usuarioData) {
@@ -61,8 +75,8 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
             return new Usuario(
                 usuarioData.nome_usuario,
                 pessoa,
-                usuarioData.usuario_id,
-                usuarioData.senha
+                usuarioData.senha,
+                usuarioData.usuario_id
             );
         } catch (error) {
             throw new Error('Erro ao buscar usuário');
@@ -74,8 +88,8 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
             const senha = usuario.getSenha()!;
             const senhaCriptografada = await hash(senha, 10);
             await this.connection.execute(`
-                INSERT INTO usuarios(id, pessoa_id, nome_usuario, senha)
-                VALUES ($1, $2, $3, $4);
+                INSERT INTO usuarios(id, pessoa_id, nome_usuario, senha, ativo)
+                VALUES ($1, $2, $3, $4, TRUE);
             `, [usuario.getID(), usuario.getPessoa().getID(), usuario.getName(), senhaCriptografada]);
         } catch (error) {
             throw new Error('Erro ao criar usuário');
@@ -99,8 +113,10 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
     async delete(id: string): Promise<void> {
         try {
             await this.connection.execute(`
-                DELETE FROM usuarios
+                UPDATE usuarios
+                SET ativo = FALSE
                 WHERE id = $1;
+                ;
             `, [id]);
         } catch (error) {
             throw new Error('Erro ao excluir usuário');
@@ -110,10 +126,17 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
     async getByUsername(username: string): Promise<Usuario> {
         try {
             const [ usuarioData ] = await this.connection.execute(`
-                SELECT u.id AS usuario_id, u.nome_usuario, u.senha, p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento
+                SELECT u.id AS usuario_id, 
+                    u.nome_usuario, 
+                    u.senha, 
+                    p.id AS pessoa_id, 
+                    p.nome AS pessoa_nome, 
+                    p.documento AS pessoa_documento
                 FROM usuarios u
                 JOIN pessoas p ON u.pessoa_id = p.id
-                WHERE u.nome_usuario = $1;
+                WHERE u.nome_usuario = $1
+                AND u.ativo = TRUE
+                AND p.ativo = TRUE;
             `, [username]);
 
             if (!usuarioData) {
