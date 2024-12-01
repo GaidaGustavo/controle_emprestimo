@@ -41,10 +41,10 @@ function carregarItens() {
                     <td>${ca}</td>
                     <td>${dataFormatada}</td>
                     <td>
-                        <button class="btn btn-success orientacao" onclick="modalEdicao('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
-                        <button class="btn btn-danger orientacao" disabled data-bs-toggle="modal"
-                            data-bs-target="#confirmDeleteModal" onclick="modalExclusaoItem('${item.id}')">Excluir</button>
-                    </td>
+                         <div class="d-flex justify-content-start gap-2">
+            <button class="btn btn-success" onclick="modalEdicao('${item.id}', '${item.name}', '${item.tipoItem.id}', '${item.itemEPI.ca}' , '${item.itemEPI.validade}')">Editar</button>
+            <button class="btn btn-danger" disabled data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="modalExclusaoItem('${item.id}')">Excluir</button>
+        </div></td>
                 `;
 
                 tableBody.appendChild(row);
