@@ -3,16 +3,14 @@ import { TipoItemRepository } from "../../../domain/repository/tipoitem-reposito
 import { Connection } from "../../config-database/connection";
 
 export default class TipoItemRepositoryDatabase implements TipoItemRepository {
-    constructor(private connection: Connection) { }
+    constructor(private connection: Connection) {}
 
     async getAll(): Promise<TipoItem[]> {
         try {
             const output: TipoItem[] = [];
             const tipoItemData = await this.connection.execute(`
                 SELECT id, nome
-                FROM tipos_item
-                WHERE ativo = TRUE;
-
+                FROM tipos_item;
             `);
 
             for (const tipoItem of tipoItemData) {
@@ -30,8 +28,7 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository {
             const [tipoItemData] = await this.connection.execute(`
                 SELECT id, nome
                 FROM tipos_item
-                WHERE id = $1
-                AND ativo = TRUE;
+                WHERE id = $1;
             `, [id]);
 
             if (!tipoItemData) {
@@ -47,8 +44,8 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository {
     async create(tipoItem: TipoItem): Promise<void> {
         try {
             await this.connection.execute(`
-                INSERT INTO tipos_item (id, nome, ativo)
-                VALUES ($1, $2, TRUE);
+                INSERT INTO tipos_item (id, nome)
+                VALUES ($1, $2);
             `, [tipoItem.getID(), tipoItem.getName()]);
         } catch (error) {
             throw new Error('Erro ao criar tipo de item');
@@ -70,8 +67,7 @@ export default class TipoItemRepositoryDatabase implements TipoItemRepository {
     async delete(id: string): Promise<void> {
         try {
             await this.connection.execute(`
-                UPDATE tipos_item
-                SET ativo = FALSE
+                DELETE FROM tipos_item
                 WHERE id = $1;
             `, [id]);
         } catch (error) {
