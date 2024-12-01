@@ -21,7 +21,6 @@
     min-height: 100px;
     overflow: auto;
 }
-
 .selectAlterado{
     border-color: black;
 }
@@ -42,8 +41,6 @@
     box-shadow: 0 0 5px #000;
 }
 
-
-/* Estilos gerais do corpo no modo claro */
 body {
     background-color: rgb(212, 208, 208);
 }
@@ -52,54 +49,22 @@ body {
     width: 190px;
 }
 
-.container-scrollable {
 
-    overflow-y: auto;  /* Habilita a rolagem vertical */
-       height: auto; /* Permite que a altura seja determinada automaticamente pelo conteúdo */
-            overflow-y: visible; /* Define rolagem como visível, permitindo que a div cresça conforme necessário */
-    
+.botaoPesquisa{
+    margin-bottom: 12px;
 }
 
-/* Estilos dos inputs */
 .form-control {
-    border: 1px solid rgb(36, 44, 54); /* Define a borda preta nos inputs */
+    border: 1px solid rgb(36, 44, 54); 
 }
 
 h2 {
     text-align: center;
 }
 
-/* Estilo específico para input */
+
 input {
     size: 2px;
-}
-
-/* Modo escuro */
-body.dark-mode {
-    background-color: #121212;
-    color: white;
-}
-
-.navbar.dark-mode {
-    background-color: #333 !important;
-}
-
-.form-control.dark-mode {
-    background-color: #333;
-    color: white;
-    border: 1px solid #444;
-}
-
-.containerAlterado.dark-mode {
-    background-color: #222;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #444;
-    box-shadow: 0 0 5px #000;
-}
-
-.btn-toggle-dark {
-    margin-left: 10px;
 }
 
 footer{
@@ -136,67 +101,6 @@ footer{
 table.tablealterada tbody tr:hover td {
     background-color: #f1f1f1; /* Cor de fundo para o hover no modo claro */
     color: #000; /* Cor do texto no hover no modo claro */
-}
-
-.dark-mode table.tablealterada tbody tr:hover td {
-    background-color: #575757; /* Cor de fundo para o hover no modo escuro */
-    color: #f1f1f1; /* Mantém a cor do texto visível no modo escuro */
-}
-/* Dark Mode para a Tabela */
-
-
-.dark-mode table {
-    background-color: #383434;
-    color: #f1f1f1;
-    border-color: #fcfcfc; /* Borda no modo escuro */
-    
-}
-
-.dark-mode input::placeholder {
-    color: #ffffff; /* Cor do placeholder no modo escuro */
-}
-
-.dark-mode input{
-    background-color: #4a4a4a;
-}
-.dark-mode input:focus{
-    background-color: #4a4a4a;
-}
-.dark-mode input{
-    color: #ffffff;
-}
-.dark-mode input:focus{
-    color: #ffffff;
-}
-
-
-.dark-mode select{
-    background-color: #4a4a4a;
-}
-.dark-mode select:focus{
-    background-color: #4a4a4a;
-}
-
-.dark-mode select {
-    color: white;
-}
-
-.dark-mode th {
-    background-color: #4a4a4a; /* Cor de fundo dos cabeçalhos */
-    color: #f1f1f1; /* Cor do texto dos cabeçalhos */
-}
-
-.dark-mode td {
-    background-color: #484848; /* Cor de fundo das células */
-    color: #f1f1f1; /* Cor do texto das células */
-}
-
-.dark-mode td:nth-child(even) {
-    background-color: #404040; /* Cor de fundo das células em linhas pares */
-}
-
-.dark-mode tbody tr:hover {
-    background-color: #575757; /* Cor de fundo das linhas quando estão sendo sobrevoadas pelo mouse */
 }
 
 .orientacao{
