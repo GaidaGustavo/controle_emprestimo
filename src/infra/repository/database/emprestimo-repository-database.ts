@@ -14,15 +14,28 @@ export default class EmprestimoRepositoryDatabase implements EmprestimoRepositor
         try {
             const output: Emprestimo[] = [];
             const emprestimosData = await this.connection.execute(`
-                SELECT e.id AS emprestimo_id, e.data_emprestimo, e.data_devolucao,
-                    p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento,
-                    u.id AS usuario_id, u.nome_usuario AS usuario_nome_usuario,
-                    i.id AS item_id, i.nome AS item_nome,
-                    ti.id AS tipo_item_id, ti.nome AS nome_tipoitem,
-                    ie.ca AS item_epi_ca, ie.validade AS item_epi_validade
+                SELECT 
+                    e.id AS emprestimo_id, 
+                    e.data_emprestimo, 
+                    e.data_devolucao,
+                    p.id AS pessoa_id, 
+                    p.nome AS pessoa_nome, 
+                    p.documento AS pessoa_documento,
+                    u.id AS usuario_id, 
+                    u.nome_usuario AS usuario_nome_usuario,
+                    pu.id AS usuario_pessoa_id, 
+                    pu.nome AS usuario_pessoa_nome, 
+                    pu.documento AS usuario_pessoa_documento,
+                    i.id AS item_id, 
+                    i.nome AS item_nome,
+                    ti.id AS tipo_item_id, 
+                    ti.nome AS nome_tipoitem,
+                    ie.ca AS item_epi_ca, 
+                    ie.validade AS item_epi_validade
                 FROM emprestimos e
                 LEFT JOIN pessoas p ON e.pessoa_id = p.id
                 LEFT JOIN usuarios u ON e.usuario_id = u.id
+                LEFT JOIN pessoas pu ON u.pessoa_id = pu.id
                 LEFT JOIN itens i ON e.item_id = i.id
                 LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
                 LEFT JOIN itens_epi ie ON i.id = ie.item_id;
@@ -30,11 +43,13 @@ export default class EmprestimoRepositoryDatabase implements EmprestimoRepositor
 
             for (const emprestimoData of emprestimosData) {
                 const pessoa = new Pessoa(emprestimoData.pessoa_nome, emprestimoData.pessoa_documento, emprestimoData.pessoa_id);
-                const usuario = new Usuario(emprestimoData.usuario_nome_usuario, pessoa, emprestimoData.usuario_id);
+                const usuarioPessoa = new Pessoa(emprestimoData.usuario_pessoa_nome, emprestimoData.usuario_pessoa_documento, emprestimoData.usuario_pessoa_id);
+                const usuario = new Usuario(emprestimoData.usuario_nome_usuario, usuarioPessoa, undefined, emprestimoData.usuario_id);
                 const itemEPI = new ItemEPI(emprestimoData.item_epi_ca, emprestimoData.item_epi_validade);
                 const tipoItem = new TipoItem(emprestimoData.nome_tipoitem, emprestimoData.tipo_item_id);
                 const item = new Item(emprestimoData.item_nome, tipoItem, emprestimoData.item_id, itemEPI);
                 const emprestimo = new Emprestimo(item, pessoa, usuario, emprestimoData.data_emprestimo, emprestimoData.data_devolucao, emprestimoData.emprestimo_id);
+
                 output.push(emprestimo);
             }
 
@@ -47,27 +62,39 @@ export default class EmprestimoRepositoryDatabase implements EmprestimoRepositor
     async getById(id: string): Promise<Emprestimo> {
         try {
             const [emprestimoData] = await this.connection.execute(`
-                SELECT e.id AS emprestimo_id, e.data_emprestimo, e.data_devolucao,
-                    p.id AS pessoa_id, p.nome AS pessoa_nome, p.documento AS pessoa_documento,
-                    u.id AS usuario_id, u.nome_usuario AS usuario_nome_usuario,
-                    i.id AS item_id, i.nome AS item_nome,
-                    ti.id AS tipo_item_id, ti.nome AS nome_tipoitem,
-                    ie.ca AS item_epi_ca, ie.validade AS item_epi_validade
+                SELECT 
+                    e.id AS emprestimo_id, 
+                    e.data_emprestimo, 
+                    e.data_devolucao,
+                    p.id AS pessoa_id, 
+                    p.nome AS pessoa_nome, 
+                    p.documento AS pessoa_documento,
+                    u.id AS usuario_id, 
+                    u.nome_usuario AS usuario_nome_usuario,
+                    pu.id AS usuario_pessoa_id, 
+                    pu.nome AS usuario_pessoa_nome, 
+                    pu.documento AS usuario_pessoa_documento,
+                    i.id AS item_id, 
+                    i.nome AS item_nome,
+                    ti.id AS tipo_item_id, 
+                    ti.nome AS nome_tipoitem,
+                    ie.ca AS item_epi_ca, 
+                    ie.validade AS item_epi_validade
                 FROM emprestimos e
                 LEFT JOIN pessoas p ON e.pessoa_id = p.id
                 LEFT JOIN usuarios u ON e.usuario_id = u.id
+                LEFT JOIN pessoas pu ON u.pessoa_id = pu.id
                 LEFT JOIN itens i ON e.item_id = i.id
                 LEFT JOIN tipos_item ti ON i.tipo_item_id = ti.id
                 LEFT JOIN itens_epi ie ON i.id = ie.item_id
                 WHERE e.id = $1;
             `, [id]);
 
-            if (!emprestimoData) {
-                throw new Error('Empréstimo não encontrado');
-            }
+            if (!emprestimoData) throw new Error('Empréstimo não encontrado');
 
             const pessoa = new Pessoa(emprestimoData.pessoa_nome, emprestimoData.pessoa_documento, emprestimoData.pessoa_id);
-            const usuario = new Usuario(emprestimoData.usuario_nome_usuario, pessoa, emprestimoData.usuario_id);
+            const usuarioPessoa = new Pessoa(emprestimoData.usuario_pessoa_nome, emprestimoData.usuario_pessoa_documento, emprestimoData.usuario_pessoa_id);
+            const usuario = new Usuario(emprestimoData.usuario_nome_usuario, usuarioPessoa, undefined, emprestimoData.usuario_id);
             const itemEPI = new ItemEPI(emprestimoData.item_epi_ca, emprestimoData.item_epi_validade);
             const tipoItem = new TipoItem(emprestimoData.nome_tipoitem, emprestimoData.tipo_item_id);
             const item = new Item(emprestimoData.item_nome, tipoItem, emprestimoData.item_id, itemEPI);

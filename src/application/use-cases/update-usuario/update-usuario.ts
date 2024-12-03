@@ -30,7 +30,7 @@ export class UpdateUsuarioUseCase {
                 throw new Error('Pessoa não encontrada!');
             }
 
-            const newUsuario = new Usuario(input.username, pessoa, input.id, input.senha);
+            const newUsuario = new Usuario(input.username, pessoa, input.senha, input.id);
 
             await this.usuarioRepository.update(newUsuario);
 
