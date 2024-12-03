@@ -7,6 +7,6 @@ type pessoa = {
 export type GetUsuarioByIdOutput= {
     id: string | undefined;
     nome: string;
+    senha: string;
     pessoa: pessoa;
-    
 }

@@ -3,11 +3,11 @@ import { v4 } from 'uuid';
 
 export class Usuario {
     private id?: string;
-    private senha?: string;
+    private senha: string;
     private pessoa: Pessoa;
     private username: string;
 
-    constructor(username: string, pessoa: Pessoa, senha?: string, id?: string) {
+    constructor(username: string, pessoa: Pessoa, senha: string, id?: string) {
         if (!id) {
             id = v4();
         };
@@ -28,7 +28,7 @@ export class Usuario {
         return this.username;
     }   
 
-    getSenha(): string | undefined{
+    getSenha(): string{
         return this.senha;
     }
 

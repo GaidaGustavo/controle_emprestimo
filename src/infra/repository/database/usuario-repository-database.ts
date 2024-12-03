@@ -61,8 +61,8 @@ export default class UsuarioRepositoryDatabase implements UsuarioRepository {
             return new Usuario(
                 usuarioData.nome_usuario,
                 pessoa,
-                usuarioData.usuario_id,
-                usuarioData.senha
+                usuarioData.senha,
+                usuarioData.usuario_id
             );
         } catch (error) {
             throw new Error('Erro ao buscar usuário');
